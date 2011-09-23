@@ -1,0 +1,15 @@
+*~
+\#*
+target
+*.swp
+.project
+.classpath
+.settings
+.scala_dependencies
+.factorypath
+*.iws
+*.ipr
+*.iml
+.idea
+.DS_Store
+.shell_history
