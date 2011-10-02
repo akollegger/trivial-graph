@@ -1,0 +1,98 @@
+---
+layout: default
+title: lightbox
+---
+<!-- middle content -->
+<div class="middle">
+	<div class="container_12">
+    	
+        <!-- content -->
+        <div class="grid_8 content">
+			
+            <!-- Code SyntaxHighlighter -->
+                    <script type="text/javascript">
+					SyntaxHighlighter.defaults['gutter'] = false;
+					SyntaxHighlighter.defaults['toolbar'] = true;
+					SyntaxHighlighter.all();
+                    </script>
+                    
+            <h1>prettyPhoto Lightbox</h1>
+            
+			<div class="entry">
+            
+           	<p><strong>prettyPhoto</strong> is a jQuery lightbox clone. Not only does it support images, it also support for videos, flash, YouTube, iframes and ajax. It's a full blown media lightbox.</p>
+
+					<h2>prettyPhoto for Text</h2>
+                    <script type="text/javascript">
+						$(document).ready(function() {
+							$("a[rel^='prettyPhoto']").prettyPhoto({social_tools:false});
+						});
+					</script>
+					<p><a href="{{site.images}}/temp/entry_img_2.jpg" rel="prettyPhoto" class="prettyPhoto" title="Title of Image">Open image with prettyPhoto</a></p>
+
+					<h2>Button prettyPhoto</h2>  
+                    
+                    <p><a href="{{site.images}}/temp/entry_img_3.jpg" class="button_link" rel="prettyPhoto" title="Button prettyPhoto"><span>Open image in prettyPhoto</span></a></p>  
+                    
+					<h3>prettyPhoto for elements:</h3>
+                    
+                    <p><span class="frame_box"><a href="{{site.images}}/temp/entry_img_1.jpg" rel="prettyPhoto" title="Text Title"><img src="{{site.images}}/temp/thumb_2.jpg" width="100" height="100" alt="" /></a></span></p>
+
+                    
+					<h3>Image Gallery with prettyPhoto</h3>
+					<p>
+                    <a href="{{site.images}}/slider_image_1.jpg" rel="prettyPhoto[gal_1]" title="Image Gallery prettyPhoto, image 1" class="frame_box"><img src="{{site.images}}/temp/thumb_1.jpg" width="100" height="100" alt="" /></a>
+                    <a href="{{site.images}}/temp/entry_img_3.jpg" rel="prettyPhoto[gal_1]" title="Image Gallery prettyPhoto, image 2" class="frame_box"><img src="{{site.images}}/temp/thumb_3.jpg" width="100" height="100" alt="" /></a>
+                    <a href="{{site.images}}/temp/map.gif" rel="prettyPhoto[gal_1]" title="Image Gallery prettyPhoto, image 3" class="frame_box"><img src="{{site.images}}/temp/thumb_5.jpg" width="100" height="100" alt="" /></a>
+                    </p>
+                    
+               <h3>YouTube and Vimeo video</h3>
+               <p><a href="http://www.youtube.com/watch?v=1R0UHHkoGxU" rel="prettyPhoto" title=""><img src="{{site.images}}/YouTube_logo.png" alt="YouTube Vieo" width="64" /></a> &nbsp; 
+               <a href="http://vimeo.com/20266292&amp;width=600" rel="prettyPhoto" title=""><img src="{{site.images}}/Vimeo_logo.png" alt="Vimeo Video" width="64" /></a></p>   
+               
+        		<h3>prettyPhoto open in iframe</h3>
+                <p><a href="http://www.google.com/search?ie=UTF-8&amp;oe=UTF-8&amp;q=themefuse&amp;iframe=true&amp;width=100%&amp;height=100%" rel="prettyPhoto[iframe]" class="button_link btn_red"><span>Google.com in iframe</span></a> &nbsp;               
+                <a href="http://www.yahoo.com?iframe=true&amp;width=900&amp;height=400" rel="prettyPhoto[iframe]" class="button_link btn_blue"><span>Yahoo in iframe</span></a></p>
+
+                
+            <div class="clear"></div>
+            </div>
+        
+		</div>
+        <!--/ content -->
+        
+        <!-- sidebar -->
+        <div class="grid_4 sidebar">
+        	
+            <!-- sidebar 1 -->
+            <div class="box sidebar_1_content">
+            
+            	<div class="widget-container widget_categories">
+					<h3 class="widget-title">Shortcode categories:</h3>
+                            <ul>
+                               	<li><a href="shortcodes-text.html"><span>Text &amp; Images</span></a></li>
+                                <li><a href="shortcodes-buttons.html"><span>Buttons &amp; Lists</span></a></li> 
+                                <li><a href="shortcodes-charts.html"><span>Charts</span></a></li>  
+                                <li><a href="shortcodes-columns.html"><span>Columns</span></a></li>  
+                                <li class="current-cat"><a href="shortcodes-lightbox.html"><span>Lightbox</span></a></li>
+                                <li><a href="shortcodes-tables.html"><span>Tables</span></a></li>
+                                <li><a href="shortcodes-tabs.html"><span>Tabs and Toggles</span></a></li>
+                                <li><a href="shortcodes-typography.html"><span>Typography</span></a></li>
+                            </ul>
+				</div>     
+                           
+        
+            </div>
+            <!--/ sidebar 1 -->
+            
+            
+        </div>    
+        <!--/ sidebar -->
+        
+        <div class="clear"></div>
+        
+        
+    </div>
+</div> 
+<!--/ middle content -->
+
