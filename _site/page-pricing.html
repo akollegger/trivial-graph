@@ -1,100 +1,106 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Mobility App - Pricing Table</title>
-<meta name="author" content="ThemeFuse" />
-<meta name="description" content="A short description of your company" />
-<meta name="keywords" content="Some keywords that best describe your business" />
 
-<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Trivial Insight - Pricing</title>
+<meta name="author" content="Neo Technology" />
+<meta name="description" content="A demonstration of Spring Data Neo4j" />
+<meta name="keywords" content="nosql bigdata graph database neo4j springsource" />
 
-<script type="text/javascript" language="javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/general.js"></script>
-<script type="text/javascript" src="js/preloadCssImages.js"></script>
-<script type="text/javascript" language="javascript" src="js/jquery.tools.min.js"></script>
+<link href="/style.css" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" language="javascript" src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" language="javascript" src="js/slides.jquery.js"></script>
-<script type="text/javascript" language="javascript" src="js/custom.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/general.js"></script>
+<script type="text/javascript" src="/js/preloadCssImages.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery.tools.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" language="javascript" src="/js/zoomSlider.js"></script>
+<link href="/css/zoomSlider.css" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/images/skins/tango/skin.css" />
+
+<script src="/js/jquery.prettyPhoto.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/css/prettyPhoto.css" type="text/css" media="screen" />
+<script type="text/javascript" language="javascript" src="/js/custom.js"></script>
 
 <!--[if IE]>
 <link rel="stylesheet" type="text/css" href="css/ie.css" />
 <![endif]-->
-</head>
 
-<body>
 
-<div class="head_bar">
-<div class="container_12">
-        <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" width="255" height="42" border="0" /></a></div>
+  </head>
+<body onload="load_animations()">
+
+  <div class="head_bar">
+	<div class="container_12">
+    <div class="logo"><a href="index.html"><img src="/images/logo.png" alt="" width="255" height="42" border="0" /></a></div>
         <div class="topmenu">
         	<ul class="dropdown">
-            	<li><a href="#Features"><span>Features</span></a>
+            	<li><a href="/#Features"><span>Features</span></a>
                		<ul>
-                        <li><a href="#"><span>4 Color Styles</span></a>
-                        	<ul>
-                        		<li><a href="index.html"><span>Blue</span></a></li>
-                                <li><a href="../green/index.html"><span>Green</span></a></li>
-                                <li><a href="../orange/index.html"><span>Orange</span></a></li>
-                                <li><a href="../black/index.html"><span>Black</span></a></li>
-							</ul>
-                        </li>
-                        <li><a href="#footer-form"><span>Contact Form</span></a></li>
+                        <li><a href="/#footer-form"><span>Contact Form</span></a></li>
 					</ul>
                 </li>
-                <li><a href="#Screenshots"><span>Screenshots</span></a></li>
-                <li><a href="#Reviews"><span>Reviews</span></a></li>
-                <li><a href="#Download"><span>Download</span></a></li>
-                <li class="current-menu-ancestor"><a href="#"><span>Pages</span></a>
+                <li><a href="/#Screenshots"><span>Screenshots</span></a></li>
+                <li><a href="/#Reviews"><span>Reviews</span></a></li>
+                <li><a href="/#Download"><span>Download</span></a></li>
+                <li><a href="#"><span>Pages</span></a>
                 	<ul>
-                        <li><a href="blog.html"><span>Blog</span></a></li>
+                        <li><a href="/blog.html"><span>Blog</span></a></li>
                         <li><a href="#"><span>Shortcodes</span></a>
                         	<ul>
-                                <li><a href="shortcodes-text.html"><span>Text &amp; Images</span></a></li>
-                                <li><a href="shortcodes-buttons.html"><span>Buttons &amp; Lists</span></a></li> 
-                                <li><a href="shortcodes-charts.html"><span>Charts</span></a></li>  
-                                <li><a href="shortcodes-columns.html"><span>Columns</span></a></li>  
-                                <li><a href="shortcodes-lightbox.html"><span>Lightbox</span></a></li>
-								<li><a href="shortcodes-media.html"><span>Media</span></a></li>
-                                <li><a href="shortcodes-tables.html"><span>Tables</span></a></li>
-                                <li><a href="shortcodes-tabs.html"><span>Tabs and Toggles</span></a></li>
-                                <li><a href="shortcodes-typography.html"><span>Typography</span></a></li>
-                            </ul>
+                            <li><a href="/examples/shortcodes-text.html"><span>Text &amp; Images</span></a></li>
+                            <li><a href="/examples/shortcodes-buttons.html"><span>Buttons &amp; Lists</span></a></li> 
+                            <li><a href="/examples/shortcodes-charts.html"><span>Charts</span></a></li>  
+                            <li><a href="/examples/shortcodes-columns.html"><span>Columns</span></a></li>  
+                            <li><a href="/examples/shortcodes-lightbox.html"><span>Lightbox</span></a></li>
+								            <li><a href="/examples/shortcodes-media.html"><span>Media</span></a></li>
+                            <li><a href="/examples/shortcodes-tables.html"><span>Tables</span></a></li>
+                            <li><a href="/examples/shortcodes-tabs.html"><span>Tabs and Toggles</span></a></li>
+                            <li><a href="/examples/shortcodes-typography.html"><span>Typography</span></a></li>
+                          </ul>
                         </li>
+                        <li><a href="/page-pricing.html"><span>Pricing Page</span></a></li> 
+                        <li><a href="/contact.html"><span>Contact</span></a></li>
+                        <!-- if someting something, then add class -->
                         <li class="current-menu-item"><a href="page-pricing.html"><span>Pricing Page</span></a></li> 
-                        <li><a href="contact.html"><span>Contact</span></a></li>
 					</ul>
                 </li>
             </ul>
         </div>
     </div>
-</div>
+  </div> <!-- head_bar -->
 
-<!-- header no image -->    
-    <div class="header_thin">
-    	<div class="container_12">
+  <!-- header no image -->    
+<div class="header_thin">
+  <div class="container_12">
         
-        	<div class="widget-container widget_search">
-				<form method="get" id="searchform" action="">
-					<div>
-                    <label class="screen-reader-text" for="s">Search for:</label>
-                    <input type="text" name="s" id="s" value="enter search terms" onfocus="if (this.value == 'enter search terms') {this.value = '';}" onblur="if (this.value == '') {this.value = 'enter search terms';}" />
-                    <input type="submit" id="searchsubmit"  value="Search" />
-                    </div>
-                </form>
-			</div>
-            
-			<div class="head_title head_blog">
-            	<h1>Pricing Page</h1>
-                <div class="sub_title">detailed features and pricing table</div>
-            </div>
-        
+    <div class="widget-container widget_search">
+      <form method="get" id="searchform" action="">
+			  <div>
+          <label class="screen-reader-text" for="s">Search for:</label>
+          <input type="text" name="s" id="s" value="enter search terms" onfocus="if (this.value == 'enter search terms') {this.value = '';}" onblur="if (this.value == '') {this.value = 'enter search terms';}" />
+          <input type="submit" id="searchsubmit"  value="Search" />
         </div>
+      </form>
+	</div>
+            
+  <div class="head_title head_blog">
+    <h1>Pricing</h1>
+    
+    <div class="sub_title">unlimitied joy, for limited prices</div>
+    
     </div>
+        
+  </div>
+</div>
 <!--/ header no image --> 
 
-<!-- middle content -->
+
+  <!-- middle content -->
 <div class="middle">
 	<div class="container_12">
     	
@@ -210,20 +216,21 @@
 </div> 
 <!--/ middle content -->
 
-<!-- bottom content -->
+
+  <!-- bottom content -->
 <div class="bottom_2">
 	<div class="container_12">
     	
         <div class="row">
           
           		<div class="col col_1_3" id="Download"> 
-                <a href="#"><img src="images/btn_download.png" alt="" width="273" height="83" border="0" /></a>
+                <a href="#"><img src="/images/btn_download.png" alt="" width="273" height="83" border="0" /></a>
           		</div>
                 
                 <div class="col col_2_3">    
                 
                 <div class="bottom_text_line">
-                    <img src="images/footer_logo.png" width="189" height="32" alt="" class="icon_left" />
+                    <img src="/images/footer_logo.png" width="189" height="32" alt="" class="icon_left" />
                     <em><span class="text-gray">is a fine piece of touch software by</span> <span class="text-blue">SMUDGE Mobile</span></em></div>
                 </div>
                 
@@ -233,9 +240,9 @@
         
     </div>
 </div>
-<!--/ bottom content -->
+<!--/ bottom_2 content -->
 
-<!-- footer content -->
+  <!-- footer content -->
 <div class="footer">
 	<div class="container_12">
     	
@@ -339,6 +346,8 @@
     </div>
 </div>
 <!--/ footer content -->
+
+
 
 </body>
 </html>
