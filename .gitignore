@@ -10,6 +10,7 @@ target
 *.iws
 *.ipr
 *.iml
+*.graphdb
 .idea
 .DS_Store
 .shell_history

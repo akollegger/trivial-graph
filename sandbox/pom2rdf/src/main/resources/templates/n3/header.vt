@@ -1,0 +1,7 @@
+@prefix pom: <http://maven.apache.org/POM/4.0.0#> .
+@prefix rdf: <httpged://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wikipedia: <http://en.wikipedia.org/wiki/> .
+@prefix dict: <http://en.wiktionary.org/wiki/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix maven: <http://maven.apache.org/#> .
+

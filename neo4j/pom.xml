@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.neo4j.app.trivialt</groupId>
+  <artifactId>graph</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>graph</name>
+  <description>Graph layer for trivialt app.</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <neo4j.version>1.5-SNAPSHOT</neo4j.version>
+    <junit.version>4.8.2</junit.version>
+    <cuke4duke.version>0.4.4</cuke4duke.version>
+    <!-- cukes.version>1.0.0-SNAPSHOT</cukes.version-->
+    <pico.version>2.13.6</pico.version>
+    <jopt.version>4.0-beta1</jopt.version>
+  </properties>
+
+  <dependencies>
+    <!-- Neo4j -->
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j</artifactId>
+      <version>${neo4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-kernel</artifactId>
+      <version>${neo4j.version}</version>
+      <classifier>tests</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-graph-collections</artifactId>
+      <version>${neo4j.version}</version>
+    </dependency>
+
+    <!-- Misc. -->
+    <dependency>
+      <groupId>net.sf.jopt-simple</groupId>
+      <artifactId>jopt-simple</artifactId>
+      <version>${jopt.version}</version>
+    </dependency>
+ 
+    <!-- Testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!--dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>${cukes.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cukes.version}</version>
+      <scope>test</scope>
+    </dependency-->
+    <dependency>
+      <groupId>cuke4duke</groupId>
+      <artifactId>cuke4duke</artifactId>
+      <version>${cuke4duke.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.picocontainer</groupId>
+      <artifactId>picocontainer</artifactId>
+      <version>${pico.version}</version>
+      <scope>test</scope>
+    </dependency>
+   
+  </dependencies>
+
+  <!--repositories>
+    <repository>
+      <id>sonatype-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories-->
+
+  <build>
+    <finalName>trivialt-${project.artifactId}-${project.version}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>${project.build.sourceEncoding>}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <finalName>trivialt-app-${project.version}</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+          <attach>false</attach>
+          <archive>
+            <manifest>
+              <mainClass>org.neo4j.app.trivialt.graph.App</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>cuke4duke</groupId>
+        <artifactId>cuke4duke-maven-plugin</artifactId>
+        <version>${cuke4duke.version}</version>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>
+              -Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory
+            </jvmArg>
+          </jvmArgs>
+          <cucumberArgs>
+            <cucumberArg>--color</cucumberArg>
+            <cucumberArg>--verbose</cucumberArg>
+            <cucumberArg>--format</cucumberArg>
+            <cucumberArg>pretty</cucumberArg>
+            <cucumberArg>--out</cucumberArg>
+            <cucumberArg>${project.build.directory}/cucumber-reports</cucumberArg>
+
+            <cucumberArg>${project.basedir}/target/test-classes</cucumberArg>
+          </cucumberArgs>
+          <gems>
+            <gem>install cuke4duke --version ${cuke4duke.version}</gem>
+          </gems>
+        </configuration>
+        <executions>
+          <execution>
+            <id>run-features</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>cucumber</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <repositories>
+      <repository>
+        <id>codehaus</id>
+        <url>http://repository.codehaus.org</url>
+      </repository>
+      <repository>
+        <id>cukes</id>
+        <url>http://cukes.info/maven</url>
+      </repository>
+  </repositories>
+
+  <pluginRepositories>
+      <pluginRepository>
+        <id>cukes</id>
+        <url>http://cukes.info/maven</url>
+      </pluginRepository>
+  </pluginRepositories>
+
+
+</project>

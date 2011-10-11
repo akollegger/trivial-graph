@@ -1,0 +1,15 @@
+#if ($repository_path) 
+<$encoder.encode("maven://$repository_path$metadata_filename")>
+  a maven:Metadata ;
+  pom:groupId "$group_id" ;
+  pom:artifactId "$artifact_id" ;
+  pom:version "$version" ;
+#foreach ($v in $versions)
+  maven:version "$v" ;
+#end
+  dict:contained <$encoder.encode("maven://$repository_path")> ;
+  maven:metadata """$str.escape($metadata)""" ;
+  wikipedia:Computer_file <$encoder.encode("maven://$repository_path$metadata_filename")> ;
+  .
+
+#end

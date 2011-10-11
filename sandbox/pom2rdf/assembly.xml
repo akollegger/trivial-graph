@@ -1,0 +1,37 @@
+<assembly>
+  <id></id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>*.txt</include>
+        <include>*.xml</include>
+        <include>tools/**</include>
+      </includes>
+      <excludes>
+        <exclude>velocity.log</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet>
+      <fileMode>755</fileMode>
+      <includes>
+        <include>pom2rdf</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <includes>
+        <include>*.bat</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>src</directory>
+      <outputDirectory>src</outputDirectory>
+      <includes>
+        <include>**</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>  

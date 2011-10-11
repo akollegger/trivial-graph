@@ -1,0 +1,23 @@
+<$encoder.encode("maven://$repository_path")>
+  a wikipedia:File_directory ;
+##  wikipedia:Bytes "$directory.length()" ;
+  dc:date "$date.format($directory.lastModified())" ;
+#foreach ($file in $directory.listFiles())
+#if ($file.isDirectory())
+  dict:contains <$encoder.encode("maven://$repository_path$file.getName()")> ;
+#else
+  dict:contains <$encoder.encode("maven://$repository_path$file.getName()")> ;
+#end
+#end
+  .
+
+#foreach ($file in $directory.listFiles())
+#if (!$file.isDirectory())
+<$encoder.encode("maven://$repository_path$file.getName()")>
+  a wikipedia:Computer_file ;
+  wikipedia:Bytes "$file.length()" ;
+  dc:date "$date.format($file.lastModified())" ;
+  .
+
+#end
+#end

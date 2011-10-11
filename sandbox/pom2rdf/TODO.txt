@@ -1,0 +1,5 @@
+TODO:
+
+ - Remove dependencies from StringEscapeUtils
+ - improve logging
+ - implement an incremental strategy to update the dataset without regenerating all of it

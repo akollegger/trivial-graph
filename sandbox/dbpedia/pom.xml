@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.neo4j.trivialt.sandbox</groupId>
+    <artifactId>dbpedia</artifactId>
+    <version>1.0</version>
+
+  <properties>
+    <sesame.version>2.5.1</sesame.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openrdf.sesame</groupId>
+      <artifactId>sesame-rio</artifactId>
+      <version>${sesame.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openrdf.sesame</groupId>
+      <artifactId>sesame-rio-ntriples</artifactId>
+      <version>${sesame.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openrdf.sesame</groupId>
+      <artifactId>sesame-rio-turtle</artifactId>
+      <version>${sesame.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openrdf.sesame</groupId>
+      <artifactId>sesame-rio-rdfxml</artifactId>
+      <version>${sesame.version}</version>
+    </dependency>
+  </dependencies>
+
+    <repositories>
+      <repository>
+        <id>aduna</id>
+        <url>http://repo.aduna-software.org/maven2/releases/</url>
+      </repository>
+    </repositories>
+</project>

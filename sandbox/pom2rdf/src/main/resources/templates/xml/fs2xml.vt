@@ -1,0 +1,26 @@
+<wikipedia:File_directory rdf:about="$encoder.encode("maven://$repository_path")">
+  <dc:date>$date.format($directory.lastModified())</dc:date>
+#foreach ($file in $directory.listFiles())
+#if ($file.isDirectory())
+  <dict:contains>
+    <wikipedia:File_directory rdf:about="$encoder.encode("maven://$repository_path$file.getName()")"></wikipedia:File_directory>
+  </dict:contains>
+#else
+  <dict:contains>
+    <wikipedia:Computer_file rdf:about="$encoder.encode("maven://$repository_path$file.getName()")"></wikipedia:Computer_file>
+  </dict:contains>
+#end
+#end
+</wikipedia:File_directory>
+
+
+#foreach ($file in $directory.listFiles())
+#if (!$file.isDirectory())
+<wikipedia:Computer_file rdf:about="$encoder.encode("maven://$repository_path$file.getName()")">
+  <wikipedia:Bytes>$file.length()</wikipedia:Bytes>
+  <dc:date>$date.format($file.lastModified())</dc:date>
+</wikipedia:Computer_file>
+
+#end
+#end
+

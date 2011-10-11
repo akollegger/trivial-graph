@@ -1,0 +1,90 @@
+#if($model)
+<pom:Artifact rdf:about="$encoder.encode("urn:$model.getId()")">
+#if ($artifact_filename)
+  <wikipedia:Computer_file rdf:resource="$encoder.encode("maven://$repository_path/$artifact_filename")" />
+#end  
+#if ($model.getName())
+  <pom:name>$model.getName()</pom:name>
+#end
+#if ($model.getGroupId())
+  <pom:groupId>$model.getGroupId()</pom:groupId>
+#end
+#if ($model.getArtifactId())
+  <pom:artifactId>$model.getArtifactId()</pom:artifactId>
+#end
+#if ($model.getPackaging())
+  <pom:packaging>$model.getPackaging()</pom:packaging>
+#end
+#if ($model.getVersion())
+  <pom:version>$model.getVersion()</pom:version>
+#end
+#if ($model.getUrl())
+  <pom:url>$model.getUrl()</pom:url>
+#end
+#if ($model.getDescription())
+  <pom:description>$model.getDescription()</pom:description>
+#end
+#if ($model.getInceptionYear())
+  <pom:inceptionYear>$model.getInceptionYear()</pom:inceptionYear>
+#end
+#if ($model.getParent().getId())
+  <pom:parent rdf:resource="$encoder.encode("urn:$model.getParent().getId()")" />
+#end
+#foreach ($dependency in $model.getDependencies()) 
+  <pom:parent rdf:resource="$encoder.encode("urn:$!dependency.getGroupId():$!dependency.getArtifactId():$!dependency.getPackaging():$!dependency.getVersion()")" />
+#end
+  <wikipedia:Project_Object_Model rdf:parseType="Literal">$pom</wikipedia:Project_Object_Model>
+  <wikipedia:Computer_file rdf:resource="$encoder.encode("maven://$pom_path")" />
+</pom:Artifact>
+
+#foreach ($dependency in $dependencies) 
+<pom:Artifact rdf:about="$encoder.encode("urn:$!dependency.getGroupId():$!dependency.getArtifactId():$!dependency.getPackaging():$!dependency.getVersion()")">
+#if ($dependency.getGroupId())
+  <pom:groupId>$dependency.getGroupId()</pom:groupId>
+#end
+#if ($dependency.getArtifactId())
+  <pom:artifactId>$dependency.getArtifactId()</pom:artifactId>
+#end
+#if ($dependency.getVersion())
+  <pom:version>$dependency.getVersion()</pom:version>
+#end
+#if ($model.getId())
+  <pom:usedBy rdf:resource="$encoder.encode("urn:$model.getId()")" />
+#end
+</pom:Artifact>
+
+#end
+#if ($model.getParent())
+<pom:Artifact rdf:about="$encoder.encode("urn:$model.getParent().getId()")">
+  <pom:groupId>$model.getParent().getGroupId()</pom:groupId>
+  <pom:artifactId>$model.getParent().getArtifactId()</pom:artifactId>
+  <pom:version>$model.getParent().getVersion()</pom:version>
+</pom:Artifact>
+  
+#end
+#end
+#if ($pom_filename) 
+<wikipedia:Computer_file rdf:about="$encoder.encode("maven://$repository_path$pom_filename")">
+#if ($pom_md5)  
+  <wikipedia:MD5>$pom_md5</wikipedia:MD5>
+#end
+#if ($pom_sha1)  
+  <wikipedia:SHA1>$pom_sha1</wikipedia:SHA1>
+#end
+#foreach ($error in $errors) 
+  <wikipedia:Error rdf:parseType="Literal">$error</wikipedia:Error>
+#end
+</wikipedia:Computer_file>
+
+#end
+#if ($artifact_filename) 
+<wikipedia:Computer_file rdf:about="$encoder.encode("maven://$repository_path$artifact_filename")">
+#if ($artifact_md5)  
+  <wikipedia:MD5>$artifact_md5</wikipedia:MD5>
+#end
+#if ($artifact_sha1)  
+  <wikipedia:MD5>$artifact_sha1</wikipedia:MD5>
+#end
+</wikipedia:Computer_file>
+
+#end

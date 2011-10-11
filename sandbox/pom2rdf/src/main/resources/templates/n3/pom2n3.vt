@@ -1,0 +1,95 @@
+#if($model)
+<$encoder.encode("urn:$model.getId()")>
+  a pom:Artifact ;
+#if ($artifact_filename)
+  wikipedia:Computer_file <$encoder.encode("maven://$repository_path/$artifact_filename")> ;
+#end  
+#if ($model.getName())
+  pom:name "$model.getName()" ;
+#end
+#if ($model.getGroupId())
+  pom:groupId "$model.getGroupId()" ;
+#end
+#if ($model.getArtifactId())
+  pom:artifactId "$model.getArtifactId()" ;
+#end
+#if ($model.getPackaging())
+  pom:packaging "$model.getPackaging()" ;
+#end
+#if ($model.getVersion())
+  pom:version "$model.getVersion()" ;
+#end
+#if ($model.getUrl())
+  pom:url "$model.getUrl()" ;
+#end
+#if ($model.getDescription())
+  pom:description """$str.escape($model.getDescription())""" ;
+#end
+#if ($model.getInceptionYear())
+  pom:inceptionYear "$model.getInceptionYear()" ;
+#end
+#if ($model.getParent().getId())
+  pom:parent <$encoder.encode("urn:$model.getParent().getId()")> ;
+#end
+#foreach ($dependency in $model.getDependencies()) 
+  pom:depends <$encoder.encode("urn:$!dependency.getGroupId():$!dependency.getArtifactId():$!dependency.getPackaging():$!dependency.getVersion()")> ;
+#end
+  wikipedia:Project_Object_Model """$str.escape($pom)""" ;
+  wikipedia:Computer_file <$encoder.encode("maven://$pom_path")> ;
+  .
+
+#foreach ($dependency in $dependencies) 
+<$encoder.encode("urn:$!dependency.getGroupId():$!dependency.getArtifactId():$!dependency.getPackaging():$!dependency.getVersion()")>
+  a pom:Artifact ;
+#if ($dependency.getGroupId())
+  pom:groupId "$dependency.getGroupId()" ;
+#end
+#if ($dependency.getArtifactId())
+  pom:artifactId "$dependency.getArtifactId()" ;
+#end
+#if ($dependency.getVersion())
+  pom:version "$dependency.getVersion()" ;
+#end
+#if ($model.getId())
+  pom:usedBy <$encoder.encode("urn:$model.getId()")> ;
+#end
+  .
+
+#end
+#if ($model.getParent())
+<$encoder.encode("urn:$model.getParent().getId()")>
+  a pom:Artifact ;
+  pom:groupId "$model.getParent().getGroupId()" ;
+  pom:artifactId "$model.getParent().getArtifactId()" ;
+  pom:version "$model.getParent().getVersion()" ;
+  .
+  
+#end
+#end
+#if ($pom_filename) 
+<$encoder.encode("maven://$repository_path$pom_filename")>
+  a wikipedia:Computer_file ;
+#if ($pom_md5)  
+  wikipedia:MD5 "$pom_md5" ;
+#end
+#if ($pom_sha1)  
+  wikipedia:SHA1 "$pom_sha1" ; 
+#end
+#foreach ($error in $errors) 
+  wikipedia:Error """$str.escape($error)""" ;
+#end
+  .
+
+#end
+#if ($artifact_filename) 
+<$encoder.encode("maven://$repository_path$artifact_filename")>
+  a wikipedia:Computer_file ;
+#if ($artifact_md5)  
+  wikipedia:MD5 "$artifact_md5" ;
+#end
+#if ($artifact_sha1)  
+  wikipedia:SHA1 "$artifact_sha1" ; 
+#end
+  .
+
+#end

@@ -1,0 +1,8 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:pom="http://maven.apache.org/POM/4.0.0#"
+    xmlns:dict="http://en.wiktionary.org/wiki/"
+    xmlns:maven="http://maven.apache.org/#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:wikipedia="http://en.wikipedia.org/wiki/">
+

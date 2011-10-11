@@ -1,0 +1,14 @@
+#if ($repository_path) 
+<maven:Metadata rdf:about="$encoder.encode("maven://$repository_path$metadata_filename")">
+  <pom:groupId>$group_id</pom:groupId>
+  <pom:artifactId>$artifact_id</pom:artifactId>
+  <pom:version>$version</pom:version>
+#foreach ($v in $versions)
+  <maven:version>$v</maven:version>
+#end
+  <dict:contained rdf:resource="$encoder.encode("maven://$repository_path")"/>
+  <maven:metadata rdf:parseType="Literal">$metadata</maven:metadata>
+  <wikipedia:Computer_file rdf:resource="$encoder.encode("maven://$repository_path$metadata_filename")"/>
+</maven:Metadata>
+
+#end
