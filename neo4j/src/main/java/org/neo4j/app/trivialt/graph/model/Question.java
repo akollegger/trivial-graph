@@ -1,9 +1,6 @@
 package org.neo4j.app.trivialt.graph.model;
 
-import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.*;
 
 import javax.swing.text.GlyphView;
 
@@ -35,6 +32,11 @@ public class Question
 
     public void setAnswer( Answer answer )
     {
+        // remove existing answer, if any
+        Relationship currentAnswerRel = node.getSingleRelationship( CORRECT_ANSWER_REL, Direction.OUTGOING );
+        if (currentAnswerRel != null) {
+            currentAnswerRel.delete();
+        }
         node.createRelationshipTo( answer.node, CORRECT_ANSWER_REL );
     }
 

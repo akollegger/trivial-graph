@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.neo4j</groupId>
       <artifactId>neo4j-graph-collections</artifactId>
-      <version>${neo4j.version}</version>
+      <version>1.5-SNAPSHOT</version>
     </dependency>
 
     <!-- Misc. -->
@@ -137,6 +137,10 @@
             </jvmArg>
           </jvmArgs>
           <cucumberArgs>
+            <!--
+            <cucumberArg> - -tags @app</cucumberArg>
+            -->
+            <cucumberArg>--tags @freeform</cucumberArg>
             <cucumberArg>--color</cucumberArg>
             <cucumberArg>--verbose</cucumberArg>
             <cucumberArg>--format</cucumberArg>

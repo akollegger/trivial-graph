@@ -3,13 +3,13 @@ Feature: Playing a Trivialt match
   Background: Trivialt is ready to play
     Given a trivialt graph database in directory "match.graphdb"
     And these players:
-      | player handle      | player name       |
+      | PLAYER HANDLE      | PLAYER NAME       |
       | @akollegger        | Andreas Kollegger |
       | @andres_taylor     | Andres Taylor     |
       | @micha             | Michael Hunger    |
       | @tbaum             | Thomas Baum       |
     And these teams:
-      | team name  | secret    | players                     |
+      | TEAM NAME  | SECRET    | PLAYERS                     |
       | A Team     | neo4j     | @akollegger, @andres_taylor |
       | German Div | endurance | @micha, @tbaum              |
 
@@ -46,5 +46,5 @@ Feature: Playing a Trivialt match
     Then the match "Abstract Facts" is in "live" mode
     And the current round of "Abstract Facts" is round 1
     And the current question of "Abstract Facts" is question 1
-    And "German Div" playing card for "Abstract Facts" has an unspecified proposal for the current question
+    And the "German Div" playing card for "Abstract Facts" has an unspecified proposal for round 1, queston 1
 

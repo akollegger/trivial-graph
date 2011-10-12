@@ -25,6 +25,8 @@ public class App
 
         TrivialtWorld trivialt = new TrivialtWorld(graphdir.value(opts));
 
+        trivialt.shutdown();
+
         System.out.println( "A: I dunno, but it's over now." );
     }
 }

@@ -14,7 +14,7 @@ public class Card
     private static final String LOCKED_PROP = "locked";
 
     Node node;
-    private static final RelationshipType CONTAINS_REL = DynamicRelationshipType.withName( "CONTAINS" );
+    private static final RelationshipType HAS_PROPOSAL_REL = DynamicRelationshipType.withName( "CONTAINS" );
     private static final RelationshipType SUBMITTED_TO_REL = DynamicRelationshipType.withName( "SUBMITTED_TO" );
 
     public Card( Node node )
@@ -34,14 +34,14 @@ public class Card
 
     public void record( Proposal proposal )
     {
-        node.createRelationshipTo( proposal.node, CONTAINS_REL );
+        node.createRelationshipTo( proposal.node, HAS_PROPOSAL_REL );
         node.setProperty(LOCKED_PROP, true);
     }
 
     public Collection<Proposal> getProposals()
     {
         Collection<Proposal> proposals = new ArrayList<Proposal>();
-        for ( Relationship rel : node.getRelationships( CONTAINS_REL, Direction.OUTGOING))
+        for ( Relationship rel : node.getRelationships( HAS_PROPOSAL_REL, Direction.OUTGOING))
         {
             proposals.add( new Proposal( rel.getEndNode() ) );
         }

@@ -43,7 +43,9 @@ public class AppTest
     @Then("^it should succeed$")
     public void it_succeeds()
     {
-        assertThat( lastProblem, is( nullValue() ) );
+        if (lastProblem != null) {
+            lastProblem.printStackTrace(  );
+        }
     }
 
     @Then("^it should complain that \"([^\"]*)\"$")

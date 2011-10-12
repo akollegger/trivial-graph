@@ -8,17 +8,16 @@ import java.util.Collection;
 /**
  * What up Playa?
  */
-public class Player
+public class Player extends EntityBase
 {
     private static final String ID_PROP = "id";
     private static final String NAME_PROP = "name";
 
-    Node node;
     private static final RelationshipType KNOWS_REL = DynamicRelationshipType.withName( "knows" );
 
     public Player( Node node )
     {
-        this.node = node;
+        super( node );
     }
 
     public String getId()
@@ -56,22 +55,4 @@ public class Player
         return knownPlayers;
     }
 
-    @Override
-    public boolean equals( Object o )
-    {
-        if ( this == o )
-            return true;
-        if ( o == null || getClass() != o.getClass() )
-            return false;
-
-        Player player = (Player) o;
-
-        return (node.getId() == player.node.getId());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return node != null ? node.hashCode() : 0;
-    }
 }

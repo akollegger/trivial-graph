@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * A Frame phrases a question and proposes possible Answers.
+ * A Frame phrases a question and offers possible Answers.
  */
 public class Frame
 {
     Node node;
     private static final RelationshipType QUESTION_REL = DynamicRelationshipType.withName( "phrases_question" );
-    private static final RelationshipType ANSWER_REL = DynamicRelationshipType.withName( "proposes_answer" );
+    private static final RelationshipType ANSWER_REL = DynamicRelationshipType.withName( "offers_answer" );
 
     public Frame( Node node )
     {
@@ -34,18 +34,18 @@ public class Frame
         return null;
     }
 
-    public void propose( Answer answer )
+    public void offer( Answer answer )
     {
         node.createRelationshipTo( answer.node, ANSWER_REL );
     }
 
-    public Collection<Answer> getProposals()
+    public Collection<Answer> getOffers()
     {
-        Collection<Answer> proposals = new ArrayList<Answer>();
+        Collection<Answer> offers = new ArrayList<Answer>();
         for ( Relationship rel : node.getRelationships( ANSWER_REL, Direction.OUTGOING ) )
         {
-            proposals.add( new Answer( rel.getEndNode() ) );
+            offers.add( new Answer( rel.getEndNode() ) );
         }
-        return proposals;
+        return offers;
     }
 }

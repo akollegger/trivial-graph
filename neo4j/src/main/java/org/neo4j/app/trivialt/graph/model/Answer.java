@@ -5,15 +5,13 @@ import org.neo4j.graphdb.Node;
 /**
  * Trivia answer.
  */
-public class Answer
+public class Answer extends EntityBase
 {
     private static final String ANSWER_TEXT_PROP = "text";
 
-    Node node;
-
     public Answer( Node node )
     {
-        this.node = node;
+        super( node );
     }
 
     public String getText()

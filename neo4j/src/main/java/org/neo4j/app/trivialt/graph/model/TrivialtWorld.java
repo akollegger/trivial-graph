@@ -17,32 +17,32 @@ import java.util.Iterator;
 
 /**
  * TrivialtWorld: a world of related trivia.
- *
+ * <p/>
  * Patterns:
- *
+ * <p/>
  * (category)-[:CATEGORIZES]->(questions)
- *
+ * <p/>
  * (question)-[:ANSWERED_BY]->(answer)
  * (question)-[:MISDIRECTED_BY]->(answers)
- *
+ * <p/>
  * (player)-[:KNOWS]->(players)
- *
+ * <p/>
  * (team)<-[:MEMBER]-(player)
  * (team)-[:OWNS]->(cards)
- *
+ * <p/>
  * (card)-[:CONTAINS]->(proposals)
  * (card)->[:SUBMITTED_TO]->(round)
- *
+ * <p/>
  * (round)-[:PRESENTS.order]->(frame)
- *
+ * <p/>
  * (frame)-[:PHRASES]->(question)
- * (frame)-[:PROPOSES]->(answer)
- *
+ * (frame)-[:OFFERS]->(answer)
+ * <p/>
  * (proposal)-[:IN_RESPONSE_TO]->(frame)
  * (proposal)-[:PROPOSES]->(answer)
- *
+ * <p/>
  * (match)-[:ROUND.order]->(round)
- *
+ * <p/>
  * (media)-[:RENDERS]->(frame)
  * (media-library)-[:STORES]->(media)
  */
@@ -63,7 +63,7 @@ public class TrivialtWorld
 
     public TrivialtWorld( File graphdir )
     {
-        this( new EmbeddedGraphDatabase( graphdir.getAbsolutePath() ) );
+        this( new EmbeddedGraphDatabase( graphdir.getPath() ) );
     }
 
     public TrivialtWorld( GraphDatabaseService graphdb )
@@ -75,9 +75,17 @@ public class TrivialtWorld
 
         registerShutdownHook();
 
-        categories = new Categories(graphdb);
-        questions = new Questions(graphdb);
-        answers = new Answers(graphdb);
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            categories = new Categories( graphdb );
+            questions = new Questions( graphdb );
+            answers = new Answers( graphdb );
+            tx.success();
+        } finally
+        {
+            tx.finish();
+        }
     }
 
     private boolean confirmGraphType( GraphDatabaseService graphdb )
@@ -134,9 +142,21 @@ public class TrivialtWorld
 
     public void learn( FreeformTrivia freeformTrivia )
     {
-        Answer answer = answers.remember( freeformTrivia.getAnswer() );
-        Question question = questions.remember( freeformTrivia.getQuestion(), answer );
-        categories.categorize(freeformTrivia, question);
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            Answer answer = answers.remember( freeformTrivia.getAnswer() );
+            Question question = questions.remember( freeformTrivia.getQuestion(), answer );
+            categories.categorize( freeformTrivia, question );
+            tx.success();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.failure();
+        } finally
+        {
+            tx.finish();
+        }
     }
 
     public Collection<Category> getAllCategories()
@@ -152,11 +172,11 @@ public class TrivialtWorld
 
     public Question findQuestion( String question )
     {
-        return questions.find(question);
+        return questions.find( question );
     }
 
-    public Collection<Question> getQuestionsInCategory(String category)
+    public Collection<Question> getQuestionsInCategory( String category )
     {
-        return categories.find(category).getQuestions();
+        return categories.find( category ).getQuestions();
     }
 }

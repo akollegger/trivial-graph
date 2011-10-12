@@ -2,7 +2,7 @@ Feature: Trivialt Questions
 
   Scenario: Freeform questions
     Given these freeform questions:
-      | question                                                                 | answer                             | category            |
+      | QUESTION                                                                 | ANSWER                             | CATEGORY            |
       | What did Gwyneth Paltrow and Chris Martin call their baby daughter?      | Apple (Apple Blythe Alison Martin) | Film and Television |
       | Port of Spain is the capital of which nation?                            | Trinidad and Tobago                | Geography           |
       | Which country was invaded by the Japanese in 1937?                       | China                              | History and Legend  |
