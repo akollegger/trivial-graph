@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public class Player extends EntityBase
 {
-    private static final String ID_PROP = "id";
+    private static final String HANDLE_PROP = "handle";
     private static final String NAME_PROP = "name";
 
     private static final RelationshipType KNOWS_REL = DynamicRelationshipType.withName( "knows" );
@@ -20,14 +20,14 @@ public class Player extends EntityBase
         super( node );
     }
 
-    public String getId()
+    public String getHandle()
     {
-        return (String) node.getProperty( ID_PROP, "" );
+        return (String) node.getProperty( HANDLE_PROP, "" );
     }
 
-    public void setId( String id )
+    public void setHandle( String handle )
     {
-        node.setProperty(ID_PROP, id);
+        node.setProperty( HANDLE_PROP, handle);
     }
 
     public String getName()

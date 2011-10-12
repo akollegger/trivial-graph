@@ -1,16 +1,16 @@
+@players
 Feature: Trivialt Players and Teams
 
   Background: Trivialt is ready to play
-    Given a trivialt graph database in directory "players.graphdb"
-    And these players:
+    Given these players:
       | PLAYER HANDLE      | PLAYER NAME       |
       | @akollegger        | Andreas Kollegger |
       | @andres_taylor     | Andres Taylor     |
       | @micha             | Michael Hunger    |
       | @twarko            | M. Rod            |
     And these teams:
-      | TEAM NAME  | SECRET | PLAYERS                     |
-      | ska fans   | scala  | @akollegger, @andres_taylor |
+      | FOUNDER     | TEAM NAME  | SECRET | PLAYERS                     |
+      | @akollegger | ska fans   | scala  | @akollegger, @andres_taylor |
 
   Scenario: Register as a new player
     When you register "Tobias Ivarsson" as "@thobe"

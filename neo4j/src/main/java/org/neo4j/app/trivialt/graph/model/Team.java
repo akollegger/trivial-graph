@@ -11,10 +11,12 @@ import java.util.Collection;
 public class Team
 {
     public static final String NAME_PROP = "name";
+    public static final String SECRET_PROP = "secret";
+    private static final String FOUNDER_RELPROP = "is_founder";
 
     private Node node;
     private static final RelationshipType MEMBER_REL = DynamicRelationshipType.withName( "member" );
-    private static final RelationshipType OWNS_REL = DynamicRelationshipType.withName( "owns" );
+    private static final RelationshipType ASSIGNED_REL = DynamicRelationshipType.withName( "assigned" );
 
     public Team( Node node )
     {
@@ -31,12 +33,27 @@ public class Team
         node.setProperty( NAME_PROP, name );
     }
 
+    public String getSecret()
+    {
+        return (String) node.getProperty( SECRET_PROP, "" );
+    }
+
+    public void setSecret( String secret )
+    {
+        node.setProperty( SECRET_PROP, secret );
+    }
+
+    public void foundedBy(Player founder) {
+        Relationship rel = founder.node.createRelationshipTo( node, MEMBER_REL );
+        rel.setProperty( FOUNDER_RELPROP, true );
+    }
+
     public void include( Player player )
     {
         player.node.createRelationshipTo( node, MEMBER_REL );
     }
 
-    public Collection<Player> getPLayers()
+    public Collection<Player> getPlayers()
     {
         Collection<Player> players = new ArrayList<Player>();
         for ( Relationship rel : node.getRelationships( MEMBER_REL, Direction.INCOMING))
@@ -47,17 +64,29 @@ public class Team
     }
 
     public void sign(Card card) {
-        node.createRelationshipTo( card.node, OWNS_REL );
+        node.createRelationshipTo( card.node, ASSIGNED_REL );
     }
 
     public Collection<Card> getCards()
     {
         Collection<Card> cards = new ArrayList<Card>();
-        for ( Relationship rel : node.getRelationships( OWNS_REL, Direction.INCOMING))
+        for ( Relationship rel : node.getRelationships( ASSIGNED_REL, Direction.OUTGOING))
         {
             cards.add( new Card( rel.getEndNode() ) );
         }
         return cards;
     }
 
+    public Player getFounder()
+    {
+        Player founder =null;
+        for ( Relationship rel : node.getRelationships( MEMBER_REL, Direction.INCOMING))
+        {
+            if ((Boolean)rel.getProperty( FOUNDER_RELPROP, false )) {
+                founder = new Player(rel.getStartNode());
+                break;
+            }
+        }
+        return founder;
+    }
 }

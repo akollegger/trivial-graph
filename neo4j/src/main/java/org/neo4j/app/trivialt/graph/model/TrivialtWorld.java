@@ -28,7 +28,7 @@ import java.util.Iterator;
  * (player)-[:KNOWS]->(players)
  * <p/>
  * (team)<-[:MEMBER]-(player)
- * (team)-[:OWNS]->(cards)
+ * (team)-[:ASSIGNED]->(cards)
  * <p/>
  * (card)-[:CONTAINS]->(proposals)
  * (card)->[:SUBMITTED_TO]->(round)
@@ -55,6 +55,8 @@ public class TrivialtWorld
     private Categories categories;
     private Questions questions;
     private Answers answers;
+    private Players players;
+    private Teams teams;
 
     public TrivialtWorld( String pathToDatabase )
     {
@@ -81,6 +83,8 @@ public class TrivialtWorld
             categories = new Categories( graphdb );
             questions = new Questions( graphdb );
             answers = new Answers( graphdb );
+            players = new Players( graphdb );
+            teams = new Teams( graphdb );
             tx.success();
         } finally
         {
@@ -149,7 +153,7 @@ public class TrivialtWorld
             Question question = questions.remember( freeformTrivia.getQuestion(), answer );
             categories.categorize( freeformTrivia, question );
             tx.success();
-        } catch (Exception e)
+        } catch ( Exception e )
         {
             e.printStackTrace();
             tx.failure();
@@ -178,5 +182,65 @@ public class TrivialtWorld
     public Collection<Question> getQuestionsInCategory( String category )
     {
         return categories.find( category ).getQuestions();
+    }
+
+    public Player register( String playerHandle, String playerName )
+    {
+        Player registeredPlayer = null;
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            registeredPlayer = players.register( playerHandle, playerName );
+            tx.success();
+        } catch ( Exception e )
+        {
+            e.printStackTrace();
+            tx.failure();
+        } finally
+        {
+            tx.finish();
+        }
+        return registeredPlayer;
+    }
+
+    public Team establish( Player founder, String teamName, String secret )
+    {
+        Team establishedTeam = null;
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            establishedTeam = teams.establish( founder, teamName, secret );
+            tx.success();
+        } catch ( Exception e )
+        {
+            e.printStackTrace();
+            tx.failure();
+        } finally
+        {
+            tx.finish();
+        }
+        return establishedTeam;
+    }
+
+    public Player findPlayer( String handle )
+    {
+        return players.find(handle);
+    }
+
+    public void include( Player player, Team onTeam )
+    {
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            onTeam.include( player );
+            tx.success();
+        } catch ( Exception e )
+        {
+            e.printStackTrace();
+            tx.failure();
+        } finally
+        {
+            tx.finish();
+        }
     }
 }

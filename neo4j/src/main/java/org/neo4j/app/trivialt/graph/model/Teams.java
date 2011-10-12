@@ -31,18 +31,21 @@ public class Teams
         return allTeams;
     }
 
-    public Team register( String name )
+    public Team establish( Player founder, String name, String secret )
     {
         Node node = teamMap.get( name );
-        Team player = null;
+        Team team = null;
         if (node == null) {
             node = teamMap.put( name, graphdb.createNode() );
-            player = new Team(node);
-            player.setName(name);
+            team = new Team(node);
+            team.setName(name);
+            team.setSecret( secret );
         } else {
-            player = new Team(node);
+            team = new Team(node);
+            Player existingFounder = team.getFounder();
+            if ((existingFounder != null) && !team.getFounder().equals(founder)) team = null;
         }
-        return player;
+        return team;
     }
 
 }

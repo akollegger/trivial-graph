@@ -31,19 +31,28 @@ public class Players
         return allPlayers;
     }
 
-    public Player register( String name, String id )
+    public Player register( String handle, String name )
     {
-        Node node = playerMap.get( id );
+        Node node = playerMap.get( handle );
         Player player = null;
         if (node == null) {
-            node = playerMap.put( id, graphdb.createNode() );
+            node = playerMap.put( handle, graphdb.createNode() );
             player = new Player(node);
             player.setName(name);
-            player.setId( id );
+            player.setHandle( handle );
         } else {
             player = new Player(node);
         }
         return player;
     }
 
+    public Player find( String handle )
+    {
+        Player player = null;
+        Node node = playerMap.get(handle);
+        if (node != null) {
+            player = new Player(node);
+        }
+        return player;
+    }
 }

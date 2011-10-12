@@ -138,9 +138,10 @@
           </jvmArgs>
           <cucumberArgs>
             <!--
-            <cucumberArg> - -tags @app</cucumberArg>
+            <cucumberArg>- -tags @app</cucumberArg>
+            <cucumberArg>- -tags @freeform</cucumberArg>
             -->
-            <cucumberArg>--tags @freeform</cucumberArg>
+            <cucumberArg>--tags @players</cucumberArg>
             <cucumberArg>--color</cucumberArg>
             <cucumberArg>--verbose</cucumberArg>
             <cucumberArg>--format</cucumberArg>
