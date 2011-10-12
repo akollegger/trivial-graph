@@ -2,22 +2,24 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.neo4j</groupId>
-	<artifactId>movies</artifactId>
-	<version>2.0-SNAPSHOT</version>
+	<groupId>org.neo4j.app.trivialt</groupId>
+	<artifactId>trivialt-spring</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Movies</name>
+	<name>Trivialt Spring</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.6.RELEASE</spring.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<neo4j.version>1.5-SNAPSHOT</neo4j.version>
-		<spring-data-graph.version>2.0.0.BUILD-SNAPSHOT</spring-data-graph.version>
+		<neo4j.version>1.5.M02</neo4j.version>
+		<spring-data-neo4j.version>2.0.0.BUILD-SNAPSHOT</spring-data-neo4j.version>
 		<aspectj.version>1.6.12.M1</aspectj.version>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
+    <cuke4duke.version>0.4.4</cuke4duke.version>
+    <pico.version>2.13.6</pico.version>
 	</properties>
 
 	<repositories>
@@ -40,15 +42,14 @@
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
 		<repository>
-			<id>neo4j-public-repository</id>
-			<url>http://m2.neo4j.org/</url>
-			<name>Publicly available Maven 2 repository for Neo4j</name>
-		</repository>
-		<repository>
 			<id>jboss-public-repo</id>
 			<url>http://repository.jboss.org/maven2/</url>
 			<name>JBoss public available repo</name>
 		</repository>
+    <repository>
+      <id>cukes</id>
+      <url>http://cukes.info/maven</url>
+    </repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -62,6 +63,10 @@
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</pluginRepository>
+    <pluginRepository>
+      <id>cukes</id>
+      <url>http://cukes.info/maven</url>
+    </pluginRepository>
 	</pluginRepositories>
 
 	<dependencies>
@@ -160,7 +165,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-neo4j-aspects</artifactId>
-			<version>${spring-data-graph.version}</version>
+			<version>${spring-data-neo4j.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate.javax.persistence</groupId>
@@ -236,9 +241,24 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
+
+    <!-- For cucumber -->
+    <dependency>
+      <groupId>cuke4duke</groupId>
+      <artifactId>cuke4duke</artifactId>
+      <version>${cuke4duke.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.picocontainer</groupId>
+      <artifactId>picocontainer</artifactId>
+      <version>${pico.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
 	</dependencies>
 	<build>
 		<plugins>
@@ -319,6 +339,45 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+      <plugin>
+        <groupId>cuke4duke</groupId>
+        <artifactId>cuke4duke-maven-plugin</artifactId>
+        <version>${cuke4duke.version}</version>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>
+              -Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory
+            </jvmArg>
+          </jvmArgs>
+          <cucumberArgs>
+            <!--
+            <cucumberArg>- -tags @app</cucumberArg>
+            <cucumberArg>- -tags @freeform</cucumberArg>
+            -->
+            <cucumberArg>--tags @players</cucumberArg>
+            <cucumberArg>--color</cucumberArg>
+            <cucumberArg>--verbose</cucumberArg>
+            <cucumberArg>--format</cucumberArg>
+            <cucumberArg>pretty</cucumberArg>
+            <cucumberArg>--out</cucumberArg>
+            <cucumberArg>${project.build.directory}/cucumber-reports</cucumberArg>
+            <cucumberArg>${project.basedir}/target/test-classes</cucumberArg>
+          </cucumberArgs>
+          <gems>
+            <gem>install cuke4duke --version ${cuke4duke.version}</gem>
+          </gems>
+        </configuration>
+        <executions>
+          <execution>
+            <id>run-features</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>cucumber</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
 		</plugins>
 	</build>
 
