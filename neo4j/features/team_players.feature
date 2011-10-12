@@ -13,9 +13,9 @@ Feature: Trivialt Players and Teams
       | @akollegger | ska fans   | scala  | @akollegger, @andres_taylor |
 
   Scenario: Register as a new player
-    When you register "Tobias Ivarsson" as "@thobe"
+    When you register "Tobias Ivarsson" with handle "@thobe"
     Then trivialt knows "@thobe" is "Tobias Ivarsson"
-    And "@thobe" is the current player
+    And "@thobe" should be the current player
 
   Scenario: Friend another player
     Given "@akollegger" is the current player

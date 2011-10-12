@@ -13,7 +13,7 @@ public class Player extends EntityBase
     private static final String HANDLE_PROP = "handle";
     private static final String NAME_PROP = "name";
 
-    private static final RelationshipType KNOWS_REL = DynamicRelationshipType.withName( "knows" );
+    private static final RelationshipType KNOWS_REL = DynamicRelationshipType.withName( "friends" );
 
     public Player( Node node )
     {
@@ -40,7 +40,7 @@ public class Player extends EntityBase
         node.setProperty(NAME_PROP, name);
     }
 
-    public void knows(Player playerB)
+    public void friends( Player playerB )
     {
         node.createRelationshipTo( playerB.node, KNOWS_REL );
     }

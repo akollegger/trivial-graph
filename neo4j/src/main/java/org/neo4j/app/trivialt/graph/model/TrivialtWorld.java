@@ -23,12 +23,12 @@ import java.util.Iterator;
  * (category)-[:CATEGORIZES]->(questions)
  * <p/>
  * (question)-[:ANSWERED_BY]->(answer)
- * (question)-[:MISDIRECTED_BY]->(answers)
+ * (question)-[:MISDIRECTED_BY]->(answer)*
  * <p/>
- * (player)-[:KNOWS]->(players)
+ * (player)-[:KNOWS]->(player)*
  * <p/>
  * (team)<-[:MEMBER]-(player)
- * (team)-[:ASSIGNED]->(cards)
+ * (team)-[:ASSIGNED]->(cards)*
  * <p/>
  * (card)-[:CONTAINS]->(proposals)
  * (card)->[:SUBMITTED_TO]->(round)
@@ -36,7 +36,7 @@ import java.util.Iterator;
  * (round)-[:PRESENTS.order]->(frame)
  * <p/>
  * (frame)-[:PHRASES]->(question)
- * (frame)-[:OFFERS]->(answer)
+ * (frame)-[:OFFERS]->(answer)*
  * <p/>
  * (proposal)-[:IN_RESPONSE_TO]->(frame)
  * (proposal)-[:PROPOSES]->(answer)
@@ -224,7 +224,7 @@ public class TrivialtWorld
 
     public Player findPlayer( String handle )
     {
-        return players.find(handle);
+        return players.find( handle );
     }
 
     public void include( Player player, Team onTeam )
@@ -233,6 +233,23 @@ public class TrivialtWorld
         try
         {
             onTeam.include( player );
+            tx.success();
+        } catch ( Exception e )
+        {
+            e.printStackTrace();
+            tx.failure();
+        } finally
+        {
+            tx.finish();
+        }
+    }
+
+    public void makeFriends( Player playerA, Player playerB )
+    {
+        Transaction tx = graphdb.beginTx();
+        try
+        {
+            playerA.friends( playerB );
             tx.success();
         } catch ( Exception e )
         {
