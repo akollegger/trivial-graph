@@ -1,5 +1,6 @@
 package org.neo4j.cineasts.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.cineasts.domain.Movie;
@@ -22,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/movies-test-context.xml"})
 @Transactional
+@Ignore
 public class MoviesRepositoryTest {
     @Autowired
     CineastsRepository repository;

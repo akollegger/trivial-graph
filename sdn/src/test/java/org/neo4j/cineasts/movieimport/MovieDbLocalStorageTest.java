@@ -1,6 +1,7 @@
 package org.neo4j.cineasts.movieimport;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  * @author mh
  * @since 13.03.11
  */
+@Ignore
 public class MovieDbLocalStorageTest {
 
 
