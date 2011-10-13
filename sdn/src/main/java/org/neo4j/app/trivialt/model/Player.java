@@ -14,6 +14,9 @@ public class Player {
     @Indexed(fulltext = true, indexName = "people")
     private String name;
 
+    @RelatedTo(elementClass = Player.class, type = "FRIENDS")
+    private Set<Player> friends;
+    
     public Player() {}
 
     public Player(String handle, String name) {
@@ -28,9 +31,6 @@ public class Player {
     public String getHandle() {
         return handle;
     }
-
-    @RelatedTo(elementClass = Player.class, type = "FRIENDS")
-    private Set<Player> friends;
 
     public Set<Player> getFriends() {
         return friends;
