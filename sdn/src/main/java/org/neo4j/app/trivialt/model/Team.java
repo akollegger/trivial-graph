@@ -28,7 +28,7 @@ public class Team {
 
     public Team(String name, String secret) {
         this.name = name;
-        this.secret = secret;
+        this.setSecret(secret);
     }
 
     public String getName() {
@@ -47,7 +47,7 @@ public class Team {
 		{
 			if (Role.FOUNDER.equals(r.getTitle()))
 			{
-				founder = r.player;
+				founder = r.getPlayer();
 				break;
 			}
 		}
@@ -62,9 +62,21 @@ public class Team {
 		Collection<Player> players = new ArrayList<Player>();
 		for (Role r : members)
 		{
-			players.add(r.player);
+			players.add(r.getPlayer());
 		}
 		return players;
+	}
+
+	public boolean confirmSecret(String usingSecret) {
+		return (usingSecret != null) && (usingSecret.equals(getSecret()));
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
 	}
 
 }

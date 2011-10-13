@@ -52,7 +52,7 @@ public class Player {
 	public Iterable<Team> getMemberships() {
 		Collection<Team> teams = new ArrayList<Team>();
 		for (Role r : memberships) {
-			teams.add(r.team);
+			teams.add(r.getTeam());
 		}
 		return teams;
 	}

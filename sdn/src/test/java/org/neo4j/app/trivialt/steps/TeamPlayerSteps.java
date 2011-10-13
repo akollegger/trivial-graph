@@ -130,10 +130,19 @@ public class TeamPlayerSteps
     	assertThat(team.getMembers(), hasItem(player));
     }
 
+    @Then("^\"([^\"]*)\" is not a member of \"([^\"]*)\"$")
+    public void playerIsNotAMemberOfTeam(String playerHandle, String teamName) {
+    	Player player = trivialtWorld.findPlayer(playerHandle);
+    	Team team = trivialtWorld.findTeam(teamName);
+    	assertThat(player.getMemberships(), not(hasItem(team)));
+    	assertThat(team.getMembers(), not(hasItem(player)));
+    }
+
     @When("^the current player tries to join \"([^\"]*)\" by whispering \"([^\"]*)\"$")
-    @Pending
-    public void theCurrentPlayerTriesToJoinTeam( String arg1, String arg2 )
+    public void theCurrentPlayerTriesToJoinTeam( String teamName, String teamSecret )
     {
+    	Team team = trivialtWorld.findTeam(teamName);
+    	trivialtWorld.considerMembership(currentPlayer, team, teamSecret);
     }
 
 }

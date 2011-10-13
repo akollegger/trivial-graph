@@ -5,12 +5,13 @@ import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
 
 @RelationshipEntity
-class Role {
+public class Role {
 	public static final String FOUNDER = "founder";
 	
-    @StartNode Team team;
-	@EndNode Player player;
-    String title;
+    private @StartNode Team team;
+	private @EndNode Player player;
+	
+    private String title;
     
     public String getTitle() {
 		return title;

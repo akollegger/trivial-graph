@@ -102,9 +102,18 @@ public class TrivialtWorld {
 		return unique;
 	}
 
+	public boolean considerMembership(Player ofApplicant, Team forTeam, String usingSecret) {
+		if (forTeam.confirmSecret(usingSecret))
+		{
+			draft(ofApplicant, forTeam);
+			return true;
+		}
+		return false;
+	}
+	
+
 	public void draft(Player player, Team onTeam) {
-		// TODO Auto-generated method stub
-		
+		onTeam.add(player);
 	}
 
 	public void makeFriends(Player playerA, Player playerB) {
