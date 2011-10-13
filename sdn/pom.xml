@@ -346,7 +346,7 @@
         <configuration>
           <jvmArgs>
             <jvmArg>
-              -Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.PicoFactory
+              -Dcuke4duke.objectFactory=cuke4duke.internal.jvmclass.SpringFactory
             </jvmArg>
           </jvmArgs>
           <cucumberArgs>

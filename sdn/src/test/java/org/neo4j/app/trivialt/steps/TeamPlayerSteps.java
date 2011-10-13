@@ -1,4 +1,4 @@
-package org.neo4j.app.trivialt.model;
+package org.neo4j.app.trivialt.steps;
 
 import cuke4duke.annotation.After;
 import cuke4duke.annotation.Before;
@@ -7,7 +7,10 @@ import cuke4duke.annotation.I18n.EN.Given;
 import cuke4duke.annotation.I18n.EN.When;
 import cuke4duke.annotation.I18n.EN.Then;
 import cuke4duke.annotation.Pending;
+import cuke4duke.spring.StepDefinitions;
 
+import org.neo4j.app.trivialt.model.Player;
+import org.neo4j.app.trivialt.model.Team;
 import org.neo4j.app.trivialt.service.TrivialtWorld;
 import org.neo4j.graphdb.Transaction;
 
@@ -20,6 +23,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 import static org.junit.matchers.JUnitMatchers.hasItems;
 
+@StepDefinitions
 public class TeamPlayerSteps
 {
     private static TrivialtWorld trivialtWorld;

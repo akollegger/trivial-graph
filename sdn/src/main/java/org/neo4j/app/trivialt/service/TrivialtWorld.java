@@ -10,7 +10,7 @@ import org.neo4j.app.trivialt.model.Question;
 import org.neo4j.app.trivialt.model.Team;
 import org.neo4j.app.trivialt.repository.Answers;
 import org.neo4j.app.trivialt.repository.Categories;
-import org.neo4j.app.trivialt.repository.Players;
+import org.neo4j.app.trivialt.repository.PlayerRepository;
 import org.neo4j.app.trivialt.repository.Questions;
 import org.neo4j.app.trivialt.repository.Teams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class TrivialtWorld {
     @Autowired private Categories categories;
     @Autowired private Questions questions;
     @Autowired private Answers answers;
-    @Autowired private Players players;
+    @Autowired private PlayerRepository players;
     @Autowired private Teams teams;
 
 	public void learn(FreeformTrivia fq) {

@@ -1,4 +1,4 @@
-package org.neo4j.app.trivialt.model;
+package org.neo4j.app.trivialt.steps;
 
 import cuke4duke.Table;
 import cuke4duke.annotation.After;
@@ -7,12 +7,16 @@ import cuke4duke.annotation.I18n.EN.Given;
 import cuke4duke.annotation.I18n.EN.When;
 import cuke4duke.annotation.I18n.EN.Then;
 import cuke4duke.annotation.Pending;
+import cuke4duke.spring.StepDefinitions;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.neo4j.app.trivialt.model.Category;
+import org.neo4j.app.trivialt.model.FreeformTrivia;
+import org.neo4j.app.trivialt.model.Question;
 import org.neo4j.app.trivialt.service.TrivialtWorld;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -21,6 +25,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItems;
 
+@StepDefinitions
 public class TrivialtWorldSteps
 {
     private static TrivialtWorld trivialtWorld;

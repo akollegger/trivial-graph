@@ -3,6 +3,7 @@ package org.neo4j.app.trivialt.model;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
+import static org.neo4j.graphdb.Direction.BOTH;
 
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class Player {
     @Indexed(fulltext = true, indexName = "people")
     private String name;
 
-    @RelatedTo(elementClass = Player.class, type = "FRIENDS")
+    @RelatedTo(elementClass = Player.class, type = "FRIEND", direction = BOTH)
     private Set<Player> friends;
     
     public Player() {}
