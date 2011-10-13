@@ -18,6 +18,7 @@ import org.neo4j.app.trivialt.model.Category;
 import org.neo4j.app.trivialt.model.FreeformTrivia;
 import org.neo4j.app.trivialt.model.Question;
 import org.neo4j.app.trivialt.service.TrivialtWorld;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -28,22 +29,11 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 @StepDefinitions
 public class TrivialtWorldSteps
 {
-    private static TrivialtWorld trivialtWorld;
+	@Autowired
+    private TrivialtWorld trivialtWorld;
 
     private Iterable<Category> categories;
     private Question lastQuestion;
-
-    @Before
-    public void prepareWorld()
-    {
-        trivialtWorld = new TrivialtWorld( );
-    }
-
-    @After
-    public void shutdownWorlds()
-    {
-        trivialtWorld.shutdown();
-    }
 
     @Given("^these freeform questions:$")
     public void theseFreeformQuestionsWithTable( Table table ) throws Exception
@@ -83,7 +73,9 @@ public class TrivialtWorldSteps
     @When("^asked for a question from the \"([^\"]*)\" category$")
     public void askedForAQuestionFromTheSportCategory( String category )
     {
-        this.lastQuestion = trivialtWorld.getQuestionsInCategory( category ).iterator().next();
+        Iterable<Question> questionsInCategory = trivialtWorld.getQuestionsInCategory( category );
+        assertThat (questionsInCategory, is(not(nullValue())));
+		this.lastQuestion = questionsInCategory.iterator().next();
     }
 
     @Then("^the question posed should be \"([^\"]*)\"$")

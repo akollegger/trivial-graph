@@ -74,8 +74,12 @@ public class TrivialtWorld {
 	}
 
 	public Iterable<Question> getQuestionsInCategory(String category) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterable<Question> foundQuestions = null;
+		Category foundCategory = categories.findByPropertyValue("name", category);
+		if (foundCategory != null) {
+			foundQuestions = foundCategory.getQuestion();
+		}
+		return foundQuestions;
 	}
 
 	public synchronized Player register(String playerHandle, String playerName) {

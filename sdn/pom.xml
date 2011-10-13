@@ -355,7 +355,7 @@
             <cucumberArg>- -tags @freeform</cucumberArg>
             <cucumberArg>- -tags @players</cucumberArg>
             -->
-            <cucumberArg>--tags @players</cucumberArg>
+            <cucumberArg>--tags @freeform</cucumberArg>
             <cucumberArg>--color</cucumberArg>
             <cucumberArg>--verbose</cucumberArg>
             <cucumberArg>--format</cucumberArg>
