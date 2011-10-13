@@ -2,6 +2,9 @@ package org.neo4j.app.trivialt.model;
 
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+
+import java.util.Set;
 
 @NodeEntity
 public class Player {
@@ -24,5 +27,16 @@ public class Player {
 
     public String getHandle() {
         return handle;
+    }
+
+    @RelatedTo(elementClass = Player.class, type = "FRIENDS")
+    private Set<Player> friends;
+
+    public Set<Player> getFriends() {
+        return friends;
+    }
+
+    public void addFriend(Player player) {
+        this.friends.add(player);
     }
 }
