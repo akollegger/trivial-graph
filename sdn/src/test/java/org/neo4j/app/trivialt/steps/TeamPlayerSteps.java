@@ -13,6 +13,7 @@ import org.neo4j.app.trivialt.model.Player;
 import org.neo4j.app.trivialt.model.Team;
 import org.neo4j.app.trivialt.service.TrivialtWorld;
 import org.neo4j.graphdb.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -26,20 +27,10 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 @StepDefinitions
 public class TeamPlayerSteps
 {
-    private static TrivialtWorld trivialtWorld;
+	@Autowired
+    private TrivialtWorld trivialtWorld;
     private static Player currentPlayer;
-
-    @Before("@players")
-    public void prepareWorld()
-    {
-        trivialtWorld = new TrivialtWorld( );
-    }
-
-    @After("@players")
-    public void shutdownWorlds()
-    {
-        trivialtWorld.shutdown();
-    }
+    
 
     @Given("^these players:$")
     public void thesePlayersWithTable( cuke4duke.Table table ) throws Exception
@@ -124,16 +115,19 @@ public class TeamPlayerSteps
         assertThat( playerA.getFriends(), hasItem( playerB ) );
     }
 
-    @When("^a new team called \"([^\"]*)\" with secret \"([^\"]*)\" is created$")
-    @Pending
-    public void aNewTeamCalledGraphistasWithSecretNeo4jIsCreated( String arg1, String arg2 )
+    @When("^the current player creates a new team called \"([^\"]*)\" with secret \"([^\"]*)\"$")
+    public void aNewTeamCalledGraphistasWithSecretNeo4jIsCreated( String teamName, String secret )
     {
+    	trivialtWorld.establish(currentPlayer, teamName, secret);
     }
 
     @Then("^\"([^\"]*)\" is a member of \"([^\"]*)\"$")
-    @Pending
-    public void playerIsAMemberOfTeam( String arg1, String arg2 )
+    public void playerIsAMemberOfTeam( String playerHandle, String teamName )
     {
+    	Player player = trivialtWorld.findPlayer(playerHandle);
+    	Team team = trivialtWorld.findTeam(teamName);
+    	assertThat(player.getMemberships(), hasItem(team));
+    	assertThat(team.getMembers(), hasItem(player));
     }
 
     @When("^the current player tries to join \"([^\"]*)\" by whispering \"([^\"]*)\"$")

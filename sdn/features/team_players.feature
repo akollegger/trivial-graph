@@ -24,7 +24,7 @@ Feature: Trivialt Players and Teams
 
   Scenario: Start a team
     Given "@andres_taylor" is the current player
-    When a new team called "graphistas" with secret "neo4j" is created
+    When the current player creates a new team called "graphistas" with secret "neo4j"
     Then "@andres_taylor" is a member of "graphistas"
 
   Scenario: Join an existing team

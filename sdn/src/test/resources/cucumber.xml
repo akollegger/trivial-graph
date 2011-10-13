@@ -13,5 +13,5 @@
       type="annotation" 
       expression="cuke4duke.spring.StepDefinitions"/>
   </context:component-scan>
-  <import resource="trivialt-test-context.xml"/>
+  <import resource="/trivialt-test-context.xml"/>
 </beans>

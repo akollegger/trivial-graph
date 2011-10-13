@@ -353,6 +353,7 @@
             <!--
             <cucumberArg>- -tags @app</cucumberArg>
             <cucumberArg>- -tags @freeform</cucumberArg>
+            <cucumberArg>- -tags @players</cucumberArg>
             -->
             <cucumberArg>--tags @players</cucumberArg>
             <cucumberArg>--color</cucumberArg>

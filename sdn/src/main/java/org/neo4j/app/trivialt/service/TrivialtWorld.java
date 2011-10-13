@@ -15,8 +15,10 @@ import org.neo4j.app.trivialt.repository.Questions;
 import org.neo4j.app.trivialt.repository.Teams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class TrivialtWorld {
 
 
@@ -76,18 +78,28 @@ public class TrivialtWorld {
 		return null;
 	}
 
-	public Player register(String playerHandle, String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+	public synchronized Player register(String playerHandle, String playerName) {
+		Player unique = players.findByPropertyValue("handle", playerHandle);
+		if (unique == null) {
+			return players.save(new Player(playerHandle, playerName));
+		} else {
+			return null;
+		}
 	}
 
 	public Player findPlayer(String handle) {
-		return null;
+		return (Player) players.findByPropertyValue("handle", handle);
 	}
 
-	public Team establish(Player founder, String teamName, String secret) {
-		// TODO Auto-generated method stub
-		return null;
+	public synchronized Team establish(Player founder, String teamName, String secret) {
+		Team unique = teams.findByPropertyValue("name", teamName);
+		if (unique == null) {
+			unique = teams.save(new Team(teamName, secret));
+			unique.setFounder(founder);
+		} else {
+			return null;
+		}
+		return unique;
 	}
 
 	public void draft(Player player, Team onTeam) {
@@ -96,8 +108,11 @@ public class TrivialtWorld {
 	}
 
 	public void makeFriends(Player playerA, Player playerB) {
-		// TODO Auto-generated method stub
-		
+		playerA.addFriend(playerB);
+	}
+
+	public Team findTeam(String teamName) {
+		return teams.findByPropertyValue("name", teamName);
 	}
 
 }
