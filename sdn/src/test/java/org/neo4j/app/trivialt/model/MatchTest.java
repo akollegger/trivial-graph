@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.app.trivialt.Neo4jTestBase;
+import org.neo4j.app.trivialt.repository.MatchRepository;
 import org.neo4j.app.trivialt.repository.PlayerRepository;
 import org.neo4j.app.trivialt.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,28 @@ import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/trivialt-test-context.xml"})
 @Transactional
-public class TeamTest extends Neo4jTestBase
+public class MatchTest extends Neo4jTestBase
 {
-
-    @Autowired private TeamRepository teams;
     @Autowired private PlayerRepository players;
+    @Autowired private MatchRepository matches;
     
     @Test
     public void shouldStoreTeams()
     {
-    	Team saved = teams.save(new Team("zteam", "zimzam"));
-    	Team found = teams.findByPropertyValue("name", "zteam");
+    	Player player = players.save(new Player());
+    	Match saved = matches.save(new Match(player, "zimzam"));
+    	Match found = matches.findByPropertyValue("title", "zimzam");
 
         assertThat(found, is(saved));
     }
 
     @Test
-    public void shouldAddPlayersToMembership()
+    public void shouldHaveATriviaMaster()
     {
-        Player abk = players.save(new Player( "@akollegger", "Andreas Kollegger" ));
-        Player mh = players.save(new Player( "@micha", "Michael Hunger" ));
-    	Team t = teams.save(new Team("zteam", "zimzam"));
+        Player player = players.save(new Player( "@akollegger", "Andreas Kollegger" ));
+    	Match saved = matches.save(new Match(player, "zimzam"));
     	
-    	t.add(abk);
-    	t.add(mh);
-
-        assertThat( t.getMembers(), hasItem( abk ) );
-        assertThat( t.getMembers(), hasItem( mh ) );
+        assertThat( saved.getTriviaMaster(), is( player ) );
 
     }
 

@@ -30,7 +30,7 @@ public class ModelTest {
     }
 
     @Test
-    public void persisAndThenLoadThroughSpring() {
+    public void persistAndThenLoadThroughSpring() {
         Player fetched = playerRepository.findByPropertyValue("handle", "systay");
 
         assertThat(andres, is(fetched));

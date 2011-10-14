@@ -29,8 +29,6 @@ public class TeamPlayerSteps
 {
 	@Autowired
     private TrivialtWorld trivialtWorld;
-    private static Player currentPlayer;
-    
 
     @Given("^these players:$")
     public void thesePlayersWithTable( cuke4duke.Table table ) throws Exception
@@ -58,10 +56,13 @@ public class TeamPlayerSteps
             {
                 trivialtWorld.register( row.get( 0 ), row.get( 1 ) );
                 Player founder = trivialtWorld.findPlayer( (String) row.get( 0 ) );
+                assertThat(founder, is(not(nullValue())));
                 Team t = trivialtWorld.establish( founder, row.get( 1 ), row.get( 2 ) );
                 for ( String playerHandle : row.get( 3 ).split( ", " ) )
                 {
-                    trivialtWorld.draft( trivialtWorld.findPlayer( playerHandle ), t );
+                    Player rookiePlayer = trivialtWorld.findPlayer( playerHandle );
+                    assertThat(rookiePlayer, is(not(nullValue())));
+					trivialtWorld.draft( rookiePlayer, t );
                 }
 
             }
@@ -76,8 +77,8 @@ public class TeamPlayerSteps
     @When("^you register \"([^\"]*)\" with handle \"([^\"]*)\"$")
     public void youRegisterUser( String name, String handle )
     {
-        currentPlayer = trivialtWorld.register( handle, name );
-        assertThat( currentPlayer, is( not( nullValue() ) ) );
+        Current.player = trivialtWorld.register( handle, name );
+        assertThat( Current.player, is( not( nullValue() ) ) );
     }
 
     @Then("^trivialt knows \"([^\"]*)\" is \"([^\"]*)\"$")
@@ -91,20 +92,20 @@ public class TeamPlayerSteps
     @Then("^\"([^\"]*)\" should be the current player$")
     public void assertTheCurrentPlayerIs( String handle )
     {
-        assertThat( currentPlayer.getHandle(), is( handle ) );
+        assertThat( Current.player.getHandle(), is( handle ) );
     }
 
     @Given("^\"([^\"]*)\" is the current player$")
     public void setTheCurrentPlayerIs( String handle )
     {
-        currentPlayer = trivialtWorld.findPlayer( handle );
+        Current.player = trivialtWorld.findPlayer( handle );
     }
 
     @When("^the current player friends \"([^\"]*)\"$")
     public void theCurrentPlayerFriendsSomebody( String otherPlayerHandle )
     {
         Player otherPlayer = trivialtWorld.findPlayer( otherPlayerHandle );
-        trivialtWorld.makeFriends( currentPlayer, otherPlayer );
+        trivialtWorld.makeFriends( Current.player, otherPlayer );
     }
 
     @Then("^\"([^\"]*)\" is known to \"([^\"]*)\"$")
@@ -118,7 +119,7 @@ public class TeamPlayerSteps
     @When("^the current player creates a new team called \"([^\"]*)\" with secret \"([^\"]*)\"$")
     public void aNewTeamCalledGraphistasWithSecretNeo4jIsCreated( String teamName, String secret )
     {
-    	trivialtWorld.establish(currentPlayer, teamName, secret);
+    	trivialtWorld.establish(Current.player, teamName, secret);
     }
 
     @Then("^\"([^\"]*)\" is a member of \"([^\"]*)\"$")
@@ -142,7 +143,7 @@ public class TeamPlayerSteps
     public void theCurrentPlayerTriesToJoinTeam( String teamName, String teamSecret )
     {
     	Team team = trivialtWorld.findTeam(teamName);
-    	trivialtWorld.considerMembership(currentPlayer, team, teamSecret);
+    	trivialtWorld.considerMembership(Current.player, team, teamSecret);
     }
 
 }

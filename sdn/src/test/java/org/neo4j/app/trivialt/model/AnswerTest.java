@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.app.trivialt.Neo4jTestBase;
-import org.neo4j.app.trivialt.repository.Answers;
+import org.neo4j.app.trivialt.repository.AnswerRepository;
 import org.neo4j.cineasts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 public class AnswerTest extends Neo4jTestBase
 {
 
-    @Autowired private Answers answers;
+    @Autowired private AnswerRepository answers;
     
     @Test
     @Ignore

@@ -3,7 +3,7 @@ package org.neo4j.app.trivialt.model;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.app.trivialt.Neo4jTestBase;
-import org.neo4j.app.trivialt.repository.Categories;
+import org.neo4j.app.trivialt.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,7 +23,7 @@ import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 public class CategoryTest extends Neo4jTestBase
 {
 
-    @Autowired private Categories categories;
+    @Autowired private CategoryRepository categories;
     
     @Test
     public void shouldStoreCategories()

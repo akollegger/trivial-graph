@@ -3,8 +3,8 @@ package org.neo4j.app.trivialt.model;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.app.trivialt.Neo4jTestBase;
-import org.neo4j.app.trivialt.repository.Answers;
-import org.neo4j.app.trivialt.repository.Questions;
+import org.neo4j.app.trivialt.repository.AnswerRepository;
+import org.neo4j.app.trivialt.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,8 +23,8 @@ import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 public class QuestionTest extends Neo4jTestBase
 {
 
-    @Autowired private Answers answers;
-    @Autowired private Questions questions;
+    @Autowired private AnswerRepository answers;
+    @Autowired private QuestionRepository questions;
     
     @Test
     public void shouldOnlyHaveOneAnswer()

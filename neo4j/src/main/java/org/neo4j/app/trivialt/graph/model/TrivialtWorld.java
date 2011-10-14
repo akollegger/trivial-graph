@@ -28,15 +28,15 @@ import java.util.Iterator;
  * (player)-[:KNOWS]->(player)*
  * <p/>
  * (team)<-[:MEMBER]-(player)
- * (team)-[:ASSIGNED]->(cards)*
+ * (team)-[:ASSIGNED]->(card)*
  * <p/>
- * (card)-[:CONTAINS]->(proposals)
+ * (card)-[:CONTAINS]->(proposal)*
  * (card)->[:SUBMITTED_TO]->(round)
  * <p/>
- * (round)-[:PRESENTS.order]->(frame)
+ * (round)-[:PRESENTS.order]->(framedQuestion)
  * <p/>
- * (frame)-[:PHRASES]->(question)
- * (frame)-[:OFFERS]->(answer)*
+ * (framedQuestion)-[:PHRASES]->(originalQuestion)
+ * (framedQuestion)-[:OFFERS]->(possibleAnswer)*
  * <p/>
  * (proposal)-[:IN_RESPONSE_TO]->(frame)
  * (proposal)-[:PROPOSES]->(answer)

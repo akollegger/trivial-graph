@@ -1,8 +1,8 @@
 package org.neo4j.app.trivialt.repository;
 
-import org.neo4j.app.trivialt.model.Team;
+import org.neo4j.app.trivialt.model.Answer;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
-public interface Teams extends GraphRepository<Team> {
+public interface AnswerRepository extends GraphRepository<Answer> {
 
 }
