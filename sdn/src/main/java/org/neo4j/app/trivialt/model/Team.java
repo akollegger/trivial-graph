@@ -18,10 +18,11 @@ public class Team {
     private String name;
 
     private String secret;
-
     
     @RelatedToVia(elementClass = Role.class, type = "MEMBER", direction = OUTGOING)
     private Iterable<Role> members;
+
+    private Set<Deck> decks;
     
     public Team() {
     }
@@ -77,6 +78,14 @@ public class Team {
 
 	public void setSecret(String secret) {
 		this.secret = secret;
+	}
+
+	public Set<Deck> getDecks() {
+		return decks;
+	}
+
+	public void add(Deck deck) {
+		this.decks.add(deck);
 	}
 
 }

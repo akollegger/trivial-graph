@@ -16,6 +16,7 @@ Feature: Trivialt Players and Teams
     When you register "Tobias Ivarsson" with handle "@thobe"
     Then trivialt knows "@thobe" is "Tobias Ivarsson"
     And "@thobe" should be the current player
+    And "@thobe" is the only member of team "@thobe"
 
   Scenario: Friend another player
     Given "@akollegger" is the current player

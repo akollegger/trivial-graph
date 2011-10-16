@@ -96,11 +96,19 @@ public class TeamPlayerSteps
     }
 
     @Given("^\"([^\"]*)\" is the current player$")
-    public void setTheCurrentPlayerIs( String handle )
+    public void setTheCurrentPlayerTo( String handle )
     {
         Current.player = trivialtWorld.findPlayer( handle );
+        assertThat(Current.player, is(not(nullValue())));
     }
 
+    @Given("^\"([^\"]*)\" is the current team$")
+    public void setTheCurrentTeamTo( String teamName )
+    {
+        Current.team = trivialtWorld.findTeam( teamName );
+        assertThat(Current.team, is(not(nullValue())));
+    }
+    
     @When("^the current player friends \"([^\"]*)\"$")
     public void theCurrentPlayerFriendsSomebody( String otherPlayerHandle )
     {

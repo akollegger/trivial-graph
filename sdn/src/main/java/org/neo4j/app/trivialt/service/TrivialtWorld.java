@@ -3,7 +3,9 @@ package org.neo4j.app.trivialt.service;
 import java.util.Collection;
 
 import org.neo4j.app.trivialt.model.Answer;
+import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.Category;
+import org.neo4j.app.trivialt.model.Deck;
 import org.neo4j.app.trivialt.model.FreeformTrivia;
 import org.neo4j.app.trivialt.model.Match;
 import org.neo4j.app.trivialt.model.Player;
@@ -26,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
  * <p/>
  * Patterns:
  * <p/>
- * (category)-[:CATEGORIZES]->(questions)
+ * (category)-[:CATEGORIZES]->(question)*
  * <p/>
  * (question)-[:ANSWERED_BY]->(answer)
  * (question)-[:MISDIRECTED_BY]->(answer)*
@@ -34,12 +36,16 @@ import org.springframework.transaction.annotation.Transactional;
  * (player)-[:KNOWS]->(player)*
  * <p/>
  * (team)<-[:MEMBER]-(player)
- * (team)-[:ASSIGNED]->(cards)*
+ * (team)-[:ASSIGNED]->(deck)*
  * <p/>
- * (card)-[:CONTAINS]->(proposals)
- * (card)->[:SUBMITTED_TO]->(round)
+ * (deck)-[:SUBMITTED_TO]->(match)
+ * (deck)-[:CARD.order]->(card)*
+ * <p/>
+ * (card)-[:CONTAINS]->(proposal)*
+ * (card)->[:RESPOND]->(round)
  * <p/>
  * (round)-[:PRESENTS.order]->(frame)
+ * (round)-[:CURRENT]->(frame)
  * <p/>
  * (frame)-[:PHRASES]->(question)
  * (frame)-[:OFFERS]->(answer)*
@@ -47,7 +53,9 @@ import org.springframework.transaction.annotation.Transactional;
  * (proposal)-[:IN_RESPONSE_TO]->(frame)
  * (proposal)-[:PROPOSES]->(answer)
  * <p/>
+ * (match)-[:ISSUES]->(card)
  * (match)-[:ROUND.order]->(round)
+ * (match)-[:CURRENT]->(round)
  * <p/>
  * (media)-[:RENDERS]->(frame)
  * (media-library)-[:STORES]->(media)
@@ -157,8 +165,8 @@ public class TrivialtWorld {
 		onTeam.add(player);
 	}
 
-	public void makeFriends(Player playerA, Player playerB) {
-		playerA.addFriend(playerB);
+	public void makeFriends(Player fromPlayer, Player toPlayer) {
+		fromPlayer.addFriend(toPlayer);
 	}
 
 	public Team findTeam(String byName) {
@@ -185,6 +193,19 @@ public class TrivialtWorld {
 		{
 			toMatch.addRound(titled);
 		}
+	}
+
+	/**
+	 * A Team joins a Match, receiving a Deck of Cards.
+	 * 
+	 * @param team
+	 * @param joinsMatch
+	 * @return
+	 */
+	public Deck join(Team team, Match joinsMatch) {
+		Deck deckIssuedForTeam = new Deck(joinsMatch);
+		team.add(deckIssuedForTeam);
+		return deckIssuedForTeam;
 	}
 
 }

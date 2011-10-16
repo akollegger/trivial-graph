@@ -10,11 +10,11 @@ Feature: Playing a Trivialt match
       | @tbaum             | Thomas Baum       |
     And these teams:
       | FOUNDER     | TEAM NAME  | SECRET    | PLAYERS                     |
-      | @akollegger | A Team     | neo4j     | @akollegger, @systay |
+      | @akollegger | Ska Fans   | neo4j     | @akollegger, @systay |
       | @micha      | German Div | endurance | @micha, @tbaum              |
     And these matches:
-      | MASTER      | MATCH TITLE      |
-      | @akollegger | Thirsty Thursday |
+      | MASTER      | MATCH TITLE      | TEAMS    |
+      | @akollegger | Thirsty Thursday | Ska Fans |
       
   Scenario: Create a match
     Given "@akollegger" is the current player
@@ -37,23 +37,13 @@ Feature: Playing a Trivialt match
 
   Scenario: Open match for registration
     Given "@akollegger" is the current player
-    And the current player is the Trivia Master of "Abstract Facts"
-    When the current player opens "Abstract Facts" for registration
-    Then the match "Abstract Facts" is in "registration" mode
+    And "Thirsty Thursday" is the current match
+    When the current player opens the current match for registration
+    Then the current match is in "registration" mode
 
   Scenario: Register team for a match
-    Given "@micha" is the current player
-    And "Abstract Facts" is in "registration" mode
-    When the current player enters "German Div" to the match "Abstract Facts"
-    Then "German Div" receives a playing card for "Abstract Facts"
-
-  Scenario: Begin match play
-    Given "@akollegger" is the current player
-    And the current player is the Trivia Master of "Abstract Facts"
-    And team "German Div" has a playing card for "Abstract Facts"
-    When the current player starts the match "Abstract Facts"
-    Then the match "Abstract Facts" is in "live" mode
-    And the current round of "Abstract Facts" is round 1
-    And the current question of "Abstract Facts" is question 1
-    And the "German Div" playing card for "Abstract Facts" has an unspecified proposal for round 1, queston 1
-
+    Given "German Div" is the current team
+    And "Thirsty Thursday" is in "registration" mode
+    When the current team joins the match "Thirsty Thursday"
+    Then "Thirsty Thursday" should be the current match
+    And "German Div" has a deck for "Thirsty Thursday"

@@ -16,6 +16,7 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 public class Match {
 
     public static final String UNPREPARED = "unprepared";
+    public static final String REGISTRATION = "registration";
 
 	@Indexed
     private String title;
