@@ -25,6 +25,7 @@
     </bean>
 
     <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+    
 
     <!--import resource="applicatioContext-security.xml"/-->
 </beans>

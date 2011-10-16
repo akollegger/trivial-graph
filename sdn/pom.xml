@@ -11,12 +11,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.6.RELEASE</spring.version>
-		<slf4j.version>1.6.1</slf4j.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<neo4j.version>1.5.M02</neo4j.version>
-		<spring-data-neo4j.version>2.0.0.BUILD-SNAPSHOT</spring-data-neo4j.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
 		<aspectj.version>1.6.12.M1</aspectj.version>
+		<spring-data-neo4j.version>2.0.0.BUILD-SNAPSHOT</spring-data-neo4j.version>
+    <roo.version>1.1.5.RELEASE</roo.version>
+
+
+		<slf4j.version>1.6.1</slf4j.version>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
     <cuke4duke.version>0.4.4</cuke4duke.version>
     <pico.version>2.13.6</pico.version>
@@ -50,6 +53,11 @@
       <id>cukes</id>
       <url>http://cukes.info/maven</url>
     </repository>
+    <repository>
+      <id>spring-roo-repository</id>
+      <name>Spring Roo Repository</name>
+      <url>http://spring-roo-repository.springsource.org/release</url>
+    </repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -66,6 +74,11 @@
     <pluginRepository>
       <id>cukes</id>
       <url>http://cukes.info/maven</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-roo-repository</id>
+      <name>Spring Roo Repository</name>
+      <url>http://spring-roo-repository.springsource.org/release</url>
     </pluginRepository>
 	</pluginRepositories>
 
@@ -136,9 +149,19 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring.version}</version>
+      <version>${spring.version}</version>
 		</dependency>
 
+    <!-- ROO dependencies -->
+    <dependency>
+      <groupId>org.springframework.roo</groupId>
+      <artifactId>org.springframework.roo.annotations</artifactId>
+      <version>${roo.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+
+    <!-- General dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -259,6 +282,12 @@
       <scope>test</scope>
     </dependency>
     
+    <!--  Groovy, man -->
+    <dependency>
+    	<groupId>org.codehaus.groovy</groupId>
+		<artifactId>groovy-all</artifactId>
+		<version>1.8.3</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -380,8 +409,35 @@
           </execution>
         </executions>
       </plugin>
-      
-		</plugins>
+      <!-- IDE -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.7</version>  <!-- Note 2.8 does not work with AspectJ aspect path -->
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>false</downloadJavadocs>
+          <wtpversion>2.0</wtpversion>
+          <additionalBuildcommands>
+            <buildCommand>
+              <name>org.eclipse.ajdt.core.ajbuilder</name>
+              <arguments>
+                <aspectPath>org.springframework.aspects</aspectPath>
+              </arguments>
+            </buildCommand>
+            <buildCommand>
+              <name>org.springframework.ide.eclipse.core.springbuilder</name>
+            </buildCommand>
+          </additionalBuildcommands>
+          <additionalProjectnatures>
+            <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
+            <projectnature>com.springsource.sts.roo.core.nature</projectnature>
+            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+          </additionalProjectnatures>
+        </configuration>
+      </plugin>
+
+    </plugins>
 	</build>
 
 </project>
