@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_org_neo4j_app_trivialt_model_Player" object="${player}" path="/players" z="7bgawNDq91MEs+KpaP3WdM61F0w=">
+        <field:display field="name" id="s_org_neo4j_app_trivialt_model_Player_name" object="${player}" z="swaBSvxQlDIYpxd3z8YPaW+8vxA="/>
+        <field:display field="handle" id="s_org_neo4j_app_trivialt_model_Player_handle" object="${player}" z="mKZ0psI0jaUB1jHz6LBCSoh+BeA="/>
+        <field:display field="friends" id="s_org_neo4j_app_trivialt_model_Player_friends" object="${player}" z="5SbNXcfRHqyHob3OAWMTCLdJw6Q="/>
+        <placeholder field="memberships" id="s_org_neo4j_app_trivialt_model_Player_memberships" object="${teams}"/>
+        <placeholder field="teams" id="s_org_neo4j_app_trivialt_model_Player_teams" object="${player}" z="user-managed"/>
+    </page:show>
+</div>

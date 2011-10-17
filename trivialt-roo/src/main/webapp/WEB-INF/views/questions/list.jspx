@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_neo4j_app_trivialt_model_Question" items="${questions}" z="O8YOa1HTceaBTxzWPZszecW5Cgo=">
+        <table:table data="${questions}" id="l_org_neo4j_app_trivialt_model_Question" path="/questions" z="NaoK8kOvU24f1eecXQLfBUujQS8=">
+            <table:column id="c_org_neo4j_app_trivialt_model_Question_text" property="text" z="vz1oB8AiVZOyHBW/lNKNQuKex10="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Question_answer" property="answer" z="/8kgEYF+Q1T9WH8z284owa7t45w="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Question_category" property="category" z="L9D727aRDqITasI4+nITCxI8QO8="/>
+        </table:table>
+    </page:list>
+</div>

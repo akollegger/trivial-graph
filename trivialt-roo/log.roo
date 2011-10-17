@@ -1,0 +1,88 @@
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 09:48:08
+project --topLevelPackage org.neo4j.app.trivialt --projectName trivialt-roo --java 6
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 09:48:08
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 09:49:31
+graph setup --provider NEO4J --databaseLocation trivialt.graphdb
+graph entity --class ~.model.Answer
+graph entity --class ~.model.Card
+graph entity --class ~.model.Category
+graph entity --class ~.model.Deck
+graph entity --class ~.model.FramedQuestion
+graph entity --class ~.model.Match
+graph entity --class ~.model.Media
+graph entity --class ~.model.Player
+graph entity --class ~.model.Proposal
+graph entity --class ~.model.Question
+graph entity --class ~.model.Round
+graph entity --class ~.model.Team
+controller scaffold --entity ~.model.Answer --class ~.web.AnswerController
+// [failed] graph entity --class ~.model.Answer
+field string text
+// [failed] graph entity --class ~.model.Question
+field string text
+graph relationship --from ~.model.Question --to ~.model.Answer --fieldName answer
+controller scaffold --entity ~.model.Question --class ~.web.QuestionController
+// [failed] graph entity --class ~.model.Category
+field string name
+graph relationship --from ~.model.Question --to ~.model.Category --fieldName category --cardinality MANY_TO_ONE
+graph relationship --from ~.model.Category --to ~.model.Question --fieldName questions --cardinality ONE_TO_MANY --direction INCOMING
+controller scaffold --entity ~.model.Category --class ~.web.CategoryController
+// [failed] graph entity --class ~.model.Card
+field boolean locked
+graph relationship --from ~.model.Card --to ~.model.Round --fieldName round
+graph relationship --from ~.model.Card --to ~.model.Proposal --fieldName proposals
+// [failed] graph relationship --from ~.model.Card --to ~.model.Proposal --fieldName proposals --cardinality ONE_TO_MANY
+graph relationship --from ~.model.Card --to ~.model.Proposal --fieldName proposals --cardinality ONE_TO_MANY --type ORDERED
+graph relationship --from ~.model.Proposal --to ~.model.Card --fieldName card --cardinality MANY_TO_ONE
+graph relationship --from ~.model.Deck --to ~.model.Match --fieldName match
+graph relationship --from ~.model.Deck --to ~.model.Card --fieldName cards --cardinality ONE_TO_MANY --type ORDERED
+// [failed] graph entity --class ~.model.FramedQuestion
+field string phrase
+graph relationship --from ~.model.FramedQuestion --to ~.model.Question --fieldName originalQuestion
+// [failed] graph relationship --from ~.model.FramedQuestiion --to ~.model.Answer --fieldName possibleAnswers --cardinality ONE_TO_MANY --direction OUTGOING
+// [failed] graph entity --class ~.model.Match
+// [failed] graph entity --class ~.model.Match
+field string title
+graph relationship --from ~.model.Match --to ~.model.Round --fieldName rounds --cardinality ONE_TO_MANY --type ORDERED
+graph relationship --from ~.model.Match --to ~.model.Player --fieldName triviaMaster
+field string mode
+graph relationship --from ~.model.Match --to ~.model.Round --fieldName currentRound
+// [failed] graph entity --class ~.model.Media
+field string url
+field string contentType
+graph relationship --from ~.model.Media --to ~.model.FramedQuestion --fieldName representedQuestion
+// [failed] graph entity --class ~.model.Player
+field string name
+field string handle
+graph relationship --from ~.model.Player --to ~.model.Player --fieldName friends --direction OUTGOING --cardinality MANY_TO_MANY
+// [failed] graph relationship --from ~.model.Player --to ~.model.Team --via ~.model.Role --fieldName memberships --cardinality ONE_TO_MANY
+// [failed] graph entity --class ~.model.Proposal
+graph relationship --from ~.model.Proposal --to ~.model.FramedQuestion --fieldName posedQuestion
+graph relationship --from ~.model.Proposal --to ~.model.Answer --fieldName proposedAnswer
+graph relationship --from ~.model.Proposal --to ~.model.Player --fieldName submittingPlayer
+// [failed] graph entity --class ~.model.Round
+field string title
+graph relationship --from ~.model.Round --to ~.model.FramedQuestion --fieldName framedQuestions  --cardinality ONE_TO_MANY --type ORDERED
+// [failed] graph entity --class ~.model.Team
+field string name
+field string secret
+// [failed] graph relationship --from ~.model.Team --to ~.model.Player --via ~.model.Role --fieldName memberships --cardinality MANY_TO_MANY
+graph relationship --from ~.model.Team --to ~.model.Deck --fieldName decks  --cardinality ONE_TO_MANY --type ORDERED
+controller scaffold --entity ~.model.Player --class ~.web.PlayerController
+controller scaffold --entity ~.model.Team --class ~.web.TeamController
+controller scaffold --entity ~.model.Match --class ~.web.MatchController
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 11:16:49
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 11:32:11
+controller scaffold --entity ~.model.Round --class ~.web.RoundController
+controller scaffold --entity ~.model.Card --class ~.web.CardController
+controller scaffold --entity ~.model.Deck --class ~.web.DeckController
+controller scaffold --entity ~.model.Deck --class ~.web.FramedQuestionController
+controller scaffold --entity ~.model.FramedQuestion --class ~.web.FramedQuestionController
+controller scaffold --entity ~.model.Media --class ~.web.MediaController
+controller scaffold --entity ~.model.Proposal --class ~.web.ProposalController
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 12:59:48
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 16:08:41
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 19:03:30
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 19:08:33
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 19:19:14
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 19:47:26

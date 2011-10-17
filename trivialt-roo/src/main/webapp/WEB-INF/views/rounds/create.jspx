@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_org_neo4j_app_trivialt_model_Round" modelAttribute="round" path="/rounds" render="${empty dependencies}" z="pQ76EHy6OsJmmpxhmra1CTIFiS0=">
+        <field:input field="title" id="c_org_neo4j_app_trivialt_model_Round_title" z="0dBKkHvn7ic87GD9q49ohGYjACc="/>
+        <field:select field="framedQuestions" id="c_org_neo4j_app_trivialt_model_Round_framedQuestions" itemValue="id" items="${framedquestions}" multiple="true" path="/framedquestions" z="D5ezPkERRhPKzxG5aCbbY6tjqnw="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_org_neo4j_app_trivialt_model_Round" render="${not empty dependencies}" z="+wq8DZ+JftqlzG+OjEY733pLJew="/>
+</div>

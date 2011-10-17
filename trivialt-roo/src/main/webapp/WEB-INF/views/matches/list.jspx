@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_neo4j_app_trivialt_model_Match" items="${matches}" z="5PkbTDDofDT4PTfs+gqI3EyUNLA=">
+        <table:table data="${matches}" id="l_org_neo4j_app_trivialt_model_Match" path="/matches" z="ArmPTORdlbEEuh8hsQAuGR1zMrU=">
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_title" property="title" z="4cJS74l2Fz3C/Mqv7gjOfIW+nP4="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_rounds" property="rounds" z="6RNr7oAf77Ccw6qdBBtWBd+w8Ko="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_triviaMaster" property="triviaMaster" z="DgBsaBpK6HsarhvLQZM18BpPuNs="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_currentRound" property="currentRound" z="A9DMZrM7/VPX+Jeq7WysV1K9zL0="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_mode" property="mode" z="8P7acZfkCTc1nKVwHhA8sSwxm/Q="/>
+        </table:table>
+    </page:list>
+</div>
