@@ -27,24 +27,24 @@ privileged aspect AnswerController_Roo_Controller {
     public String AnswerController.create(@Valid Answer answer, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("answer", answer);
-            return "answers/create";
+            return "api/answers/create";
         }
         uiModel.asMap().clear();
         answer.save();
-        return "redirect:/answers/" + encodeUrlPathSegment(answer.getId().toString(), httpServletRequest);
+        return "redirect:/api/answers/" + encodeUrlPathSegment(answer.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String AnswerController.createForm(Model uiModel) {
         uiModel.addAttribute("answer", new Answer());
-        return "answers/create";
+        return "api/answers/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String AnswerController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("answer", Answer.findAnswer(id));
         uiModel.addAttribute("itemId", id);
-        return "answers/show";
+        return "api/answers/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -57,24 +57,24 @@ privileged aspect AnswerController_Roo_Controller {
         } else {
             uiModel.addAttribute("answers", Answer.findAll());
         }
-        return "answers/list";
+        return "api/answers/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String AnswerController.update(@Valid Answer answer, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("answer", answer);
-            return "answers/update";
+            return "api/answers/update";
         }
         uiModel.asMap().clear();
         answer.save();
-        return "redirect:/answers/" + encodeUrlPathSegment(answer.getId().toString(), httpServletRequest);
+        return "redirect:/api/answers/" + encodeUrlPathSegment(answer.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String AnswerController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("answer", Answer.findAnswer(id));
-        return "answers/update";
+        return "api/answers/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -83,7 +83,7 @@ privileged aspect AnswerController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/answers";
+        return "redirect:/api/answers";
     }
     
     @ModelAttribute("answers")
