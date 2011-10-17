@@ -27,14 +27,14 @@ privileged aspect PlayerController_Roo_Controller {
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String PlayerController.createForm(Model uiModel) {
         uiModel.addAttribute("player", new Player());
-        return "players/create";
+        return "api/players/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String PlayerController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("player", Player.findPlayer(id));
         uiModel.addAttribute("itemId", id);
-        return "players/show";
+        return "api/players/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -47,24 +47,24 @@ privileged aspect PlayerController_Roo_Controller {
         } else {
             uiModel.addAttribute("players", Player.findAll());
         }
-        return "players/list";
+        return "api/players/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String PlayerController.update(@Valid Player player, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("player", player);
-            return "players/update";
+            return "api/players/update";
         }
         uiModel.asMap().clear();
         player.save();
-        return "redirect:/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
+        return "redirect:/api/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String PlayerController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("player", Player.findPlayer(id));
-        return "players/update";
+        return "api/players/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -73,7 +73,7 @@ privileged aspect PlayerController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/players";
+        return "redirect:/api/players";
     }
     
     @ModelAttribute("players")

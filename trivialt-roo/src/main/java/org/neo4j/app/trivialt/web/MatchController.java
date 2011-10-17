@@ -5,8 +5,8 @@ import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RooWebScaffold(path = "matches", formBackingObject = Match.class)
-@RequestMapping("/matches")
+@RooWebScaffold(path = "api/matches", formBackingObject = Match.class)
+@RequestMapping("/api/matches")
 @Controller
 public class MatchController {
 }

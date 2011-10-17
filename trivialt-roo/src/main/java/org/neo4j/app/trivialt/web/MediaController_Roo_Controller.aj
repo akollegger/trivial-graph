@@ -28,24 +28,24 @@ privileged aspect MediaController_Roo_Controller {
     public String MediaController.create(@Valid Media media, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("media", media);
-            return "medias/create";
+            return "api/medias/create";
         }
         uiModel.asMap().clear();
         media.save();
-        return "redirect:/medias/" + encodeUrlPathSegment(media.getId().toString(), httpServletRequest);
+        return "redirect:/api/medias/" + encodeUrlPathSegment(media.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String MediaController.createForm(Model uiModel) {
         uiModel.addAttribute("media", new Media());
-        return "medias/create";
+        return "api/medias/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String MediaController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("media", Media.findMedia(id));
         uiModel.addAttribute("itemId", id);
-        return "medias/show";
+        return "api/medias/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -58,24 +58,24 @@ privileged aspect MediaController_Roo_Controller {
         } else {
             uiModel.addAttribute("medias", Media.findAll());
         }
-        return "medias/list";
+        return "api/medias/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String MediaController.update(@Valid Media media, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("media", media);
-            return "medias/update";
+            return "api/medias/update";
         }
         uiModel.asMap().clear();
         media.save();
-        return "redirect:/medias/" + encodeUrlPathSegment(media.getId().toString(), httpServletRequest);
+        return "redirect:/api/medias/" + encodeUrlPathSegment(media.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String MediaController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("media", Media.findMedia(id));
-        return "medias/update";
+        return "api/medias/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -84,7 +84,7 @@ privileged aspect MediaController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/medias";
+        return "redirect:/api/medias";
     }
     
     @ModelAttribute("framedquestions")

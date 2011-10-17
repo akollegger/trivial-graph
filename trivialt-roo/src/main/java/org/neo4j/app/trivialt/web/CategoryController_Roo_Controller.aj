@@ -28,24 +28,24 @@ privileged aspect CategoryController_Roo_Controller {
     public String CategoryController.create(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("category", category);
-            return "categorys/create";
+            return "api/categorys/create";
         }
         uiModel.asMap().clear();
         category.save();
-        return "redirect:/categorys/" + encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
+        return "redirect:/api/categorys/" + encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String CategoryController.createForm(Model uiModel) {
         uiModel.addAttribute("category", new Category());
-        return "categorys/create";
+        return "api/categorys/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String CategoryController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("category", Category.findCategory(id));
         uiModel.addAttribute("itemId", id);
-        return "categorys/show";
+        return "api/categorys/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -58,24 +58,24 @@ privileged aspect CategoryController_Roo_Controller {
         } else {
             uiModel.addAttribute("categorys", Category.findAll());
         }
-        return "categorys/list";
+        return "api/categorys/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String CategoryController.update(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("category", category);
-            return "categorys/update";
+            return "api/categorys/update";
         }
         uiModel.asMap().clear();
         category.save();
-        return "redirect:/categorys/" + encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
+        return "redirect:/api/categorys/" + encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String CategoryController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("category", Category.findCategory(id));
-        return "categorys/update";
+        return "api/categorys/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -84,7 +84,7 @@ privileged aspect CategoryController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/categorys";
+        return "redirect:/api/categorys";
     }
     
     @ModelAttribute("categorys")

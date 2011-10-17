@@ -29,24 +29,24 @@ privileged aspect QuestionController_Roo_Controller {
     public String QuestionController.create(@Valid Question question, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("question", question);
-            return "questions/create";
+            return "api/questions/create";
         }
         uiModel.asMap().clear();
         question.save();
-        return "redirect:/questions/" + encodeUrlPathSegment(question.getId().toString(), httpServletRequest);
+        return "redirect:/api/questions/" + encodeUrlPathSegment(question.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String QuestionController.createForm(Model uiModel) {
         uiModel.addAttribute("question", new Question());
-        return "questions/create";
+        return "api/questions/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String QuestionController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("question", Question.findQuestion(id));
         uiModel.addAttribute("itemId", id);
-        return "questions/show";
+        return "api/questions/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect QuestionController_Roo_Controller {
         } else {
             uiModel.addAttribute("questions", Question.findAll());
         }
-        return "questions/list";
+        return "api/questions/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String QuestionController.update(@Valid Question question, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("question", question);
-            return "questions/update";
+            return "api/questions/update";
         }
         uiModel.asMap().clear();
         question.save();
-        return "redirect:/questions/" + encodeUrlPathSegment(question.getId().toString(), httpServletRequest);
+        return "redirect:/api/questions/" + encodeUrlPathSegment(question.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String QuestionController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("question", Question.findQuestion(id));
-        return "questions/update";
+        return "api/questions/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect QuestionController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/questions";
+        return "redirect:/api/questions";
     }
     
     @ModelAttribute("answers")

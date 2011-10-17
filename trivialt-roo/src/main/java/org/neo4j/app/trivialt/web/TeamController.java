@@ -5,8 +5,8 @@ import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RooWebScaffold(path = "teams", formBackingObject = Team.class)
-@RequestMapping("/teams")
+@RooWebScaffold(path = "api/teams", formBackingObject = Team.class)
+@RequestMapping("/api/teams")
 @Controller
 public class TeamController {
 }

@@ -19,4 +19,8 @@ public class Deck {
 
     @RelatedTo(elementClass=Card.class, direction=INCOMING)
     private Set<Card> cards;
+    
+    @RelatedTo(elementClass=Team.class, type="OWNS", direction=INCOMING)
+    private Team owner;
+    
 }

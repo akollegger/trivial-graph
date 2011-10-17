@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RooWebScaffold(path = "players", formBackingObject = Player.class)
-@RequestMapping("/players")
+@RooWebScaffold(path = "api/players", formBackingObject = Player.class)
+@RequestMapping("/api/players")
 @Controller
 public class PlayerController {
 

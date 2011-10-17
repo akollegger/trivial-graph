@@ -2,7 +2,7 @@
 <div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:show id="ps_org_neo4j_app_trivialt_model_Answer" object="${answer}" path="/api/answers" z="aWuKPrYNAb31J74UJEHsuda1yPI=">
+    <page:show id="ps_org_neo4j_app_trivialt_model_Answer" object="${answer}" path="/api/answers" z="user-managed">
         <field:display field="text" id="s_org_neo4j_app_trivialt_model_Answer_text" object="${answer}" z="AvIwwLNoOexEBDw90/59n4DDOBY="/>
     </page:show>
 </div>

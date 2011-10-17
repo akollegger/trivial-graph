@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_org_neo4j_app_trivialt_model_Category" object="${category}" path="/api/categorys" z="user-managed">
+        <field:display field="name" id="s_org_neo4j_app_trivialt_model_Category_name" object="${category}" z="uWiUfd2f2LzdjVdX/HAeENC14dg="/>
+        <field:display field="questions" id="s_org_neo4j_app_trivialt_model_Category_questions" object="${category}" z="l9tIkyN0EGIfTMhUpoziFg3wTes="/>
+    </page:show>
+</div>

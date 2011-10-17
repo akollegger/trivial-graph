@@ -29,24 +29,24 @@ privileged aspect MatchController_Roo_Controller {
     public String MatchController.create(@Valid Match match, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("match", match);
-            return "matches/create";
+            return "api/matches/create";
         }
         uiModel.asMap().clear();
         match.save();
-        return "redirect:/matches/" + encodeUrlPathSegment(match.getId().toString(), httpServletRequest);
+        return "redirect:/api/matches/" + encodeUrlPathSegment(match.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String MatchController.createForm(Model uiModel) {
         uiModel.addAttribute("match", new Match());
-        return "matches/create";
+        return "api/matches/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String MatchController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("match", Match.findMatch(id));
         uiModel.addAttribute("itemId", id);
-        return "matches/show";
+        return "api/matches/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect MatchController_Roo_Controller {
         } else {
             uiModel.addAttribute("matches", Match.findAll());
         }
-        return "matches/list";
+        return "api/matches/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String MatchController.update(@Valid Match match, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("match", match);
-            return "matches/update";
+            return "api/matches/update";
         }
         uiModel.asMap().clear();
         match.save();
-        return "redirect:/matches/" + encodeUrlPathSegment(match.getId().toString(), httpServletRequest);
+        return "redirect:/api/matches/" + encodeUrlPathSegment(match.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String MatchController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("match", Match.findMatch(id));
-        return "matches/update";
+        return "api/matches/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect MatchController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/matches";
+        return "redirect:/api/matches";
     }
     
     @ModelAttribute("matches")

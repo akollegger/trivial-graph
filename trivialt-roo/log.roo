@@ -87,3 +87,5 @@ controller scaffold --entity ~.model.Proposal --class ~.web.ProposalController
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-16 19:19:14
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-16 19:47:26
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-17 10:29:21
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-17 12:05:23
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-17 12:07:15

@@ -5,8 +5,8 @@ import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RooWebScaffold(path = "proposals", formBackingObject = Proposal.class)
-@RequestMapping("/proposals")
+@RooWebScaffold(path = "api/proposals", formBackingObject = Proposal.class)
+@RequestMapping("/api/proposals")
 @Controller
 public class ProposalController {
 }

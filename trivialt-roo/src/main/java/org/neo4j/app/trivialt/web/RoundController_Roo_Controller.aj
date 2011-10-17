@@ -28,24 +28,24 @@ privileged aspect RoundController_Roo_Controller {
     public String RoundController.create(@Valid Round round, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("round", round);
-            return "rounds/create";
+            return "api/rounds/create";
         }
         uiModel.asMap().clear();
         round.save();
-        return "redirect:/rounds/" + encodeUrlPathSegment(round.getId().toString(), httpServletRequest);
+        return "redirect:/api/rounds/" + encodeUrlPathSegment(round.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String RoundController.createForm(Model uiModel) {
         uiModel.addAttribute("round", new Round());
-        return "rounds/create";
+        return "api/rounds/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String RoundController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("round", Round.findRound(id));
         uiModel.addAttribute("itemId", id);
-        return "rounds/show";
+        return "api/rounds/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -58,24 +58,24 @@ privileged aspect RoundController_Roo_Controller {
         } else {
             uiModel.addAttribute("rounds", Round.findAll());
         }
-        return "rounds/list";
+        return "api/rounds/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String RoundController.update(@Valid Round round, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("round", round);
-            return "rounds/update";
+            return "api/rounds/update";
         }
         uiModel.asMap().clear();
         round.save();
-        return "redirect:/rounds/" + encodeUrlPathSegment(round.getId().toString(), httpServletRequest);
+        return "redirect:/api/rounds/" + encodeUrlPathSegment(round.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String RoundController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("round", Round.findRound(id));
-        return "rounds/update";
+        return "api/rounds/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -84,7 +84,7 @@ privileged aspect RoundController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/rounds";
+        return "redirect:/api/rounds";
     }
     
     @ModelAttribute("framedquestions")

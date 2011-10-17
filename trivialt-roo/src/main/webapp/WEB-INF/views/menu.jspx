@@ -4,52 +4,52 @@
     <jsp:output omit-xml-declaration="yes"/>
     <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
         <menu:category id="c_answer" z="VRJUL2DPcEjOdfnKKe/ixAXkXks=">
-            <menu:item id="i_answer_new" messageCode="global_menu_new" url="/answers?form" z="LPAHG1ylis2IM0UMQllr03koJ9U="/>
-            <menu:item id="i_answer_list" messageCode="global_menu_list" url="/answers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="dL/ZrqAaVZpavp9JjLYkQvniPLo="/>
+            <menu:item id="i_answer_new" messageCode="global_menu_new" url="/api/answers?form" z="user-managed"/>
+            <menu:item id="i_answer_list" messageCode="global_menu_list" url="/api/answers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_question" z="SR0L0iZw9fVnYZY0B/dk7XBq6eQ=">
-            <menu:item id="i_question_new" messageCode="global_menu_new" url="/questions?form" z="7Bx54/bA+53IAlm/YYWnirDy13E="/>
-            <menu:item id="i_question_list" messageCode="global_menu_list" url="/questions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="xkHgyP5wW2F64BsTqMA7Yb0CdHY="/>
+            <menu:item id="i_question_new" messageCode="global_menu_new" url="/api/questions?form" z="user-managed"/>
+            <menu:item id="i_question_list" messageCode="global_menu_list" url="/api/questions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_category" z="kY676wLbZKc59UbcUGM8ogjOGOc=">
-            <menu:item id="i_category_new" messageCode="global_menu_new" url="/categorys?form" z="Xqz6msHtFFIlT4/UwJALJOYTD1I="/>
-            <menu:item id="i_category_list" messageCode="global_menu_list" url="/categorys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="6D9be6DQ6UCnl0O7TDbbrkOhNIE="/>
+            <menu:item id="i_category_new" messageCode="global_menu_new" url="/api/categorys?form" z="user-managed"/>
+            <menu:item id="i_category_list" messageCode="global_menu_list" url="/api/categorys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_player" z="cK8M0OPX/OW66GiF/SNgS8vWpjs=">
-            <menu:item id="i_player_new" messageCode="global_menu_new" url="/players?form" z="xCwCGj+PbS/WEOyltkUd6nZ4y4g="/>
-            <menu:item id="i_player_list" messageCode="global_menu_list" url="/players?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ZCszNjmNvFu/+xYfzxw5lZP3Y2o="/>
+            <menu:item id="i_player_new" messageCode="global_menu_new" url="/api/players?form" z="user-managed"/>
+            <menu:item id="i_player_list" messageCode="global_menu_list" url="/api/players?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_team" z="ohZmKV2mHAiozGa+l7W8lVsp36Q=">
-            <menu:item id="i_team_new" messageCode="global_menu_new" url="/teams?form" z="4tXqOwL6AGKXY3eI3MjIlHBiYRc="/>
-            <menu:item id="i_team_list" messageCode="global_menu_list" url="/teams?page=1&amp;size=${empty param.size ? 10 : param.size}" z="e0UEGo6L31cC31D4lgkjPEbpROM="/>
+            <menu:item id="i_team_new" messageCode="global_menu_new" url="/api/teams?form" z="user-managed"/>
+            <menu:item id="i_team_list" messageCode="global_menu_list" url="/api/teams?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_match" z="FHslHW69KcFBjc/rUP5+K83OuvE=">
-            <menu:item id="i_match_new" messageCode="global_menu_new" url="/matches?form" z="UBa7xnyTvFRs5H+0AIn9HUXu6CI="/>
-            <menu:item id="i_match_list" messageCode="global_menu_list" url="/matches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="UqLzLwTtsWkva8dA8QAMTkyN1Rk="/>
+            <menu:item id="i_match_new" messageCode="global_menu_new" url="/api/matches?form" z="user-managed"/>
+            <menu:item id="i_match_list" messageCode="global_menu_list" url="/api/matches?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_round" z="qrltt4vvN4hguFF7qqMbT0LxHb8=">
-            <menu:item id="i_round_new" messageCode="global_menu_new" url="/rounds?form" z="YlCvxDwV5alz6a7sWrFW6cR2ZCM="/>
-            <menu:item id="i_round_list" messageCode="global_menu_list" url="/rounds?page=1&amp;size=${empty param.size ? 10 : param.size}" z="a+Tp0UZ8DGR3BORtrrE4jAqFfds="/>
+            <menu:item id="i_round_new" messageCode="global_menu_new" url="/api/rounds?form" z="user-managed"/>
+            <menu:item id="i_round_list" messageCode="global_menu_list" url="/api/rounds?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_card" z="j9iy3PDWy+M3ajHoRHeVvQK38Ic=">
-            <menu:item id="i_card_new" messageCode="global_menu_new" url="/cards?form" z="HnX6WO2gXiGwDI4yZBEgcPY3V5w="/>
-            <menu:item id="i_card_list" messageCode="global_menu_list" url="/cards?page=1&amp;size=${empty param.size ? 10 : param.size}" z="2BtnOpQF+yaD8dAIfbCuOD7pZD8="/>
+            <menu:item id="i_card_new" messageCode="global_menu_new" url="/api/cards?form" z="user-managed"/>
+            <menu:item id="i_card_list" messageCode="global_menu_list" url="/api/cards?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_deck" z="M/Jm4BS/ygLeWa1flxh6eVE/60M=">
-            <menu:item id="i_deck_new" messageCode="global_menu_new" url="/decks?form" z="jXSn/DEQDKBmc9RCmxYrU8T8B5w="/>
-            <menu:item id="i_deck_list" messageCode="global_menu_list" url="/decks?page=1&amp;size=${empty param.size ? 10 : param.size}" z="37hXuaNaQyWSdib80+l2KF0rQwo="/>
+            <menu:item id="i_deck_new" messageCode="global_menu_new" url="/api/decks?form" z="user-managed"/>
+            <menu:item id="i_deck_list" messageCode="global_menu_list" url="/api/decks?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_framedquestion" z="1PZgftTWCdp6awjh/cEexrcfUO8=">
-            <menu:item id="i_framedquestion_new" messageCode="global_menu_new" url="/framedquestions?form" z="Xq4J7YKPlmjgzJN6xGb6MeC5lV8="/>
-            <menu:item id="i_framedquestion_list" messageCode="global_menu_list" url="/framedquestions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="l9jSJcfto1lLn1MRLgJWx2TagjU="/>
+            <menu:item id="i_framedquestion_new" messageCode="global_menu_new" url="/api/framedquestions?form" z="user-managed"/>
+            <menu:item id="i_framedquestion_list" messageCode="global_menu_list" url="/api/framedquestions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_media" z="SqacaDVnSrXmQJB69xz5K1fP2Fs=">
-            <menu:item id="i_media_new" messageCode="global_menu_new" url="/medias?form" z="OIfbj50qi1kFkSFTSJLE93WzBC0="/>
-            <menu:item id="i_media_list" messageCode="global_menu_list" url="/medias?page=1&amp;size=${empty param.size ? 10 : param.size}" z="VgX3ic5+KXqm7H7gzcyK4PHeDvg="/>
+            <menu:item id="i_media_new" messageCode="global_menu_new" url="/api/medias?form" z="user-managed"/>
+            <menu:item id="i_media_list" messageCode="global_menu_list" url="/api/medias?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_proposal" z="suzPKqOAINWcaCELmLNnlmO5HIM=">
-            <menu:item id="i_proposal_new" messageCode="global_menu_new" url="/proposals?form" z="dsS+JjvocEnj9TGNqsXDaUWebHc="/>
-            <menu:item id="i_proposal_list" messageCode="global_menu_list" url="/proposals?page=1&amp;size=${empty param.size ? 10 : param.size}" z="bgO342A33knxIja47cd67OrK6DU="/>
+            <menu:item id="i_proposal_new" messageCode="global_menu_new" url="/api/proposals?form" z="user-managed"/>
+            <menu:item id="i_proposal_list" messageCode="global_menu_list" url="/api/proposals?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
     </menu:menu>
 </div>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_neo4j_app_trivialt_model_Player" modelAttribute="player" path="/api/players" versionField="none" z="PK2uhzTteHEsDOjxGpPwEu+m/tg=">
+        <field:input field="name" id="c_org_neo4j_app_trivialt_model_Player_name" z="46iH+fQEVNCOESSWmtveOmGeYco="/>
+        <field:input field="handle" id="c_org_neo4j_app_trivialt_model_Player_handle" z="+IRpyTHhJ5VsacG3Ctfih6C2q4Y="/>
+        <field:select field="friends" id="c_org_neo4j_app_trivialt_model_Player_friends" itemValue="id" items="${players}" multiple="true" path="/api/players" z="w/n6dWttfn2OBm0VCL114W90mgA="/>
+        <field:select field="teams" id="c_org_neo4j_app_trivialt_model_Player_teams" itemValue="id" items="${teams}" multiple="true" path="/api/teams" z="u7fAW/5gf9QvOwKgR/3eheIVoaA="/>
+    </form:update>
+</div>

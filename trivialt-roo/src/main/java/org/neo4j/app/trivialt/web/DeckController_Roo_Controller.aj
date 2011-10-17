@@ -29,24 +29,24 @@ privileged aspect DeckController_Roo_Controller {
     public String DeckController.create(@Valid Deck deck, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("deck", deck);
-            return "decks/create";
+            return "api/decks/create";
         }
         uiModel.asMap().clear();
         deck.save();
-        return "redirect:/decks/" + encodeUrlPathSegment(deck.getId().toString(), httpServletRequest);
+        return "redirect:/api/decks/" + encodeUrlPathSegment(deck.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String DeckController.createForm(Model uiModel) {
         uiModel.addAttribute("deck", new Deck());
-        return "decks/create";
+        return "api/decks/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String DeckController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("deck", Deck.findDeck(id));
         uiModel.addAttribute("itemId", id);
-        return "decks/show";
+        return "api/decks/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect DeckController_Roo_Controller {
         } else {
             uiModel.addAttribute("decks", Deck.findAll());
         }
-        return "decks/list";
+        return "api/decks/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String DeckController.update(@Valid Deck deck, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("deck", deck);
-            return "decks/update";
+            return "api/decks/update";
         }
         uiModel.asMap().clear();
         deck.save();
-        return "redirect:/decks/" + encodeUrlPathSegment(deck.getId().toString(), httpServletRequest);
+        return "redirect:/api/decks/" + encodeUrlPathSegment(deck.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String DeckController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("deck", Deck.findDeck(id));
-        return "decks/update";
+        return "api/decks/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect DeckController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/decks";
+        return "redirect:/api/decks";
     }
     
     @ModelAttribute("cards")

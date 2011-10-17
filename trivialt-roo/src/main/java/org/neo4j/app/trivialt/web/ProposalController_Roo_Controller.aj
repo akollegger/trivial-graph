@@ -31,24 +31,24 @@ privileged aspect ProposalController_Roo_Controller {
     public String ProposalController.create(@Valid Proposal proposal, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("proposal", proposal);
-            return "proposals/create";
+            return "api/proposals/create";
         }
         uiModel.asMap().clear();
         proposal.save();
-        return "redirect:/proposals/" + encodeUrlPathSegment(proposal.getId().toString(), httpServletRequest);
+        return "redirect:/api/proposals/" + encodeUrlPathSegment(proposal.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String ProposalController.createForm(Model uiModel) {
         uiModel.addAttribute("proposal", new Proposal());
-        return "proposals/create";
+        return "api/proposals/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String ProposalController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("proposal", Proposal.findProposal(id));
         uiModel.addAttribute("itemId", id);
-        return "proposals/show";
+        return "api/proposals/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -61,24 +61,24 @@ privileged aspect ProposalController_Roo_Controller {
         } else {
             uiModel.addAttribute("proposals", Proposal.findAll());
         }
-        return "proposals/list";
+        return "api/proposals/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String ProposalController.update(@Valid Proposal proposal, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("proposal", proposal);
-            return "proposals/update";
+            return "api/proposals/update";
         }
         uiModel.asMap().clear();
         proposal.save();
-        return "redirect:/proposals/" + encodeUrlPathSegment(proposal.getId().toString(), httpServletRequest);
+        return "redirect:/api/proposals/" + encodeUrlPathSegment(proposal.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String ProposalController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("proposal", Proposal.findProposal(id));
-        return "proposals/update";
+        return "api/proposals/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -87,7 +87,7 @@ privileged aspect ProposalController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/proposals";
+        return "redirect:/api/proposals";
     }
     
     @ModelAttribute("answers")

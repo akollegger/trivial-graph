@@ -29,24 +29,24 @@ privileged aspect FramedQuestionController_Roo_Controller {
     public String FramedQuestionController.create(@Valid FramedQuestion framedQuestion, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("framedQuestion", framedQuestion);
-            return "framedquestions/create";
+            return "api/framedquestions/create";
         }
         uiModel.asMap().clear();
         framedQuestion.save();
-        return "redirect:/framedquestions/" + encodeUrlPathSegment(framedQuestion.getId().toString(), httpServletRequest);
+        return "redirect:/api/framedquestions/" + encodeUrlPathSegment(framedQuestion.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String FramedQuestionController.createForm(Model uiModel) {
         uiModel.addAttribute("framedQuestion", new FramedQuestion());
-        return "framedquestions/create";
+        return "api/framedquestions/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String FramedQuestionController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("framedquestion", FramedQuestion.findFramedQuestion(id));
         uiModel.addAttribute("itemId", id);
-        return "framedquestions/show";
+        return "api/framedquestions/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect FramedQuestionController_Roo_Controller {
         } else {
             uiModel.addAttribute("framedquestions", FramedQuestion.findAll());
         }
-        return "framedquestions/list";
+        return "api/framedquestions/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String FramedQuestionController.update(@Valid FramedQuestion framedQuestion, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("framedQuestion", framedQuestion);
-            return "framedquestions/update";
+            return "api/framedquestions/update";
         }
         uiModel.asMap().clear();
         framedQuestion.save();
-        return "redirect:/framedquestions/" + encodeUrlPathSegment(framedQuestion.getId().toString(), httpServletRequest);
+        return "redirect:/api/framedquestions/" + encodeUrlPathSegment(framedQuestion.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String FramedQuestionController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("framedQuestion", FramedQuestion.findFramedQuestion(id));
-        return "framedquestions/update";
+        return "api/framedquestions/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect FramedQuestionController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/framedquestions";
+        return "redirect:/api/framedquestions";
     }
     
     @ModelAttribute("answers")

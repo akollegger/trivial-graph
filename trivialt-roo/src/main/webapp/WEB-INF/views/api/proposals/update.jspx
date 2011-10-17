@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_neo4j_app_trivialt_model_Proposal" modelAttribute="proposal" path="/api/proposals" versionField="none" z="hz4rea3Upwnay4ZRMhymNHAdAHc=">
+        <field:select field="card" id="c_org_neo4j_app_trivialt_model_Proposal_card" itemValue="id" items="${cards}" path="/api/cards" z="4ZWYFweR8PAsOUpvBQ+KfSBi2s0="/>
+        <field:select field="posedQuestion" id="c_org_neo4j_app_trivialt_model_Proposal_posedQuestion" itemValue="id" items="${framedquestions}" path="/framedquestions" z="776h2MLvIMoWmbco9sbs23BJwvU="/>
+        <field:select field="proposedAnswer" id="c_org_neo4j_app_trivialt_model_Proposal_proposedAnswer" itemValue="id" items="${answers}" path="/api/answers" z="ghz8YsgSNk9w3BUE2ttFEEfv1h4="/>
+        <field:select field="submittingPlayer" id="c_org_neo4j_app_trivialt_model_Proposal_submittingPlayer" itemValue="id" items="${players}" path="/api/players" z="o/l43kwEnG3JHDdk1QZu88UDlp4="/>
+    </form:update>
+</div>

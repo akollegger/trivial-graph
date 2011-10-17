@@ -29,24 +29,24 @@ privileged aspect TeamController_Roo_Controller {
     public String TeamController.create(@Valid Team team, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("team", team);
-            return "teams/create";
+            return "api/teams/create";
         }
         uiModel.asMap().clear();
         team.save();
-        return "redirect:/teams/" + encodeUrlPathSegment(team.getId().toString(), httpServletRequest);
+        return "redirect:/api/teams/" + encodeUrlPathSegment(team.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String TeamController.createForm(Model uiModel) {
         uiModel.addAttribute("team", new Team());
-        return "teams/create";
+        return "api/teams/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String TeamController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("team", Team.findTeam(id));
         uiModel.addAttribute("itemId", id);
-        return "teams/show";
+        return "api/teams/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect TeamController_Roo_Controller {
         } else {
             uiModel.addAttribute("teams", Team.findAll());
         }
-        return "teams/list";
+        return "api/teams/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String TeamController.update(@Valid Team team, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("team", team);
-            return "teams/update";
+            return "api/teams/update";
         }
         uiModel.asMap().clear();
         team.save();
-        return "redirect:/teams/" + encodeUrlPathSegment(team.getId().toString(), httpServletRequest);
+        return "redirect:/api/teams/" + encodeUrlPathSegment(team.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String TeamController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("team", Team.findTeam(id));
-        return "teams/update";
+        return "api/teams/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect TeamController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/teams";
+        return "redirect:/api/teams";
     }
     
     @ModelAttribute("decks")

@@ -29,24 +29,24 @@ privileged aspect CardController_Roo_Controller {
     public String CardController.create(@Valid Card card, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("card", card);
-            return "cards/create";
+            return "api/cards/create";
         }
         uiModel.asMap().clear();
         card.save();
-        return "redirect:/cards/" + encodeUrlPathSegment(card.getId().toString(), httpServletRequest);
+        return "redirect:/api/cards/" + encodeUrlPathSegment(card.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String CardController.createForm(Model uiModel) {
         uiModel.addAttribute("card", new Card());
-        return "cards/create";
+        return "api/cards/create";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String CardController.show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("card", Card.findCard(id));
         uiModel.addAttribute("itemId", id);
-        return "cards/show";
+        return "api/cards/show";
     }
     
     @RequestMapping(method = RequestMethod.GET)
@@ -59,24 +59,24 @@ privileged aspect CardController_Roo_Controller {
         } else {
             uiModel.addAttribute("cards", Card.findAll());
         }
-        return "cards/list";
+        return "api/cards/list";
     }
     
     @RequestMapping(method = RequestMethod.PUT)
     public String CardController.update(@Valid Card card, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("card", card);
-            return "cards/update";
+            return "api/cards/update";
         }
         uiModel.asMap().clear();
         card.save();
-        return "redirect:/cards/" + encodeUrlPathSegment(card.getId().toString(), httpServletRequest);
+        return "redirect:/api/cards/" + encodeUrlPathSegment(card.getId().toString(), httpServletRequest);
     }
     
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String CardController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("card", Card.findCard(id));
-        return "cards/update";
+        return "api/cards/update";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -85,7 +85,7 @@ privileged aspect CardController_Roo_Controller {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect:/cards";
+        return "redirect:/api/cards";
     }
     
     @ModelAttribute("cards")

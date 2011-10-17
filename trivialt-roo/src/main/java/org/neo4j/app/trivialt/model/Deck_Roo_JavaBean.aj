@@ -6,6 +6,7 @@ package org.neo4j.app.trivialt.model;
 import java.util.Set;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.Match;
+import org.neo4j.app.trivialt.model.Team;
 
 privileged aspect Deck_Roo_JavaBean {
     
@@ -23,6 +24,14 @@ privileged aspect Deck_Roo_JavaBean {
     
     public void Deck.setCards(Set<Card> cards) {
         this.cards = cards;
+    }
+    
+    public Team Deck.getOwner() {
+        return this.owner;
+    }
+    
+    public void Deck.setOwner(Team owner) {
+        this.owner = owner;
     }
     
 }

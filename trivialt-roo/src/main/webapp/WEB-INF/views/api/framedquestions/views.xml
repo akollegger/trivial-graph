@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="api/framedquestions/list">
+        <put-attribute name="body" value="/WEB-INF/views/api/framedquestions/list.jspx"/>
+    </definition>
+<definition extends="default" name="api/framedquestions/show">
+        <put-attribute name="body" value="/WEB-INF/views/api/framedquestions/show.jspx"/>
+    </definition>
+<definition extends="default" name="api/framedquestions/create">
+        <put-attribute name="body" value="/WEB-INF/views/api/framedquestions/create.jspx"/>
+    </definition>
+<definition extends="default" name="api/framedquestions/update">
+        <put-attribute name="body" value="/WEB-INF/views/api/framedquestions/update.jspx"/>
+    </definition>
+</tiles-definitions>
