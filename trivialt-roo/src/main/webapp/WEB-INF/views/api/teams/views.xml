@@ -13,4 +13,13 @@
 <definition extends="default" name="teams/update">
         <put-attribute name="body" value="/WEB-INF/views/api/teams/update.jspx"/>
     </definition>
+<definition extends="default" name="api/teams/show">
+        <put-attribute name="body" value="/WEB-INF/views/api/teams/show.jspx"/>
+    </definition>
+<definition extends="default" name="api/teams/create">
+        <put-attribute name="body" value="/WEB-INF/views/api/teams/create.jspx"/>
+    </definition>
+<definition extends="default" name="api/teams/update">
+        <put-attribute name="body" value="/WEB-INF/views/api/teams/update.jspx"/>
+    </definition>
 </tiles-definitions>

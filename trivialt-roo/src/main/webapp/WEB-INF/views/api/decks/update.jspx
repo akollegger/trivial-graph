@@ -2,8 +2,9 @@
 <div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <form:update id="fu_org_neo4j_app_trivialt_model_Deck" modelAttribute="deck" path="/api/decks" versionField="none" z="N1X4C2LQ5/f2K9UEL5vz0Tvn8X4=">
-        <field:select field="match" id="c_org_neo4j_app_trivialt_model_Deck_match" itemValue="id" items="${matches}" path="/api/matches" z="L9f2MsZgMo+Nh+BWBQysbryUgHA="/>
-        <field:select field="cards" id="c_org_neo4j_app_trivialt_model_Deck_cards" itemValue="id" items="${cards}" multiple="true" path="/api/cards" z="9Kb8WZcFi9dFzzmxGHxZa7prg30="/>
+    <form:update id="fu_org_neo4j_app_trivialt_model_Deck" modelAttribute="deck" path="/api/decks" versionField="none" z="user-managed">
+        <field:select field="match" id="c_org_neo4j_app_trivialt_model_Deck_match" itemValue="id" items="${matches}" path="/api/matches" z="user-managed"/>
+        <field:select field="cards" id="c_org_neo4j_app_trivialt_model_Deck_cards" itemValue="id" items="${cards}" multiple="true" path="/api/cards" z="user-managed"/>
+        <field:select field="owner" id="c_org_neo4j_app_trivialt_model_Deck_owner" itemValue="id" items="${teams}" path="/teams" z="+yslfEG1OBMeAwCWWhPae3Kw+oU="/>
     </form:update>
 </div>

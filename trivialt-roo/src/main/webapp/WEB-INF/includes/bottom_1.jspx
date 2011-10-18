@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- bottom content -->
+<div class="bottom_1" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" id="footer" version="2.0">
+
+	<div class="container_12">
+    	
+        <div class="row">
+          
+          		<div class="col col_1_3" id="Reviews">               	
+           	  	  	<h2>Reviews &amp; Testimonials:</h2>                  
+                    
+                   	<div class="quoteBox-big">
+                        <div class="inner">
+                        <div class="quote-text">This app has great design, &amp; the receipt view adds a very handy feature that few other calc apps include. I only wish there was a way to take notes onto the receipt, but it's great...</div>
+                        <div class="quote-author"><span class="quote-name">George Mansion,</span>  founder Silicon-App Inc.</div>    
+                        </div>                    
+                    </div>
+                
+	  			</div>
+                
+                <div class="col col_2_3" id="Screenshots">
+                	<h2 class="space_left">App Screenshots:</h2>
+                    
+                    <div class="minigallery-list minigallery">
+                            <ul id="mycarouse2" class="jcarousel-skin-tango">
+                            	<li><a href="images/slider_image_1.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_1.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_2.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_2.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_3.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_3.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_1.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_4.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_2.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_5.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_3.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_1.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                              	<li><a href="images/slider_image_1.png" rel="prettyPhoto[tf_gal_1]"><img src="images/temp/thumb_2.jpg" width="100" height="100" alt="" /><span></span></a></li>
+                            </ul>
+					</div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#mycarouse2').jcarousel({
+                                easing: 'easeInOutQuint',
+                                animation: 600
+                            });
+                        });
+					</script>
+                    <script type="text/javascript">
+							$(document).ready(function() {
+								$("a[rel^='prettyPhoto']").prettyPhoto({social_tools:false,overlay_gallery:false});
+							});
+					</script>
+                           
+          		</div>
+                
+			</div>
+            
+	<div class="clear"></div>        
+    </div>
+</div>
+<!--/ bottom_1 content -->

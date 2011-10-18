@@ -2,10 +2,10 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <form:create id="fc_org_neo4j_app_trivialt_model_FramedQuestion" modelAttribute="framedQuestion" path="/api/framedquestions" render="${empty dependencies}" z="0WEmwWgqkly0/TyuIn9EFK2zKbU=">
+    <form:create id="fc_org_neo4j_app_trivialt_model_FramedQuestion" modelAttribute="framedQuestion" path="/api/framedquestions" render="${empty dependencies}" z="user-managed">
         <field:input field="phrase" id="c_org_neo4j_app_trivialt_model_FramedQuestion_phrase" z="Vu74dS87rC7Y8oC0ZRVRtjbrWJM="/>
-        <field:select field="originalQuestion" id="c_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" itemValue="id" items="${questions}" path="/api/questions" z="NjpIdNQnAmj0R4A8zkTeCqhhClc="/>
-        <field:select field="possibleAnswers" id="c_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" itemValue="id" items="${answers}" multiple="true" path="/api/answers" z="oe2xqFpolsja1Ft1/2e08hOGCIM="/>
+        <field:select field="originalQuestion" id="c_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" itemValue="id" items="${questions}" path="/api/questions" z="user-managed"/>
+        <field:select field="possibleAnswers" id="c_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" itemValue="id" items="${answers}" multiple="true" path="/api/answers" z="user-managed"/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_org_neo4j_app_trivialt_model_FramedQuestion" render="${not empty dependencies}" z="yutIlDl8lRWx30vYXSMHa0ypGlw="/>
 </div>

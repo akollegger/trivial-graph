@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_org_neo4j_app_trivialt_model_Player" items="${players}" z="pOBC3Hl7gaUI8Pm3l7p7QKUktMI=">
-        <table:table data="${players}" id="l_org_neo4j_app_trivialt_model_Player" path="/api/players" z="N9RC8ETFwTKrimRbPy2I6SkrEb4=">
+        <table:table data="${players}" id="l_org_neo4j_app_trivialt_model_Player" path="/api/players" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Player_name" property="name" z="XftM2vTtwfWka5cxWl2+xZfO4WA="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Player_handle" property="handle" z="lOwLDP1inEheqY4DPd5AOIXbssk="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Player_friends" property="friends" z="inxYoSYW5ziPEYPDawm+ynwee1Q="/>

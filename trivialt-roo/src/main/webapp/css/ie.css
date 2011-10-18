@@ -1,0 +1,10 @@
+.filter li {
+	display:block;
+	float:left;}
+
+.table-pricing thead .tablecolActive .table_head {
+	left:1px}
+
+#header_images div,
+.header_image {
+	opacity:1;}

@@ -2,7 +2,7 @@
 <div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:show id="ps_org_neo4j_app_trivialt_model_Match" object="${match}" path="/api/matches" z="Bt2T0RK9BcTuZ3ChdWMK2wVJqiU=">
+    <page:show id="ps_org_neo4j_app_trivialt_model_Match" object="${match}" path="/api/matches" z="user-managed">
         <field:display field="title" id="s_org_neo4j_app_trivialt_model_Match_title" object="${match}" z="xNV9LXbVHN7J1XRh2+bfi2rwsEQ="/>
         <field:display field="rounds" id="s_org_neo4j_app_trivialt_model_Match_rounds" object="${match}" z="8wKOWKSmD67yG7e47MbTT3+RcTo="/>
         <field:display field="triviaMaster" id="s_org_neo4j_app_trivialt_model_Match_triviaMaster" object="${match}" z="BtGc6wBB2ZU1Lp8u1x48uDGxpmk="/>

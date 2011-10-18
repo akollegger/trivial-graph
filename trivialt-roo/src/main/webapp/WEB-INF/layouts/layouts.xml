@@ -15,5 +15,13 @@
     <put-attribute name="header" value="/WEB-INF/views/header.jspx" />
     <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
   </definition>
+  
+  <definition name="trivialt" template="/WEB-INF/layouts/full.jspx">
+  	<put-attribute name="header_bar" value="/WEB-INF/includes/head_bar.jspx"/>
+  	<put-attribute name="header_slider" value="/WEB-INF/includes/header_slider.jspx"/>
+  	<put-attribute name="bottom_1" value="/WEB-INF/includes/bottom_1.jspx"/>
+  	<put-attribute name="bottom_2" value="/WEB-INF/includes/bottom_2.jspx"/>
+  	<put-attribute name="footer" value="/WEB-INF/includes/footer.jspx"/>
+  </definition>
 
 </tiles-definitions>

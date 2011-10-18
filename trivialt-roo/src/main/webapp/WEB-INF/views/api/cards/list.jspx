@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_org_neo4j_app_trivialt_model_Card" items="${cards}" z="cuOzeLCVAegrKT7C9rUE3coIXjo=">
-        <table:table data="${cards}" id="l_org_neo4j_app_trivialt_model_Card" path="/api/cards" z="TW4dCGat/sPEeLPVLPKv3kLZdAA=">
+        <table:table data="${cards}" id="l_org_neo4j_app_trivialt_model_Card" path="/api/cards" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Card_locked" property="locked" z="a3pK9hCUmXs2rijAShIt99gdItY="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Card_round" property="round" z="a6H5y0/IFbrNpUkeysG/Gt8Hpaw="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Card_proposals" property="proposals" z="MUCqmzmuNZsvXd1YVz8DRnUHW+M="/>

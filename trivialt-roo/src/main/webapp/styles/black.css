@@ -1,0 +1,112 @@
+.header_slider {
+	background:#282828;}
+
+.header_thin {
+	background:url(black/header_thin_bg_black.jpg) center bottom no-repeat #282828}
+	
+.header_slider .container_12{
+	background:url(black/header_bg_black.jpg) center bottom no-repeat;}
+
+.topmenu .dropdown li a:hover,
+.topmenu .dropdown li:hover a,
+.topmenu .dropdown .current-menu-item a,
+.topmenu .dropdown .current-menu-item li a:hover,
+.topmenu .dropdown .current-menu-item .current_page_item a,
+.topmenu .dropdown .menu-item-home.current-menu-item a, 
+.topmenu .dropdown .menu-item-home a:hover,
+.topmenu .dropdown .current-menu-ancestor a,
+.topmenu .dropdown .current-menu-ancestor a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-item a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-item a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor .current-menu-item a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor .current-menu-item a:hover{
+	color:#ff5252;}
+
+.sText .prev, .sText .next {
+	background-image:url(black/slider_arrows.png)}
+	
+.sText .slide-text-right,
+.sText .slide-text-left {
+	color:#bfbfbf}
+
+.sText .slide-title, .sText .slide-title a {
+	color:#fff}
+
+.sText .popularity {
+	color:#e2e2e2}
+
+.sText .slide-title a:hover {
+	background:#fff;
+	color:#000}
+	
+a,
+.container_12 a:hover,
+.entry a, .text a,
+.content .link-more:hover,
+.footer .box_white a, .footer .box_white a:hover,
+.footer h2, 
+.footer h3,
+.footer h4,
+.post-item h2 a:hover,
+.link-comments,
+.extract_text a,
+.contact-form .reset-link a,
+.tf_pagination a:hover,
+.tf_pagination .page_current,
+.link-addcomment,
+.comment-author,
+.comment-date,
+.comment-author .link-author,
+.comment-entry .link-reply,
+.link-top,
+.widget_recent_entries a,
+.widget_recent_comments a,
+.widget_recent_entries a:hover,
+.widget_recent_comments a:hover {
+	color:#ff5252;}
+
+.container_12 .link-details,
+.social-box .row a:hover {
+	color:#000;}
+
+.content .link-more {
+	color:#8e8e8e;
+	background:url(black/icon_more.gif) 0 0 no-repeat;}
+
+.quote-author span {
+	color:#8e8e8e;}
+
+.btn-submit, 
+.contact-form .btn-submit,
+.contact-form-footer .btn-submit, 
+.comment-form .btn-submit {
+	background:url(black/btn_submit.png) no-repeat;
+	color:#7e0f0f;
+	text-shadow:0 2px 1px #f08383;}
+
+.comment-form .btn-submit,
+.contact-form .btn-submit {
+	background:url(black/btn_send_message.png) no-repeat}
+
+.container_12 blockquote {
+	color:#999;}
+
+.faq_question.active,
+.faq_question:hover {
+	color:#7ea128}
+	
+.footer .widget_recent_entries a:hover,
+.footer .widget_recent_comments a:hover,
+.footer .widget_categories li a:hover,
+.footer .widget_pages li a:hover,
+.footer .widget_meta li a:hover,
+.footer .widget_archive li a:hover,
+.footer .widget_links li a:hover,
+.footer .widget_calendar table tbody a {
+	color:#ff5252 !important}
+
+.head_title, 
+.head_title h1{
+	color:#fff;}

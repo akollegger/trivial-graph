@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_org_neo4j_app_trivialt_model_FramedQuestion" items="${framedquestions}" z="E9IBvfKNcRxAeQwHXUsKWGM0TiM=">
-        <table:table data="${framedquestions}" id="l_org_neo4j_app_trivialt_model_FramedQuestion" path="/api/framedquestions" z="bu3GlivoyS9kSRh76Sho6vrARrc=">
+        <table:table data="${framedquestions}" id="l_org_neo4j_app_trivialt_model_FramedQuestion" path="/api/framedquestions" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_phrase" property="phrase" z="opUX/RL8IYQlhD7kFxsw+3Z43iI="/>
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" property="originalQuestion" z="s6X8FKfUI1WzUNe6STQ80MbTcQQ="/>
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" property="possibleAnswers" z="vtY1gNllwHapBD2T74DZ1zrjMrU="/>

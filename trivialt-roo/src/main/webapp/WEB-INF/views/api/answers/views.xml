@@ -4,13 +4,13 @@
     <definition extends="default" name="api/answers/list">
         <put-attribute name="body" value="/WEB-INF/views/api/answers/list.jspx"/>
     </definition>
-<definition extends="default" name="api/answers/show">
+	<definition extends="default" name="api/answers/show">
         <put-attribute name="body" value="/WEB-INF/views/api/answers/show.jspx"/>
     </definition>
-<definition extends="default" name="api/answers/create">
+	<definition extends="default" name="api/answers/create">
         <put-attribute name="body" value="/WEB-INF/views/api/answers/create.jspx"/>
     </definition>
-<definition extends="default" name="api/answers/update">
+	<definition extends="default" name="api/answers/update">
         <put-attribute name="body" value="/WEB-INF/views/api/answers/update.jspx"/>
     </definition>
 </tiles-definitions>

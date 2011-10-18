@@ -1,0 +1,110 @@
+.header_slider {
+	background:#f19b6d;}
+
+.header_thin {
+	background:url(orange/header_thin_bg_orange.jpg) center bottom no-repeat #f19b6d}
+	
+.header_slider .container_12{
+	background:url(orange/header_bg_orange.jpg) center bottom no-repeat;}
+
+.topmenu .dropdown li a:hover,
+.topmenu .dropdown li:hover a,
+.topmenu .dropdown .current-menu-item a,
+.topmenu .dropdown .current-menu-item li a:hover,
+.topmenu .dropdown .current-menu-item .current_page_item a,
+.topmenu .dropdown .menu-item-home.current-menu-item a, 
+.topmenu .dropdown .menu-item-home a:hover,
+.topmenu .dropdown .current-menu-ancestor a,
+.topmenu .dropdown .current-menu-ancestor a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-item a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-item a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor a:hover,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor .current-menu-item a,
+.topmenu .dropdown .current-menu-ancestor .current-menu-ancestor .current-menu-item a:hover{
+	color:#f87e08;}
+
+a {
+	color:#f87e08;}
+
+.container_12 a:hover {
+	color:#f87e08}
+	
+.entry a,
+.text a {
+	color:#f87e08}
+
+.content .link-more {
+	color:#f87e08;
+	background:url(orange/icon_more.gif) 0 0 no-repeat;}
+	
+.content .link-more:hover {
+	color:#f87e08;}
+
+.footer .box_white a, .footer .box_white a:hover {
+	color:#f87e08}
+
+.footer h2, 
+.footer h3,
+.footer h4,
+.post-item h2 a:hover,
+.link-comments {
+	color:#f87e08}
+
+.extract_text a {
+	color:#f87e08}
+
+.quote-author span {
+	color:#d76b02;}
+
+.btn-submit, 
+.contact-form .btn-submit,
+.contact-form-footer .btn-submit, 
+.comment-form .btn-submit {
+	background:url(orange/btn_submit.png) no-repeat;
+	color:#552d05;
+	text-shadow:0 2px 1px #ffcd92;}
+
+.comment-form .btn-submit,
+.contact-form .btn-submit {
+	background:url(orange/btn_send_message.png) no-repeat}
+
+.contact-form .reset-link a{
+	color:#f87e08}
+
+.tf_pagination a:hover,
+.tf_pagination .page_current {
+	color:#f87e08}
+
+.link-addcomment,
+.comment-author,
+.comment-date,
+.comment-author .link-author,
+.comment-entry .link-reply,
+.link-top {
+	color:#f87e08;}
+
+.container_12 blockquote {
+	color:#f29c6d;}
+
+.widget_recent_entries a,
+.widget_recent_comments a {
+	color:#f87e08}
+
+.widget_recent_entries a:hover,
+.widget_recent_comments a:hover  {
+	color:#f87e08}
+
+.faq_question.active,
+.faq_question:hover {
+	color:#d76b02}
+	
+.footer .widget_recent_entries a:hover,
+.footer .widget_recent_comments a:hover,
+.footer .widget_categories li a:hover,
+.footer .widget_pages li a:hover,
+.footer .widget_meta li a:hover,
+.footer .widget_archive li a:hover,
+.footer .widget_links li a:hover,
+.footer .widget_calendar table tbody a {
+	color:#f87e08 !important}
