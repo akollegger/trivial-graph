@@ -17,18 +17,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
+define ['order!lib/jquery', 'order!lib/backbone'], (template) ->
+  
+  class View extends Backbone.View
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+    detach : =>
+      $(@el).detach()
 
-    application = new core.Application()
+    attach : (parent) =>
+      $(parent).append(@el)
+
+    height : (val) ->
+      $(@el).height(val)
     
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
-)
+    width : (val) ->
+      $(@el).width(val)

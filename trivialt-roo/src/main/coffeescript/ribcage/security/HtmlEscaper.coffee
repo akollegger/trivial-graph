@@ -18,17 +18,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define [], () ->
+  
+  class HtmlEscaper
+    
+    escape : (text, addNbsp=false) =>
+      text = @replaceAll(text, [
+        [/&/g,"&amp;"]
+        [/</g,"&lt;"]
+        [/>/g,"&gt;"]
+        [/"/g,"&quot;"]
+        [/'/g,"&#x27;"]
+        [/\//g,"&#x2F;"]])
 
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
-)
+      return if addNbsp then @replaceAll(text, [[/\ /g, "&nbsp;"]]) else text
+
+    replaceAll : (text, replacements) =>
+      
+      text += ""
+      for replacement in replacements
+        text = text.replace replacement[0], replacement[1]
+      return text
+

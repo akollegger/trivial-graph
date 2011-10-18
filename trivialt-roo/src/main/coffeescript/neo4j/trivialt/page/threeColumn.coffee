@@ -18,17 +18,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define(
+  ['ribcage/View'
+   'ribcage/Model'
+   './template/threeColumnTpl'],
+  (View,Model,threeColumnTpl) ->
+    exports = {}
+    
+    exports.ThreeColumnView = class ThreeColumnView extends View
+      
+      className : 'page'
+      
+      render : () ->
+        @el.innerHTML = threeColumnTpl()
+        @leftSidebar  = $('.left-sidebar',@el)
+        @content      = $('.content',@el)
+        @rightSidebar = $('.right-sidebar',@el)
+        this
+    
+    return exports
 
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
 )

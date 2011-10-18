@@ -18,17 +18,27 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define(
+  ['ribcage/View'
+   'ribcage/Model'
+   '../widget/inputBar'
+   './threeColumn'
+   './template/signInContentTpl'],
+  (View,Model,inputBar,threeColumn,signInContentTpl) ->
+    exports = {}
+    
+    exports.SignInView = class SignInView extends threeColumn.ThreeColumnView
+      
+      constructor : (@application) ->
+        super()
+        @inputBar = new inputBar.InputBarView()
+      
+      render : () ->
+        super()
+        @content.append signInContentTpl()
+        @content.append @inputBar.render().el
+        this
+    
+    return exports
 
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
 )

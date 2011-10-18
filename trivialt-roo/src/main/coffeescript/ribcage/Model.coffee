@@ -17,18 +17,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
+define(
+  ['order!lib/jquery', 'order!lib/backbone'], 
+  () ->
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
-
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
+    class Model extends Backbone.Model
+      
+      get : (key, defaultValue=null) ->
+        val = super key
+        if not val
+          return defaultValue
+        val
+        
+      set : (update, val, opts) ->
+        if _(update).isString()
+          updateMap = {}
+          updateMap[update] = val
+          update = updateMap
+        else
+          opts = val
+        super update, opts
 )

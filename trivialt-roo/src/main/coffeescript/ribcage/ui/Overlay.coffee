@@ -18,17 +18,27 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define(
+  ['lib/backbone', 'lib/jquery'], 
+  () ->
+          
+    overlayEl = $("<div class='overlay'></div>")
+    attachedToBody = false
 
-    application = new core.Application()
+    class Overlay
     
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
+      constructor : (opts={}) ->
+        @el = overlayEl
+
+      show : (content, pos, timeout) =>
+        if not attachedToBody
+          @el.appendTo "body"
+          attachedToBody = true
+
+        @el.show()
+        
+      hide : () =>
+        @el.hide()
 )
+
+

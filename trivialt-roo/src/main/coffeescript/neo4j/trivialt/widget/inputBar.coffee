@@ -18,17 +18,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define(
+  ['ribcage/View'
+   './template/inputBarTpl'],
+  (View,inputBarTpl) ->
+    exports = {}
+    
+    exports.InputBarView = class InputBarView extends View
+      
+      render : () ->
+        @el.innerHTML = inputBarTpl()
+        this
+    
+    return exports
 
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
 )

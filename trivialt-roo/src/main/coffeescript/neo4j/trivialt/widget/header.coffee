@@ -18,17 +18,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-require(
-  ['neo4j/trivialt/core'],
-  (core) ->
+define(
+  ['ribcage/View'
+   './template/headerTpl'],
+  (View,headerTpl) ->
+    exports = {}
+    
+    exports.HeaderView = class HeaderView extends View
+      
+      className : 'header'
+      
+      render : () ->
+        @el.innerHTML = headerTpl()
+        this
+    
+    return exports
 
-    application = new core.Application()
-    
-    appView     = new core.AppView(application)
-    
-    appRouter   = new core.AppRouter(application)
-    
-    
-    $('body').append(appView.render().el)
-    Backbone.history.start()
 )
