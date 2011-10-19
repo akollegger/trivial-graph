@@ -22,24 +22,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PlayerController {
 
-    @ModelAttribute("teams")
-    public Collection<Team> populateTeams() {
-        return Team.findAll();
-    }
-	
-    @RequestMapping(method = RequestMethod.POST)
-    public String create(@Valid Player player, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest)
-//	@RequestParam(value = "teams", required = false) Long[] teamIds) {
-    {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("player", player);
-            return "players/create";
-        }
-        uiModel.asMap().clear();
-//        Team team = Team.findTeam(teamIds[0]);
-//		Role r = player.relateTo(team, Role.class, "FAN");
-        player.save();
-        return "redirect:/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
-    }
 
 }

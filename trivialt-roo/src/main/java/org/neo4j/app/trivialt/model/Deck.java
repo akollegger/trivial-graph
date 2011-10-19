@@ -23,5 +23,5 @@ public class Deck {
     private Set<Card> cards;
 
     @RelatedTo(elementClass = Team.class, type = "OWNS", direction = INCOMING)
-    private Player owner;
+    private Team owner;
 }

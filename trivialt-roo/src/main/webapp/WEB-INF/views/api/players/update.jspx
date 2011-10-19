@@ -5,7 +5,7 @@
     <form:update id="fu_org_neo4j_app_trivialt_model_Player" modelAttribute="player" path="/api/players" versionField="none" z="user-managed">
         <field:input field="name" id="c_org_neo4j_app_trivialt_model_Player_name" z="46iH+fQEVNCOESSWmtveOmGeYco="/>
         <field:input field="handle" id="c_org_neo4j_app_trivialt_model_Player_handle" z="+IRpyTHhJ5VsacG3Ctfih6C2q4Y="/>
-        <field:select field="friends" id="c_org_neo4j_app_trivialt_model_Player_friends" itemValue="id" items="${players}" multiple="true" path="/api/players" z="user-managed"/>
-        <field:select field="teams" id="c_org_neo4j_app_trivialt_model_Player_teams" itemValue="id" items="${teams}" multiple="true" path="/api/teams" z="user-managed"/>
+        <field:select field="friends" id="c_org_neo4j_app_trivialt_model_Player_friends" itemValue="id" items="${players}" multiple="true" path="/api/players" z="d2hDEL+OQ5+OftrY/2VAxnaib54="/>
+        <field:select field="teams" id="c_org_neo4j_app_trivialt_model_Player_teams" itemValue="id" items="${teams}" multiple="true" path="/api/teams" z="h4s0+ULHylmpu5DyJY+69vRXPxE="/>
     </form:update>
 </div>

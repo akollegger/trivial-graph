@@ -24,6 +24,17 @@ import org.springframework.web.util.WebUtils;
 
 privileged aspect PlayerController_Roo_Controller {
     
+    @RequestMapping(method = RequestMethod.POST)
+    public String PlayerController.create(@Valid Player player, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("player", player);
+            return "api/players/create";
+        }
+        uiModel.asMap().clear();
+        player.save();
+        return "redirect:/api/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
+    }
+    
     @RequestMapping(params = "form", method = RequestMethod.GET)
     public String PlayerController.createForm(Model uiModel) {
         uiModel.addAttribute("player", new Player());
@@ -79,6 +90,11 @@ privileged aspect PlayerController_Roo_Controller {
     @ModelAttribute("players")
     public Collection<Player> PlayerController.populatePlayers() {
         return Player.findAll();
+    }
+    
+    @ModelAttribute("teams")
+    public Collection<Team> PlayerController.populateTeams() {
+        return Team.findAll();
     }
     
     String PlayerController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

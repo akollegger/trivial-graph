@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.Deck;
 import org.neo4j.app.trivialt.model.Match;
-import org.neo4j.app.trivialt.model.Player;
+import org.neo4j.app.trivialt.model.Team;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -104,9 +104,9 @@ privileged aspect DeckController_Roo_Controller {
         return Match.findAll();
     }
     
-    @ModelAttribute("players")
-    public Collection<Player> DeckController.populatePlayers() {
-        return Player.findAll();
+    @ModelAttribute("teams")
+    public Collection<Team> DeckController.populateTeams() {
+        return Team.findAll();
     }
     
     String DeckController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
