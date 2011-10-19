@@ -5,8 +5,8 @@ import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RooWebScaffold(path = "api/categorys", formBackingObject = Category.class)
-@RequestMapping("/api/categorys")
+@RooWebScaffold(path = "api/categories", formBackingObject = Category.class)
+@RequestMapping("/api/categories")
 @Controller
 public class CategoryController {
 }

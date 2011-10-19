@@ -6,18 +6,20 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.roo.addon.json.RooJson;
 
 @NodeEntity
 @RooToString
 @RooJavaBean
+@RooJson
 public class Question {
 
-	@Indexed
+    @Indexed
     private String text;
 
     @RelatedTo
     private Answer answer;
 
-    @RelatedTo(elementClass=Category.class, type="CATEGORY", direction=OUTGOING)
+    @RelatedTo(elementClass = Category.class, type = "CATEGORY", direction = OUTGOING)
     private Category category;
 }

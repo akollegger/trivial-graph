@@ -8,10 +8,12 @@ import org.neo4j.app.trivialt.model.Round;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.neo4j.app.trivialt.model.Proposal;
 import java.util.Set;
+import org.springframework.roo.addon.json.RooJson;
 
 @NodeEntity
 @RooToString
 @RooJavaBean
+@RooJson
 public class Card {
 
     private Boolean locked;
@@ -19,6 +21,6 @@ public class Card {
     @RelatedTo
     private Round round;
 
-    @RelatedTo(elementClass=Proposal.class, direction=INCOMING)
+    @RelatedTo(elementClass = Proposal.class, direction = INCOMING)
     private Set<Proposal> proposals;
 }

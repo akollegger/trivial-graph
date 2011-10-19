@@ -8,19 +8,20 @@ import org.neo4j.app.trivialt.model.Match;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import java.util.Set;
 import org.neo4j.app.trivialt.model.Card;
+import org.springframework.roo.addon.json.RooJson;
 
 @NodeEntity
 @RooToString
 @RooJavaBean
+@RooJson
 public class Deck {
 
-    @RelatedTo(elementClass=Match.class)
+    @RelatedTo(elementClass = Match.class)
     private Match match;
 
-    @RelatedTo(elementClass=Card.class, direction=INCOMING)
+    @RelatedTo(elementClass = Card.class, direction = INCOMING)
     private Set<Card> cards;
-    
-    @RelatedTo(elementClass=Team.class, type="OWNS", direction=INCOMING)
-    private Team owner;
-    
+
+    @RelatedTo(elementClass = Team.class, type = "OWNS", direction = INCOMING)
+    private Player owner;
 }

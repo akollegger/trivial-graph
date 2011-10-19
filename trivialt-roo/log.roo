@@ -93,3 +93,28 @@ controller scaffold --entity ~.model.Proposal --class ~.web.ProposalController
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-17 19:22:25
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-17 19:29:05
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-17 21:18:29
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-18 07:07:42
+addon search json
+addon info id --searchResultId 01
+addon info id --searchResultId 02
+addon info id --searchResultId 03
+osgi obr url add --url http://spring-roo-addons.googlecode.com/svn/repo/repository.xml
+osgi obr start --bundleSymbolicName net.tzolov.httprepresentations.roo.addon
+osgi obr url remove --url http://spring-roo-addons.googlecode.com/svn/repo/repository.xml
+addon install id --searchResultId 02
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+osgi obr start --bundleSymbolicName jackson-mapper-asl
+osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
+addon install id --searchResultId 03
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+osgi obr start --bundleSymbolicName jackson-core-asl
+osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
+addon install id --searchResultId 01
+hint
+help
+json all
+json all
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-18 16:28:30
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-18 16:34:01
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-18 17:20:39
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-18 17:46:14

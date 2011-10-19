@@ -8,10 +8,12 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.neo4j.app.trivialt.model.FramedQuestion;
 import org.neo4j.app.trivialt.model.Answer;
 import org.neo4j.app.trivialt.model.Player;
+import org.springframework.roo.addon.json.RooJson;
 
 @NodeEntity
 @RooToString
 @RooJavaBean
+@RooJson
 public class Proposal {
 
     @RelatedTo

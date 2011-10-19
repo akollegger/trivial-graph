@@ -12,8 +12,8 @@
             <menu:item id="i_question_list" messageCode="global_menu_list" url="/api/questions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_category" z="kY676wLbZKc59UbcUGM8ogjOGOc=">
-            <menu:item id="i_category_new" messageCode="global_menu_new" url="/api/categorys?form" z="user-managed"/>
-            <menu:item id="i_category_list" messageCode="global_menu_list" url="/api/categorys?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
+            <menu:item id="i_category_new" messageCode="global_menu_new" url="/api/categories?form" z="user-managed"/>
+            <menu:item id="i_category_list" messageCode="global_menu_list" url="/api/categories?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
         <menu:category id="c_player" z="cK8M0OPX/OW66GiF/SNgS8vWpjs=">
             <menu:item id="i_player_new" messageCode="global_menu_new" url="/api/players?form" z="user-managed"/>
