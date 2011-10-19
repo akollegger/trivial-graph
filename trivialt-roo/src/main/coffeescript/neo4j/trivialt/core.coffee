@@ -22,33 +22,60 @@ define(
   ['ribcage/Model'
    'ribcage/Router'
    'ribcage/View'
+   './domain'
    './page/signIn'
+   './page/question'
    './page/notFound'
    './widget/header'],
-  (Model,Router,View,signIn,notFound,header) ->
+  (Model,Router,View,domain,signIn,question,notFound,header) ->
     
     exports = {}
     
     exports.Application = class Application extends Model
       
-      constructor : () ->
+      constructor : (@baseUrl) ->
         super()
         @notFoundView = new notFound.NotFoundView
+        
+        @teams   = new domain.Teams([],{baseUrl:@baseUrl})
+        @matches = new domain.Matches([],{baseUrl:@baseUrl})
       
       setPage : (page) -> @set 'page', page
       getPage :        -> @get 'page', @notFoundView
+      
+      setTeam : (team) -> @set 'team', team
+      getTeam : ()     -> @get 'team'
+      
+      
+      navigate : (url, route) ->
+        Backbone.history.navigate(url, route)
     
     
     exports.AppRouter = class AppRouter extends Router
       
       routes : 
-        '' : 'index'
+        ''               : 'index'
+        '/match/current' : 'currentMatch'
+        '/match/current/q/:id' : 'questionForCurrentMatch'
         
       constructor : (@application) ->
         super()
+      
+      notFound : () =>
+        @application.setPage @application.notFoundView
         
       index : () =>
         @application.setPage new signIn.SignInView(@application)
+      
+      currentMatch : () =>
+        if @application.getTeam()?
+          @application.getTeam().loadCurrentMatch 
+            success : (match) =>
+              console.log match
+            error : () =>
+              @notFound()
+        else 
+          @application.navigate("#",true)
         
         
     exports.AppView = class AppView extends View

@@ -26,7 +26,7 @@ define(
     exports.NotFoundView = class NotFoundView extends View
       
       render : () ->
-        @el.innerHtml = "<h1>Page not found</h1>"
+        $(@el).html("<h1>Resource not found</h1>")
         this
     
     return exports

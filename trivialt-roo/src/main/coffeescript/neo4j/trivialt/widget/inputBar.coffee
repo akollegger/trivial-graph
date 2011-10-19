@@ -20,15 +20,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 define(
   ['ribcage/View'
+   'ribcage/Model'
    './template/inputBarTpl'],
-  (View,inputBarTpl) ->
+  (View,Model,inputBarTpl) ->
     exports = {}
+    
+    exports.InputBarModel = class InputBarModel extends Model
+      
+      getValue : ( ) -> @get 'value',''
+      setValue : (v) -> @set 'value',v
+      
+      getError : ( ) -> @get 'error',''
+      setError : (v) -> @set 'error',v
+    
     
     exports.InputBarView = class InputBarView extends View
       
+      events : 
+        'click .input-bar-execute' : 'onExecuteClicked'
+      
+      constructor : (opts) ->
+        super(opts)
+        @model = new InputBarModel
+        @model.bind 'change:error',@onErrorChanged
+      
       render : () ->
         @el.innerHTML = inputBarTpl()
+        
+        @onErrorChanged()
+        
         this
+        
+      onExecuteClicked : () =>
+        @model.setValue $('.input-bar-input',@el).val()
+    
+      onErrorChanged : () =>
+        error = @model.getError()
+        
+        errorEl = $('.error',@el)
+        errorEl.html error
+        
+        if error.length > 0 then errorEl.show() else errorEl.hide()
+        
     
     return exports
 

@@ -24,43 +24,25 @@ define(
    '../domain'
    '../widget/inputBar'
    './threeColumn'
-   './template/signInContentTpl'],
-  (View,Model,domain,inputBar,threeColumn,signInContentTpl) ->
+   './template/questionContentTpl'],
+  (View,Model,domain,inputBar,threeColumn,questionContentTpl) ->
     exports = {}
     
-    exports.SignInView = class SignInView extends threeColumn.ThreeColumnView
+    exports.QuestionView = class QuestionView extends threeColumn.ThreeColumnView
       
       constructor : (@application) ->
         super()
         @inputBar = new inputBar.InputBarView()
-        @inputBar.model.bind 'change:value',@onTeamNameSet
+        @inputBar.model.bind 'change:value',@onAnswerSet
       
       render : () ->
         super()
-        @content.append signInContentTpl()
+        @content.append questionContentTpl()
         @content.append @inputBar.render().el
         this
-        
-      onTeamNameSet : () =>
-        name = @inputBar.model.getValue()
-        @application.teams.create(
-          {name:name},
-          {
-           success : @onTeamCreated
-           error   : @onTeamCreationFailed
-          }
-        )
       
-      onTeamCreated : (team) =>
-        @inputBar.model.setError ""
-        @application.setTeam team
-        @application.navigate("#/match/current",true)
+      onAnswerSet : () =>
         
-      onTeamCreationFailed : (team, failure) =>
-        if failure instanceof domain.ValidationError
-          @inputBar.model.setError failure.message
-        else   
-          @inputBar.model.setError "Unable to create team, the name might already be taken. Try a different one!"
     
     return exports
 
