@@ -502,6 +502,38 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            
+            <plugin>
+		        <groupId>com.voltvoodoo</groupId>
+		        <artifactId>brew</artifactId>
+		        <version>0.2.7</version>
+		        <executions>
+		          <execution>
+		            <id>compile-coffeescript</id>
+		            <goals>
+		              <goal>compile</goal>
+		            </goals>
+		            <phase>compile</phase>
+		          </execution>
+		          <execution>
+		            <id>minify-js</id>
+		            <goals>
+		              <goal>optimize</goal>
+		            </goals>
+		            <phase>process-classes</phase>
+		          </execution>
+		        </executions>
+		        <configuration>
+		          <resourceSourceDir>src/main/webapp</resourceSourceDir>
+		          <coffeeOutputDir>target/${project.build.finalName}/app/js</coffeeOutputDir>
+		          <hamlOutputDir>target/${project.build.finalName}/app/js</hamlOutputDir>
+		          <resourceOutputDir>target/${project.build.finalName}</resourceOutputDir>
+		          
+		          <optimizeSourceDir>target/${project.build.finalName}/app/js</optimizeSourceDir>
+		          <optimizeBuildDir>target/to-compress</optimizeBuildDir>
+		          <optimizeOutputDir>target/${project.build.finalName}/app/js</optimizeOutputDir>
+		        </configuration>
+		    </plugin>
         </plugins>
     </build>
 </project>
