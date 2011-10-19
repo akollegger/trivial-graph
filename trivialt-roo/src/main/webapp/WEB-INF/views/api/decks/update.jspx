@@ -5,6 +5,6 @@
     <form:update id="fu_org_neo4j_app_trivialt_model_Deck" modelAttribute="deck" path="/api/decks" versionField="none" z="user-managed">
         <field:select field="match" id="c_org_neo4j_app_trivialt_model_Deck_match" itemValue="id" items="${matches}" path="/api/matches" z="user-managed"/>
         <field:select field="cards" id="c_org_neo4j_app_trivialt_model_Deck_cards" itemValue="id" items="${cards}" multiple="true" path="/api/cards" z="user-managed"/>
-        <field:select field="owner" id="c_org_neo4j_app_trivialt_model_Deck_owner" itemValue="id" items="${teams}" path="/teams" z="+yslfEG1OBMeAwCWWhPae3Kw+oU="/>
+        <field:select field="owner" id="c_org_neo4j_app_trivialt_model_Deck_owner" itemValue="id" items="${teams}" path="/api/teams" z="63i3QnIXPsJK8bT8LAfbHP4Bcnc="/>
     </form:update>
 </div>

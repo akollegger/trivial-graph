@@ -7,8 +7,12 @@ import org.springframework.roo.addon.tostring.RooToString;
 import org.neo4j.app.trivialt.model.Round;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.neo4j.app.trivialt.model.Proposal;
+
+import java.util.Collection;
 import java.util.Set;
 import org.springframework.roo.addon.json.RooJson;
+
+import flexjson.JSONSerializer;
 
 @NodeEntity
 @RooToString
@@ -23,4 +27,14 @@ public class Card {
 
     @RelatedTo(elementClass = Proposal.class, direction = INCOMING)
     private Set<Proposal> proposals;
+    
+    public String toJson() {
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+    }
+    
+    public static String toJsonArray(Collection<Card> collection) {
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
+    }
+
+
 }

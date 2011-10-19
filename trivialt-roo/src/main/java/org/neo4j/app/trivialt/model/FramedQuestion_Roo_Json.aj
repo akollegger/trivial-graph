@@ -4,7 +4,6 @@
 package org.neo4j.app.trivialt.model;
 
 import flexjson.JSONDeserializer;
-import flexjson.JSONSerializer;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,16 +12,8 @@ import org.neo4j.app.trivialt.model.FramedQuestion;
 
 privileged aspect FramedQuestion_Roo_Json {
     
-    public String FramedQuestion.toJson() {
-        return new JSONSerializer().exclude("*.class").serialize(this);
-    }
-    
     public static FramedQuestion FramedQuestion.fromJsonToFramedQuestion(String json) {
         return new JSONDeserializer<FramedQuestion>().use(null, FramedQuestion.class).deserialize(json);
-    }
-    
-    public static String FramedQuestion.toJsonArray(Collection<FramedQuestion> collection) {
-        return new JSONSerializer().exclude("*.class").serialize(collection);
     }
     
     public static Collection<FramedQuestion> FramedQuestion.fromJsonArrayToFramedQuestions(String json) {

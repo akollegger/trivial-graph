@@ -1,6 +1,8 @@
 package org.neo4j.app.trivialt.model;
 
 import static org.springframework.data.neo4j.core.Direction.INCOMING;
+
+import java.util.Collection;
 import java.util.Set;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -22,5 +24,14 @@ public class Category {
 
     @RelatedTo(elementClass = Question.class, type = "CATEGORY", direction = INCOMING)
     private Set<Question> questions;    
+
+    public String toJson() {
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+    }
+    
+    public static String toJsonArray(Collection<Category> collection) {
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
+    }
+
 
 }

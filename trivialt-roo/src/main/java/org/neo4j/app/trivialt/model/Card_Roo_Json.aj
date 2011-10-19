@@ -4,7 +4,6 @@
 package org.neo4j.app.trivialt.model;
 
 import flexjson.JSONDeserializer;
-import flexjson.JSONSerializer;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,16 +12,8 @@ import org.neo4j.app.trivialt.model.Card;
 
 privileged aspect Card_Roo_Json {
     
-    public String Card.toJson() {
-        return new JSONSerializer().exclude("*.class").serialize(this);
-    }
-    
     public static Card Card.fromJsonToCard(String json) {
         return new JSONDeserializer<Card>().use(null, Card.class).deserialize(json);
-    }
-    
-    public static String Card.toJsonArray(Collection<Card> collection) {
-        return new JSONSerializer().exclude("*.class").serialize(collection);
     }
     
     public static Collection<Card> Card.fromJsonArrayToCards(String json) {

@@ -4,7 +4,6 @@
 package org.neo4j.app.trivialt.model;
 
 import flexjson.JSONDeserializer;
-import flexjson.JSONSerializer;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,16 +12,8 @@ import org.neo4j.app.trivialt.model.Proposal;
 
 privileged aspect Proposal_Roo_Json {
     
-    public String Proposal.toJson() {
-        return new JSONSerializer().exclude("*.class").serialize(this);
-    }
-    
     public static Proposal Proposal.fromJsonToProposal(String json) {
         return new JSONDeserializer<Proposal>().use(null, Proposal.class).deserialize(json);
-    }
-    
-    public static String Proposal.toJsonArray(Collection<Proposal> collection) {
-        return new JSONSerializer().exclude("*.class").serialize(collection);
     }
     
     public static Collection<Proposal> Proposal.fromJsonArrayToProposals(String json) {
