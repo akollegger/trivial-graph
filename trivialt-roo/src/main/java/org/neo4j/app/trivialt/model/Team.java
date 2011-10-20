@@ -1,9 +1,9 @@
 package org.neo4j.app.trivialt.model;
 
+import static org.springframework.data.neo4j.core.Direction.OUTGOING;
+
 import java.util.Collection;
 import java.util.Set;
-
-import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 
 import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.graphdb.RelationshipType;
@@ -47,7 +47,7 @@ public class Team {
     private Set<Player> members;
     
     public String toJson() {
-        return new JSONSerializer().rootName("team").exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
     }
     
     public static String toJsonArray(Collection<Team> collection) {

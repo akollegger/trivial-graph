@@ -22,10 +22,7 @@ require(
   ['neo4j/trivialt/core'],
   (core) ->
 
-    API_URL = '../api'
-    
-
-    application = new core.Application(API_URL)
+    application = new core.Application()
     
     appView     = new core.AppView(application)
     

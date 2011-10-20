@@ -2,18 +2,17 @@ package org.neo4j.app.trivialt.model;
 
 import static org.springframework.data.neo4j.core.Direction.INCOMING;
 import static org.springframework.data.neo4j.core.Direction.OUTGOING;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
-import org.neo4j.app.trivialt.model.Round;
-import org.springframework.data.neo4j.annotation.RelatedTo;
-import org.neo4j.app.trivialt.model.Proposal;
-import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.RelationshipType;
 
 import java.util.Collection;
 import java.util.Set;
+
+import org.neo4j.graphdb.DynamicRelationshipType;
+import org.neo4j.graphdb.RelationshipType;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.json.RooJson;
+import org.springframework.roo.addon.tostring.RooToString;
 
 import flexjson.JSONSerializer;
 
@@ -44,7 +43,7 @@ public class Card {
 	}
 
 	public String toJson() {
-        return new JSONSerializer().rootName("card").exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
     }
     
     public static String toJsonArray(Collection<Card> collection) {

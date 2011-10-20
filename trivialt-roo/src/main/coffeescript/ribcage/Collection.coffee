@@ -26,8 +26,20 @@ define(
       constructor : (models, opts) ->
         super(models,opts)
         
+        if opts.url?
+          @url = opts.url
         @baseUrl = opts.baseUrl or ""
         
       url : () ->
         @baseUrl + @urlPath
+        
+      addOrUpdate : (model) ->
+        savedModel = @get model.id
+        if savedModel?
+          savedModel.set(if model.toJSON? then model.toJSON() else model)
+        else
+          model = if model.toJSON? then model else new @model(model)
+          @add model
+          return model
+          
 )

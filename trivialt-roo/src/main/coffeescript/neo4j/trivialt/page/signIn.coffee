@@ -43,23 +43,21 @@ define(
         
       onTeamNameSet : () =>
         name = @inputBar.model.getValue()
-        @application.teams.create(
-          {name:name},
-          {
-           success : @onTeamCreated
-           error   : @onTeamCreationFailed
-          }
-        )
+        team = new domain.Team({name:name},{application:@application})
+        team.save null,
+          success : @onTeamCreated
+          error   : @onTeamCreationFailed
       
       onTeamCreated : (team) =>
         @inputBar.model.setError ""
         @application.setTeam team
-        @application.navigate("#/match/current",true)
+        
+        @application.game.joinCurrentMatch()
         
       onTeamCreationFailed : (team, failure) =>
         if failure instanceof domain.ValidationError
           @inputBar.model.setError failure.message
-        else   
+        else
           @inputBar.model.setError "Unable to create team, the name might already be taken. Try a different one!"
     
     return exports

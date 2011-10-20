@@ -25,48 +25,234 @@ define(
     
     exports = {}
     
+    # Cheating a little bit..
+    API_URL = '../api'
+    
     exports.ValidationError = class ValidationError extends Error
       
       constructor : (@message) ->
         super(@message)
+        
+    exports.Repository = class Repository
+      
+      constructor : (@modelClass, @application) ->
+        @models = {}
+        
+      addOrUpdate : (model) ->
+        savedModel = @get model.id
+        if savedModel?
+          savedModel.set(if model.toJSON? then model.toJSON() else model)
+        else
+          model = if model.toJSON? then model else new @modelClass(model,application:@application)
+          @add model
+          return model
+      
+      get : (id)    -> @models[id]
+      add : (model) -> @models[model.id] = model
     
     
-    exports.Team = class Team extends Model
+    exports.TrivialtModel = class TrivialtModel extends Model
+      
+      constructor : (attrs,opts) ->
+        @application = opts.application
+        super(attrs,opts)
+        
+    
+    exports.TrivialtCollection = class TrivialtCollection extends Collection
+      
+      constructor : (models,opts) ->
+        @application = opts.application
+        super(models,opts)
+        
+      ###
+      Override backbones model creation to ensure globally consistent model
+      references.
+      ###
+      _prepareModel : (model,opts) ->
+        if model not instanceof Backbone.Model
+          attrs = model
+          if @repository?
+            model = @repository.addOrUpdate attrs
+          else
+            model = new @model(attrs,opts)
+          if model.validate and not model._performValidation(attrs, opts)
+            model = false
+        
+        return model
+    
+    
+    exports.Team = class Team extends TrivialtModel
+    
+      urlRoot : API_URL + "/teams"
+    
+      set : (update, opts) ->
+        if update.currentDeck?
+          @currentDeck = @application.decks.addOrUpdate update.currentDeck
+          delete update.currentDeck
+        super update, opts
     
       validate : (attrs) =>
-        if not attrs.name? or attrs.name.length == 0
+        if attrs.name? and attrs.name.length == 0
           return new ValidationError("Team name is required.")
-          
-      loadCurrentMatch : (opts) ->
-        new Match().fetch _.extend(opts,{
-          url : @url() + "/matches/current"
-        })
-    
-    exports.Teams = class Teams extends Collection
-      
-      urlPath : "/teams"
-      model   : Team
       
     
-    exports.Match = class Match extends Model
+    exports.Match = class Match extends TrivialtModel
+      
+      url : -> API_URL + "/matches" + (if @id? then "/#{@id}" else "")
       
       constructor : (attrs,opts) ->
         super(attrs,opts)
-        @questions = new FramedQuestions([],{baseUrl:@url})
-        @teams = new Teams([],{baseUrl:@url})
+        @rounds = new Rounds([],{url:@url() + "/rounds",application:@application})
         
     
-    exports.Matches = class Matches extends Collection
-      
-      urlPath : "/matches"
-      model   : Match
+    exports.Round = class Round extends TrivialtModel
     
-    exports.FramedQuestion = class FramedQuestion extends Model
+      url : -> API_URL + "/rounds" + (if @id? then "/#{@id}" else "")
     
-    exports.FramedQuestions = class FramedQuestions extends Collection
+      constructor : (attrs, opts) ->
+        super(attrs,opts)
+        @framedQuestions = new FramedQuestions([],{url:@url() + "/frames",application:@application})
+        
+      isClosed : -> @get('closed') is true
+    
       
-      urlPath : "/framedquestions"
-      model   : FramedQuestion
+    exports.Rounds = class Rounds extends TrivialtCollection
+      
+      model   : Round
+      
+      constructor : (models,opts)->
+        @repository = opts.application.rounds
+        super(models,opts)
+            
+      fetch : (opts) ->
+        success = opts.success
+        opts.success = (rounds) ->
+          i = rounds.models.length
+          for round in rounds.models
+            round.framedQuestions.fetch success:()->
+              if --i <= 0 then success rounds
+        super opts
+      
+      ###
+      Fetch the first non-closed round.
+      ###
+      getCurrent : ->
+        for round in @models
+          if not round.isClosed()
+            return round
+    
+    
+    exports.FramedQuestion = class FramedQuestion extends TrivialtModel
+      
+      url : -> API_URL + "/framedquestions" + (if @id? then "/#{@id}" else "")
+      
+      getPhrase : -> @get 'phrase'
+    
+    
+    exports.FramedQuestions = class FramedQuestions extends TrivialtCollection
+      
+      model : FramedQuestion
+      
+      constructor : (models,opts) ->
+        @repository = opts.application.framedQuestions
+        super(models,opts)
+    
+    
+    exports.Proposal = class Proposal extends TrivialtModel
+    
+      url : -> API_URL + "/proposals" + (if @id? then "/#{@id}" else "")
+      
+      set : (update, opts) ->
+        if update.framedQuestion?
+          @framedQuestion = @application.framedQuestions.addOrUpdate update.framedQuestion
+          delete update.framedQuestion
+          
+        if update.card?
+          @card = @application.cards.addOrUpdate update.card
+          delete update.card
+          
+        super update, opts
+    
+    
+    exports.Proposals = class Proposals extends TrivialtCollection
+      
+      model : Proposal
+      
+      constructor : (models,opts)->
+        @repository = opts.application.proposals
+        @card = opts.card
+        super(models,opts)
+      
+      getOrCreateFor : (framedQuestion) ->
+        for proposal in @models
+          if proposal.framedQuestion.id == framedQuestion.id
+            return proposal
+        prop = new Proposal {
+          framedQuestion : framedQuestion
+          card : @card
+          },{ application:@application }
+        @add prop
+        return prop
+    
+    
+    exports.Card = class Card extends TrivialtModel
+    
+      url : -> API_URL + "/cards" + (if @id? then "/#{@id}" else "")
+      
+      constructor : (attrs,opts) ->
+        super(attrs,opts)
+        
+        @proposals = new Proposals [],
+          url:@url() + "/proposals"
+          card:this
+          application:@application
+    
+      set : (update, opts) ->
+        if update.round?
+          @round = @application.rounds.addOrUpdate update.round
+          delete update.round
+        super update, opts
+    
+    
+    exports.Cards = class Cards extends TrivialtCollection
+      
+      model   : Card
+      
+      constructor : (models,opts) ->
+        @repository = opts.application.cards
+        super(models,opts)
+            
+      fetch : (opts) ->
+        success = opts.success
+        opts.success = (cards) ->
+          i = cards.models.length * 2
+          for card in cards.models
+            
+            card.proposals.fetch success:->
+              if --i <= 0 then success cards
+            
+            card.round.framedQuestions.fetch success:->
+              if --i <= 0 then success cards
+            
+        super opts
+    
+    
+    exports.Deck = class Deck extends TrivialtModel
+    
+      urlRoot : API_URL + "/decks"
+    
+      constructor : (attrs, opts) ->
+        super(attrs,opts)
+        
+        @cards = new Cards [],
+          application:@application
+          url:@url() + "/cards"
+    
+      set : (update, opts) ->
+        if update.match?
+          @match = @application.matches.addOrUpdate update.match
+          delete update.match
+        super update, opts
     
     return exports
 

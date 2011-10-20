@@ -24,10 +24,10 @@ define(
    'ribcage/View'
    './domain'
    './page/signIn'
-   './page/question'
+   './page/game'
    './page/notFound'
    './widget/header'],
-  (Model,Router,View,domain,signIn,question,notFound,header) ->
+  (Model,Router,View,domain,signIn,game,notFound,header) ->
     
     exports = {}
     
@@ -37,8 +37,19 @@ define(
         super()
         @notFoundView = new notFound.NotFoundView
         
-        @teams   = new domain.Teams([],{baseUrl:@baseUrl})
-        @matches = new domain.Matches([],{baseUrl:@baseUrl})
+        @game = new game.Game(this)
+        
+        opts = {application:this}
+        
+        # We use repositories to make sure
+        # we don't have duplicate instances
+        # of models.
+        @matches         = new domain.Repository(domain.Match, this)
+        @rounds          = new domain.Repository(domain.Round, this)
+        @decks           = new domain.Repository(domain.Deck, this)
+        @cards           = new domain.Repository(domain.Card, this)
+        @framedQuestions = new domain.Repository(domain.FramedQuestion, this)
+        
       
       setPage : (page) -> @set 'page', page
       getPage :        -> @get 'page', @notFoundView
@@ -47,35 +58,38 @@ define(
       getTeam : ()     -> @get 'team'
       
       
-      navigate : (url, route) ->
+      navigate : (url, route=true) ->
         Backbone.history.navigate(url, route)
     
     
     exports.AppRouter = class AppRouter extends Router
       
       routes : 
-        ''               : 'index'
-        '/match/current' : 'currentMatch'
-        '/match/current/q/:id' : 'questionForCurrentMatch'
+        ''      : 'index'
+        '/game/round/:r/question/:q' : 'question'
         
       constructor : (@application) ->
         super()
-      
+        @gameView = new game.GameView(@application)
+        @signInView = new signIn.SignInView(@application)
+        
       notFound : () =>
         @application.setPage @application.notFoundView
         
       index : () =>
-        @application.setPage new signIn.SignInView(@application)
+        @application.setPage @signInView
       
-      currentMatch : () =>
-        if @application.getTeam()?
-          @application.getTeam().loadCurrentMatch 
-            success : (match) =>
-              console.log match
-            error : () =>
-              @notFound()
-        else 
-          @application.navigate("#",true)
+      question : (roundIdx,questionIdx) =>
+        
+        @application.setPage @gameView
+        
+        if not @application.getTeam()?
+          # Temporary
+          new domain.Team({id:294},{application:@application}).fetch success:(team)=>
+            @application.setTeam team
+            @application.game.showQuestion(roundIdx,questionIdx)
+        else
+          @application.game.showQuestion(roundIdx,questionIdx)
         
         
     exports.AppView = class AppView extends View
