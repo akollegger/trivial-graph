@@ -27,7 +27,9 @@ public class Deck {
     public static final String DECK_TO_CARDS = "CARD";
 	public static final RelationshipType DECK_TO_CARDS_REL = DynamicRelationshipType.withName(DECK_TO_CARDS);
 
-	@RelatedTo(elementClass = Match.class, type=DECK_TO_MATCH)
+//	private String reference;
+	
+	@RelatedTo(elementClass = Match.class, type=DECK_TO_MATCH, direction = OUTGOING)
     private Match match;
 
     @RelatedTo(elementClass = Card.class, type=DECK_TO_CARDS, direction = OUTGOING)

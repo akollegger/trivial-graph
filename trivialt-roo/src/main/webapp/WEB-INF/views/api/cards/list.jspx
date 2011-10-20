@@ -6,7 +6,7 @@
         <table:table data="${cards}" id="l_org_neo4j_app_trivialt_model_Card" path="/api/cards" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Card_locked" property="locked" z="a3pK9hCUmXs2rijAShIt99gdItY="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Card_round" property="round" z="a6H5y0/IFbrNpUkeysG/Gt8Hpaw="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Card_proposals" property="proposals" z="MUCqmzmuNZsvXd1YVz8DRnUHW+M="/>
+            <placeholder id="c_org_neo4j_app_trivialt_model_Card_proposals" property="proposals" z="user-managed"/>
             <table:column id="c_org_neo4j_app_trivialt_model_Card_deck" property="deck" z="rewOE1JbiUNiUIZgIhgxP1WkoCU="/>
         </table:table>
     </page:list>

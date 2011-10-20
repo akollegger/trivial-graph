@@ -62,17 +62,6 @@ privileged aspect TeamController_Roo_Controller {
         return "api/teams/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String TeamController.update(@Valid Team team, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("team", team);
-            return "api/teams/update";
-        }
-        uiModel.asMap().clear();
-        team.save();
-        return "redirect:/api/teams/" + encodeUrlPathSegment(team.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String TeamController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("team", Team.findTeam(id));

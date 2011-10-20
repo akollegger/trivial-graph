@@ -63,17 +63,6 @@ privileged aspect DeckController_Roo_Controller {
         return "api/decks/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String DeckController.update(@Valid Deck deck, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("deck", deck);
-            return "api/decks/update";
-        }
-        uiModel.asMap().clear();
-        deck.save();
-        return "redirect:/api/decks/" + encodeUrlPathSegment(deck.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String DeckController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("deck", Deck.findDeck(id));

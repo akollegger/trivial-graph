@@ -5,7 +5,7 @@
     <form:create id="fc_org_neo4j_app_trivialt_model_Deck" modelAttribute="deck" path="/api/decks" render="${empty dependencies}" z="user-managed">
         <field:select field="match" id="c_org_neo4j_app_trivialt_model_Deck_match" itemValue="id" items="${matches}" path="/api/matches" z="user-managed"/>
         <field:select field="cards" id="c_org_neo4j_app_trivialt_model_Deck_cards" itemValue="id" items="${cards}" multiple="true" path="/api/cards" z="user-managed"/>
-        <field:select field="team" id="c_org_neo4j_app_trivialt_model_Deck_team" itemValue="id" items="${teams}" path="/api/teams" z="BKAwuyvXFVXCXUjaQPFUkFA0VZQ="/>
+        <field:select field="team" id="c_org_neo4j_app_trivialt_model_Deck_team" itemValue="id" items="${teams}" path="/teams" z="Hi5Y2t3PBnURNgCUXwRcRemxfbY="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_org_neo4j_app_trivialt_model_Deck" render="${not empty dependencies}" z="1E27bTkBnlcG6uImbwqWfZAT01A="/>
 </div>

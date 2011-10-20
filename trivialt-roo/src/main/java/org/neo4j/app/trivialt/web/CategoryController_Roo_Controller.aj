@@ -61,17 +61,6 @@ privileged aspect CategoryController_Roo_Controller {
         return "api/categories/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String CategoryController.update(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("category", category);
-            return "api/categories/update";
-        }
-        uiModel.asMap().clear();
-        category.save();
-        return "redirect:/api/categories/" + encodeUrlPathSegment(category.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String CategoryController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("category", Category.findCategory(id));

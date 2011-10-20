@@ -34,7 +34,6 @@ public class Proposal {
     @RelatedTo(elementClass=FramedQuestion.class, type=PROPOSAL_TO_FRAMED_QUESTION, direction=OUTGOING)
     private FramedQuestion posedQuestion;
 
-
     @RelatedTo
     private Player submittingPlayer;
     

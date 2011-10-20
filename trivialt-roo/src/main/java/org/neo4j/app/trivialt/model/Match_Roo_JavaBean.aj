@@ -43,6 +43,14 @@ privileged aspect Match_Roo_JavaBean {
         this.rounds = rounds;
     }
     
+    public Set<Round> Match.getDecks() {
+        return this.decks;
+    }
+    
+    public void Match.setDecks(Set<Round> decks) {
+        this.decks = decks;
+    }
+    
     public Player Match.getTriviaMaster() {
         return this.triviaMaster;
     }

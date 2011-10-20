@@ -5,7 +5,7 @@
     <page:list id="pl_org_neo4j_app_trivialt_model_Deck" items="${decks}" z="Ms47tYJNn47DuriSFnoevUQHIcU=">
         <table:table data="${decks}" id="l_org_neo4j_app_trivialt_model_Deck" path="/api/decks" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Deck_match" property="match" z="3HEJNr1GPMJ0lUJ1vsCwn3/5UTw="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Deck_cards" property="cards" z="fZlZfrkJ8b6TmpOXMD+0eyyhySA="/>
+            <placeholder id="c_org_neo4j_app_trivialt_model_Deck_cards" property="cards" z="user-managed"/>
             <table:column id="c_org_neo4j_app_trivialt_model_Deck_team" property="team" z="PaA3lbrz5fgyvW8871bvdEI31y4="/>
         </table:table>
     </page:list>

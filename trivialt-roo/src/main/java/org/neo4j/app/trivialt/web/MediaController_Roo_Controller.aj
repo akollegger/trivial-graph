@@ -61,17 +61,6 @@ privileged aspect MediaController_Roo_Controller {
         return "api/medias/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String MediaController.update(@Valid Media media, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("media", media);
-            return "api/medias/update";
-        }
-        uiModel.asMap().clear();
-        media.save();
-        return "redirect:/api/medias/" + encodeUrlPathSegment(media.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String MediaController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("media", Media.findMedia(id));

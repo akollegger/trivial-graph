@@ -39,6 +39,8 @@ public class Card {
     @RelatedTo(elementClass = Proposal.class, type=CARD_TO_PROPOSALS, direction = OUTGOING)
     private Set<Proposal> proposals;
     
+//    private String reference;
+    
     public Card() {
 	}
 

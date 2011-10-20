@@ -62,17 +62,6 @@ privileged aspect MatchController_Roo_Controller {
         return "api/matches/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String MatchController.update(@Valid Match match, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("match", match);
-            return "api/matches/update";
-        }
-        uiModel.asMap().clear();
-        match.save();
-        return "redirect:/api/matches/" + encodeUrlPathSegment(match.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String MatchController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("match", Match.findMatch(id));

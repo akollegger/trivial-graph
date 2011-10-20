@@ -60,17 +60,6 @@ privileged aspect AnswerController_Roo_Controller {
         return "api/answers/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String AnswerController.update(@Valid Answer answer, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("answer", answer);
-            return "api/answers/update";
-        }
-        uiModel.asMap().clear();
-        answer.save();
-        return "redirect:/api/answers/" + encodeUrlPathSegment(answer.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String AnswerController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("answer", Answer.findAnswer(id));

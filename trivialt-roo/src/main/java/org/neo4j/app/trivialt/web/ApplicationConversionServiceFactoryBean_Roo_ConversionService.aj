@@ -10,6 +10,7 @@ import org.neo4j.app.trivialt.model.FramedQuestion;
 import org.neo4j.app.trivialt.model.Match;
 import org.neo4j.app.trivialt.model.Media;
 import org.neo4j.app.trivialt.model.Player;
+import org.neo4j.app.trivialt.model.Proposal;
 import org.neo4j.app.trivialt.model.Question;
 import org.neo4j.app.trivialt.model.Round;
 import org.neo4j.app.trivialt.model.Team;
@@ -25,6 +26,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         registry.addConverter(new MatchConverter());
         registry.addConverter(new MediaConverter());
         registry.addConverter(new PlayerConverter());
+        registry.addConverter(new ProposalConverter());
         registry.addConverter(new QuestionConverter());
         registry.addConverter(new RoundConverter());
         registry.addConverter(new TeamConverter());
@@ -77,6 +79,13 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         
     }
     
+    static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.ProposalConverter implements Converter<Proposal, String> {
+        public String convert(Proposal proposal) {
+            return new StringBuilder().append(proposal.getScore()).append(" ").append(proposal.getProposedAnswer()).toString();
+        }
+        
+    }
+    
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.QuestionConverter implements Converter<Question, String> {
         public String convert(Question question) {
             return new StringBuilder().append(question.getText()).toString();
@@ -86,7 +95,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.RoundConverter implements Converter<Round, String> {
         public String convert(Round round) {
-            return new StringBuilder().append(round.getTitle()).toString();
+            return new StringBuilder().append(round.getTitle()).append(" ").append(round.getPointsPerQuestion()).toString();
         }
         
     }

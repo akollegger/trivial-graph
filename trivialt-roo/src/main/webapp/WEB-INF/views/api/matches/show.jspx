@@ -9,5 +9,6 @@
         <field:display field="currentRound" id="s_org_neo4j_app_trivialt_model_Match_currentRound" object="${match}" z="xqH8v07mxYc9yM0dWAZlptmqBKA="/>
         <field:display field="mode" id="s_org_neo4j_app_trivialt_model_Match_mode" object="${match}" z="eEuwcjpeh9d7+NYF9vTEyyD8nbg="/>
         <field:display field="featured" id="s_org_neo4j_app_trivialt_model_Match_featured" object="${match}" z="hsFDHdgWVIn0W32TtYCJ+cxelfY="/>
+        <field:display field="decks" id="s_org_neo4j_app_trivialt_model_Match_decks" object="${match}" z="xMigKCibYm1wTRrI4EGYZ4X8i3M="/>
     </page:show>
 </div>

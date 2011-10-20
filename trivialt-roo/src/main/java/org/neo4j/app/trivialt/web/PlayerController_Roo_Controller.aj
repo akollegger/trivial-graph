@@ -61,17 +61,6 @@ privileged aspect PlayerController_Roo_Controller {
         return "api/players/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String PlayerController.update(@Valid Player player, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("player", player);
-            return "api/players/update";
-        }
-        uiModel.asMap().clear();
-        player.save();
-        return "redirect:/api/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String PlayerController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("player", Player.findPlayer(id));
