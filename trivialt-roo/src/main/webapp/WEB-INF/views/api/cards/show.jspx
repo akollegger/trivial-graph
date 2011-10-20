@@ -6,5 +6,6 @@
         <field:display field="locked" id="s_org_neo4j_app_trivialt_model_Card_locked" object="${card}" z="ppd+6d25ci8zttV2fk/YiEEJuEI="/>
         <field:display field="round" id="s_org_neo4j_app_trivialt_model_Card_round" object="${card}" z="9/SD7IQo+llYSITz1MKAh+6mPM0="/>
         <field:display field="proposals" id="s_org_neo4j_app_trivialt_model_Card_proposals" object="${card}" z="2JRGOWZDenTylyxIp3I6gQv6yKk="/>
+        <field:display field="deck" id="s_org_neo4j_app_trivialt_model_Card_deck" object="${card}" z="Z0FcRJAzSy7GIg0lpLtZoIBRVuw="/>
     </page:show>
 </div>

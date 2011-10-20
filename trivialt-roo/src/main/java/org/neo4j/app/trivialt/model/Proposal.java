@@ -2,6 +2,8 @@ package org.neo4j.app.trivialt.model;
 
 import java.util.Collection;
 
+import static org.springframework.data.neo4j.core.Direction.INCOMING;
+import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -19,15 +21,19 @@ import flexjson.JSONSerializer;
 @RooJavaBean
 @RooJson
 public class Proposal {
-
-    @RelatedTo
+	
+	public static final String PROPOSAL_TO_FRAMED_QUESTION = "FRAMED_QUESTION";
+	
+	private Integer score = 0;
+	
+    private String proposedAnswer;
+    
+    @RelatedTo(elementClass=Card.class, type=Card.CARD_TO_PROPOSALS, direction=INCOMING)
     private Card card;
 
-    @RelatedTo
+    @RelatedTo(elementClass=FramedQuestion.class, type=PROPOSAL_TO_FRAMED_QUESTION, direction=OUTGOING)
     private FramedQuestion posedQuestion;
 
-    @RelatedTo
-    private Answer proposedAnswer;
 
     @RelatedTo
     private Player submittingPlayer;

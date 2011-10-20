@@ -5,5 +5,7 @@
     <page:show id="ps_org_neo4j_app_trivialt_model_Round" object="${round}" path="/api/rounds" z="user-managed">
         <field:display field="title" id="s_org_neo4j_app_trivialt_model_Round_title" object="${round}" z="vdK46NcHkzmJqzilgebrXYALrJQ="/>
         <field:display field="framedQuestions" id="s_org_neo4j_app_trivialt_model_Round_framedQuestions" object="${round}" z="95a1CIUbyzZ+/EUqZOBeT4YJ8X0="/>
+        <field:display field="closed" id="s_org_neo4j_app_trivialt_model_Round_closed" object="${round}" z="NkpJPoy3VsJqKeuTVxTLp2/ACGs="/>
+        <field:display field="pointsPerQuestion" id="s_org_neo4j_app_trivialt_model_Round_pointsPerQuestion" object="${round}" z="uXDq8DZSfdnF1FeVexjY9fu159U="/>
     </page:show>
 </div>

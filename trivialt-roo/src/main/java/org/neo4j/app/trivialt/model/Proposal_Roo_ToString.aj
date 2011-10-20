@@ -13,6 +13,7 @@ privileged aspect Proposal_Roo_ToString {
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("PosedQuestion: ").append(getPosedQuestion()).append(", ");
         sb.append("ProposedAnswer: ").append(getProposedAnswer()).append(", ");
+        sb.append("Score: ").append(getScore()).append(", ");
         sb.append("SubmittingPlayer: ").append(getSubmittingPlayer());
         return sb.toString();
     }

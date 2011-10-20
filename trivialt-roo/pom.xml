@@ -369,6 +369,10 @@
                             <groupId>org.springframework</groupId>
                             <artifactId>spring-aspects</artifactId>
                         </aspectLibrary>
+                    <aspectLibrary>
+                        <groupId>org.springframework.data</groupId>
+                        <artifactId>spring-data-neo4j</artifactId>
+                    </aspectLibrary>
                     </aspectLibraries>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -459,50 +463,7 @@
                         <contextPath>/${project.name}</contextPath>
                     </webAppConfig>
                 </configuration>
-            </plugin>
-        <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                <outxml>true</outxml>
-                <aspectLibraries>
-                    <aspectLibrary>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-aspects</artifactId>
-                    </aspectLibrary>
-                    <aspectLibrary>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-neo4j</artifactId>
-                    </aspectLibrary>
-                </aspectLibraries>
-                <source>1.6</source>
-                <target>1.6</target>
-            </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
-                        <classifier/>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
-                        <classifier/>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            
+            </plugin>            
             <plugin>
 		        <groupId>com.voltvoodoo</groupId>
 		        <artifactId>brew</artifactId>

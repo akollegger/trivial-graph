@@ -9,6 +9,7 @@ privileged aspect Team_Roo_ToString {
     
     public String Team.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("CurrentDeck: ").append(getCurrentDeck()).append(", ");
         sb.append("Decks: ").append(getDecks() == null ? "null" : getDecks().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Members: ").append(getMembers() == null ? "null" : getMembers().size()).append(", ");

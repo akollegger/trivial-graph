@@ -8,5 +8,6 @@
         <field:select field="triviaMaster" id="c_org_neo4j_app_trivialt_model_Match_triviaMaster" itemValue="id" items="${players}" path="/api/players" z="user-managed"/>
         <field:select field="currentRound" id="c_org_neo4j_app_trivialt_model_Match_currentRound" itemValue="id" items="${rounds}" path="/api/rounds" z="user-managed"/>
         <field:input field="mode" id="c_org_neo4j_app_trivialt_model_Match_mode" z="jAaggbN4P+l7W7xycZ6S7K+vcP8="/>
+        <field:checkbox field="featured" id="c_org_neo4j_app_trivialt_model_Match_featured" z="/CeXz96jJ/6ePO/XB9UpfFcrHuA="/>
     </form:update>
 </div>

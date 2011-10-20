@@ -8,6 +8,7 @@
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_posedQuestion" property="posedQuestion" z="m21RrWSpMFbdM/gNUM1+MoN5Utw="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_proposedAnswer" property="proposedAnswer" z="R26DxtRGmZxIkwGR2IDGdNb/Fk8="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_submittingPlayer" property="submittingPlayer" z="lHa7tY8lfJa5n6n35jOi6DoUjyc="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Proposal_score" property="score" z="B3knE+LsolKvrB9x+wfV7fgiITI="/>
         </table:table>
     </page:list>
 </div>

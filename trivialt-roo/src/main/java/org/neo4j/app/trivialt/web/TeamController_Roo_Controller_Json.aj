@@ -37,14 +37,6 @@ privileged aspect TeamController_Roo_Controller_Json {
         return new ResponseEntity<String>(Team.toJsonArray(Team.findAll()), headers, HttpStatus.OK);
     }
     
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public ResponseEntity<String> TeamController.createFromJson(@RequestBody String json) {
-        Team.fromJsonToTeam(json).save();
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
     @RequestMapping(value = "/jsonArray", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> TeamController.createFromJsonArray(@RequestBody String json) {
         for (Team team: Team.fromJsonArrayToTeams(json)) {

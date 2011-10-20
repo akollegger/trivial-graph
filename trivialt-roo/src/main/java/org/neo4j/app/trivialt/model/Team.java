@@ -5,6 +5,8 @@ import java.util.Set;
 
 import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 
+import org.neo4j.graphdb.DynamicRelationshipType;
+import org.neo4j.graphdb.RelationshipType;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -20,25 +22,41 @@ import flexjson.JSONSerializer;
 @RooJavaBean
 @RooJson
 public class Team {
+    
+    public static final String TEAM_TO_PLAYER = "MEMBER";
+	public static final RelationshipType TEAM_TO_PLAYER_REL = DynamicRelationshipType.withName(TEAM_TO_PLAYER);
 
-    @Indexed
+	public static final String TEAM_TO_DECK = "DECK";
+	public static final RelationshipType TEAM_TO_DECK_REL = DynamicRelationshipType.withName(TEAM_TO_DECK);
+
+	public static final String CURRENT_DECK = "CURRENT_DECK";
+	public static final RelationshipType CURRENT_DECK_REL = DynamicRelationshipType.withName(TEAM_TO_DECK);
+
+	@Indexed
     private String name;
 
     private String secret;
 
-    @RelatedTo(elementClass = Deck.class, type = "OWNS", direction = OUTGOING)
+    @RelatedTo(elementClass = Deck.class, type = CURRENT_DECK, direction = OUTGOING )
+    private Deck currentDeck;
+    
+    @RelatedTo(elementClass = Deck.class, type = TEAM_TO_DECK, direction = OUTGOING)
     private Set<Deck> decks;
 
-    @RelatedTo(elementClass = Player.class, type = "MEMBER", direction = OUTGOING)
+    @RelatedTo(elementClass = Player.class, type = TEAM_TO_PLAYER, direction = OUTGOING)
     private Set<Player> members;
     
     public String toJson() {
-        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+        return new JSONSerializer().rootName("team").exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
     }
     
     public static String toJsonArray(Collection<Team> collection) {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
     }
+
+	public void add(Deck deck) {
+		decks.add(deck);
+	}
 
 
 

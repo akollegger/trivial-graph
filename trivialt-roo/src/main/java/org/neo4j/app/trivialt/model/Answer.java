@@ -19,7 +19,13 @@ public class Answer {
     @Indexed
     private String text;
     
-    public String toJson() {
+    public Answer() {;}
+    
+    public Answer(String answer) {
+    	this.text = answer;
+	}
+
+	public String toJson() {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
     }
     

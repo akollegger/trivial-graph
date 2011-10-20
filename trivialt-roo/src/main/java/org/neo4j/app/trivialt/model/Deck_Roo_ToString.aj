@@ -12,7 +12,7 @@ privileged aspect Deck_Roo_ToString {
         sb.append("Cards: ").append(getCards() == null ? "null" : getCards().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Match: ").append(getMatch()).append(", ");
-        sb.append("Owner: ").append(getOwner());
+        sb.append("Team: ").append(getTeam());
         return sb.toString();
     }
     

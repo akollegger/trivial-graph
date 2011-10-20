@@ -26,12 +26,12 @@ privileged aspect Deck_Roo_JavaBean {
         this.cards = cards;
     }
     
-    public Team Deck.getOwner() {
-        return this.owner;
+    public Team Deck.getTeam() {
+        return this.team;
     }
     
-    public void Deck.setOwner(Team owner) {
-        this.owner = owner;
+    public void Deck.setTeam(Team team) {
+        this.team = team;
     }
     
 }

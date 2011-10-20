@@ -28,7 +28,13 @@ public class Question {
     @RelatedTo(elementClass = Category.class, type = "CATEGORY", direction = OUTGOING)
     private Category category;
     
-    public String toJson() {
+    public Question() {;}
+    
+    public Question(String question) {
+    	this.text = question;
+	}
+
+	public String toJson() {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
     }
     

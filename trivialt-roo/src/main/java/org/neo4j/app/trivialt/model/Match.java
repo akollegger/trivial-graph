@@ -19,10 +19,14 @@ import flexjson.JSONSerializer;
 @RooJson
 public class Match {
 
-    @Indexed
+    public static final String READY = "ready";
+
+	@Indexed
     private String title;
 
-    private String mode;
+    private Boolean featured = false;
+    
+    private String mode = READY;
 
     @RelatedTo(elementClass = Round.class, type = "ORDINAL", direction = INCOMING)
     private Set<Round> rounds;
@@ -32,8 +36,14 @@ public class Match {
 
     @RelatedTo(elementClass = Round.class)
     private Round currentRound;
+    
+    public Match() {;}
 
-    public Ordinal getOrder(Round ofRound) {
+    public Match(String title) {
+    	this.title = title;
+	}
+
+	public Ordinal getOrder(Round ofRound) {
         return getRelationshipTo(ofRound, Ordinal.class, "ORDINAL");
     }
 
@@ -44,6 +54,10 @@ public class Match {
     public static String toJsonArray(Collection<Match> collection) {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
     }
+
+	public void add(Round round) {
+		rounds.add(round);
+	}
 
 
 }

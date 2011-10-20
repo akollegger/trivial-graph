@@ -10,7 +10,6 @@ import java.lang.String;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.neo4j.app.trivialt.model.Answer;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.FramedQuestion;
 import org.neo4j.app.trivialt.model.Player;
@@ -88,11 +87,6 @@ privileged aspect ProposalController_Roo_Controller {
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/api/proposals";
-    }
-    
-    @ModelAttribute("answers")
-    public Collection<Answer> ProposalController.populateAnswers() {
-        return Answer.findAll();
     }
     
     @ModelAttribute("cards")

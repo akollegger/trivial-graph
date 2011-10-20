@@ -3,6 +3,8 @@
 
 package org.neo4j.app.trivialt.model;
 
+import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Set;
 import org.neo4j.app.trivialt.model.FramedQuestion;
@@ -15,6 +17,22 @@ privileged aspect Round_Roo_JavaBean {
     
     public void Round.setTitle(String title) {
         this.title = title;
+    }
+    
+    public Boolean Round.getClosed() {
+        return this.closed;
+    }
+    
+    public void Round.setClosed(Boolean closed) {
+        this.closed = closed;
+    }
+    
+    public Integer Round.getPointsPerQuestion() {
+        return this.pointsPerQuestion;
+    }
+    
+    public void Round.setPointsPerQuestion(Integer pointsPerQuestion) {
+        this.pointsPerQuestion = pointsPerQuestion;
     }
     
     public Set<FramedQuestion> Round.getFramedQuestions() {

@@ -9,6 +9,7 @@
             <table:column id="c_org_neo4j_app_trivialt_model_Match_triviaMaster" property="triviaMaster" z="DgBsaBpK6HsarhvLQZM18BpPuNs="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_currentRound" property="currentRound" z="A9DMZrM7/VPX+Jeq7WysV1K9zL0="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_mode" property="mode" z="8P7acZfkCTc1nKVwHhA8sSwxm/Q="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_featured" property="featured" z="BBvfCPXERN7gTazK1K9PaobvlBU="/>
         </table:table>
     </page:list>
 </div>

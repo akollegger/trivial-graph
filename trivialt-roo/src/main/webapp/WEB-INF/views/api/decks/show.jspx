@@ -5,6 +5,6 @@
     <page:show id="ps_org_neo4j_app_trivialt_model_Deck" object="${deck}" path="/api/decks" z="user-managed">
         <field:display field="match" id="s_org_neo4j_app_trivialt_model_Deck_match" object="${deck}" z="rLnFvDdhnzGtp+KYhGzn2h6iHuk="/>
         <field:display field="cards" id="s_org_neo4j_app_trivialt_model_Deck_cards" object="${deck}" z="vjdCH09jIuNjU8LXwXyId4qSH/c="/>
-        <field:display field="owner" id="s_org_neo4j_app_trivialt_model_Deck_owner" object="${deck}" z="VMWnkDwwkcAUfQ8n9OrMSxiLjoQ="/>
+        <field:display field="team" id="s_org_neo4j_app_trivialt_model_Deck_team" object="${deck}" z="Alxn+1CJ2nnG0Louok7rDoOGxLc="/>
     </page:show>
 </div>

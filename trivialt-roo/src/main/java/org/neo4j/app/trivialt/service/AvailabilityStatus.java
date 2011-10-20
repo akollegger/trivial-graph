@@ -1,4 +1,6 @@
-package org.neo4j.app.trivialt.present;
+package org.neo4j.app.trivialt.service;
+
+import flexjson.JSONSerializer;
 
 public class AvailabilityStatus {
 
@@ -35,6 +37,10 @@ public class AvailabilityStatus {
 		AvailabilityStatus availableFalse = new AvailabilityStatus(false);
 		availableFalse.setKey(key);
 		return availableFalse;
+	}
+
+	public String toJson() {
+        return new JSONSerializer().exclude("*.class").serialize(this);
 	}
 	
 }

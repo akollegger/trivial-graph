@@ -3,12 +3,29 @@
 
 package org.neo4j.app.trivialt.model;
 
-import org.neo4j.app.trivialt.model.Answer;
+import java.lang.Integer;
+import java.lang.String;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.FramedQuestion;
 import org.neo4j.app.trivialt.model.Player;
 
 privileged aspect Proposal_Roo_JavaBean {
+    
+    public Integer Proposal.getScore() {
+        return this.score;
+    }
+    
+    public void Proposal.setScore(Integer score) {
+        this.score = score;
+    }
+    
+    public String Proposal.getProposedAnswer() {
+        return this.proposedAnswer;
+    }
+    
+    public void Proposal.setProposedAnswer(String proposedAnswer) {
+        this.proposedAnswer = proposedAnswer;
+    }
     
     public Card Proposal.getCard() {
         return this.card;
@@ -24,14 +41,6 @@ privileged aspect Proposal_Roo_JavaBean {
     
     public void Proposal.setPosedQuestion(FramedQuestion posedQuestion) {
         this.posedQuestion = posedQuestion;
-    }
-    
-    public Answer Proposal.getProposedAnswer() {
-        return this.proposedAnswer;
-    }
-    
-    public void Proposal.setProposedAnswer(Answer proposedAnswer) {
-        this.proposedAnswer = proposedAnswer;
     }
     
     public Player Proposal.getSubmittingPlayer() {

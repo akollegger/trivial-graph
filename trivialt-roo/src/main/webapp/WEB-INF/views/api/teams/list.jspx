@@ -8,6 +8,7 @@
             <table:column id="c_org_neo4j_app_trivialt_model_Team_secret" property="secret" z="xPLfg0tNOOf8WnQhhHRn6qeQxqo="/>
             <placeholder id="c_org_neo4j_app_trivialt_model_Team_decks" property="decks" z="user-managed"/>
             <table:column id="c_org_neo4j_app_trivialt_model_Team_members" property="members" z="GwY99/Lwk9YuZ4bFBtGe1BCkXjw="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Team_currentDeck" property="currentDeck" z="qvEL39i/VLWO3z7alAYwZnpu50Y="/>
         </table:table>
     </page:list>
 </div>

@@ -9,6 +9,7 @@ privileged aspect Card_Roo_ToString {
     
     public String Card.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Deck: ").append(getDeck()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Locked: ").append(getLocked()).append(", ");
         sb.append("Proposals: ").append(getProposals() == null ? "null" : getProposals().size()).append(", ");

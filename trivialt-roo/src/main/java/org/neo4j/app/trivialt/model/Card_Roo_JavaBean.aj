@@ -5,6 +5,7 @@ package org.neo4j.app.trivialt.model;
 
 import java.lang.Boolean;
 import java.util.Set;
+import org.neo4j.app.trivialt.model.Deck;
 import org.neo4j.app.trivialt.model.Proposal;
 import org.neo4j.app.trivialt.model.Round;
 
@@ -24,6 +25,14 @@ privileged aspect Card_Roo_JavaBean {
     
     public void Card.setRound(Round round) {
         this.round = round;
+    }
+    
+    public Deck Card.getDeck() {
+        return this.deck;
+    }
+    
+    public void Card.setDeck(Deck deck) {
+        this.deck = deck;
     }
     
     public Set<Proposal> Card.getProposals() {

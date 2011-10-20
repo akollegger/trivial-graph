@@ -3,6 +3,7 @@
 
 package org.neo4j.app.trivialt.model;
 
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Set;
 import org.neo4j.app.trivialt.model.Player;
@@ -16,6 +17,14 @@ privileged aspect Match_Roo_JavaBean {
     
     public void Match.setTitle(String title) {
         this.title = title;
+    }
+    
+    public Boolean Match.getFeatured() {
+        return this.featured;
+    }
+    
+    public void Match.setFeatured(Boolean featured) {
+        this.featured = featured;
     }
     
     public String Match.getMode() {

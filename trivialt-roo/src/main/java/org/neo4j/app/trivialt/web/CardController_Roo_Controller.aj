@@ -11,6 +11,7 @@ import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.neo4j.app.trivialt.model.Card;
+import org.neo4j.app.trivialt.model.Deck;
 import org.neo4j.app.trivialt.model.Proposal;
 import org.neo4j.app.trivialt.model.Round;
 import org.springframework.ui.Model;
@@ -91,6 +92,11 @@ privileged aspect CardController_Roo_Controller {
     @ModelAttribute("cards")
     public Collection<Card> CardController.populateCards() {
         return Card.findAll();
+    }
+    
+    @ModelAttribute("decks")
+    public Collection<Deck> CardController.populateDecks() {
+        return Deck.findAll();
     }
     
     @ModelAttribute("proposals")

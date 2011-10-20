@@ -7,5 +7,6 @@
         <field:input field="secret" id="c_org_neo4j_app_trivialt_model_Team_secret" z="zh9/w206F3PDnw8vpopV6Wpowwg="/>
         <field:select field="decks" id="c_org_neo4j_app_trivialt_model_Team_decks" itemValue="id" items="${decks}" multiple="true" path="/api/decks" z="user-managed"/>
         <field:select field="members" id="c_org_neo4j_app_trivialt_model_Team_members" itemValue="id" items="${players}" multiple="true" path="/api/players" z="user-managed"/>
+        <field:select field="currentDeck" id="c_org_neo4j_app_trivialt_model_Team_currentDeck" itemValue="id" items="${decks}" path="/api/decks" z="Piw7goEN0+hhxhDdXHV+jhO06Ow="/>
     </form:update>
 </div>

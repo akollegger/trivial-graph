@@ -10,6 +10,7 @@ privileged aspect Match_Roo_ToString {
     public String Match.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("CurrentRound: ").append(getCurrentRound()).append(", ");
+        sb.append("Featured: ").append(getFeatured()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Mode: ").append(getMode()).append(", ");
         sb.append("Rounds: ").append(getRounds() == null ? "null" : getRounds().size()).append(", ");

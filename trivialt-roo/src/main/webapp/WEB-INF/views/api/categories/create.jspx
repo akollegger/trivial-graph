@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_org_neo4j_app_trivialt_model_Category" modelAttribute="category" path="/api/categories" render="${empty dependencies}" z="61eQZSgpX6AFrUa3t121YoYIl6M=">
         <field:input field="name" id="c_org_neo4j_app_trivialt_model_Category_name" z="QsjssIGMY5Wb/3Aq65FAKpaB88A="/>
-        <field:select field="questions" id="c_org_neo4j_app_trivialt_model_Category_questions" itemValue="id" items="${questions}" multiple="true" path="/api/questions" z="itaAvhOBdnbHjXifPDGNlHZ1xb0="/>
+        <field:select field="questions" id="c_org_neo4j_app_trivialt_model_Category_questions" itemValue="id" items="${questions}" multiple="true" path="/questions" z="v4s/dKYbyvZN93WlyrJwG+Oqirw="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_org_neo4j_app_trivialt_model_Category" render="${not empty dependencies}" z="Je5Lt1I/eLoSNNZXQAvP+Zc6c6A="/>
 </div>

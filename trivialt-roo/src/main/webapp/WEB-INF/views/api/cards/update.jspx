@@ -6,5 +6,6 @@
         <field:checkbox field="locked" id="c_org_neo4j_app_trivialt_model_Card_locked" z="OSv+HpVBMnawF1zA+Cv0tHc+NbE="/>
         <field:select field="round" id="c_org_neo4j_app_trivialt_model_Card_round" itemValue="id" items="${rounds}" path="/api/rounds" z="user-managed"/>
         <field:select field="proposals" id="c_org_neo4j_app_trivialt_model_Card_proposals" itemValue="id" items="${proposals}" multiple="true" path="/api/proposals" z="i8oZRPtsSW4xWwJk0D5LyP0h3J0="/>
+        <field:select field="deck" id="c_org_neo4j_app_trivialt_model_Card_deck" itemValue="id" items="${decks}" path="/decks" z="5nzJZKThxN2xuhVK9Lzu7agqRHI="/>
     </form:update>
 </div>

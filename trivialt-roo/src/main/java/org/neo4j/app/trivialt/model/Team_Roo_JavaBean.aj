@@ -26,6 +26,14 @@ privileged aspect Team_Roo_JavaBean {
         this.secret = secret;
     }
     
+    public Deck Team.getCurrentDeck() {
+        return this.currentDeck;
+    }
+    
+    public void Team.setCurrentDeck(Deck currentDeck) {
+        this.currentDeck = currentDeck;
+    }
+    
     public Set<Deck> Team.getDecks() {
         return this.decks;
     }
