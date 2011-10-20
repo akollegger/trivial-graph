@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: get-round <round-id>"
+exit
+fi
+
+ROUND_ID=$1
+
+curl --verbose -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/rounds/${ROUND_ID}

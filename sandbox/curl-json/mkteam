@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: mkteam <teamname>"
+exit
+fi
+
+TEAM=$1
+
+curl -d "{name:\"${TEAM}\"}" --verbose -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams
