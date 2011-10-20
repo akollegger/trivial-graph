@@ -33,6 +33,12 @@ define(
       url : () ->
         @baseUrl + @urlPath
         
+      _add: (model,opts)->
+        if model.id? and @get(model.id)?
+          return model
+        else
+          return super(model,opts)
+        
       addOrUpdate : (model) ->
         savedModel = @get model.id
         if savedModel?

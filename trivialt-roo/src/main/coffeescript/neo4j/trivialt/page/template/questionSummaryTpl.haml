@@ -1,0 +1,5 @@
+%p = proposal.getFramedQuestion().getPhrase()
+:if proposal.getAnswer().length > 0
+  %p = proposal.getAnswer()
+:if proposal.getAnswer().length <= 0
+  %p Not answered!

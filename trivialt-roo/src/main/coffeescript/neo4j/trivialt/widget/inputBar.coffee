@@ -43,11 +43,13 @@ define(
         super(opts)
         @model = new InputBarModel
         @model.bind 'change:error',@onErrorChanged
+        @model.bind 'change:value',@onValueChanged
       
       render : () ->
         @el.innerHTML = inputBarTpl()
         
         @onErrorChanged()
+        @onValueChanged()
         
         this
         
@@ -61,7 +63,9 @@ define(
         errorEl.html error
         
         if error.length > 0 then errorEl.show() else errorEl.hide()
-        
+    
+      onValueChanged : () =>
+        $('.input-bar-input',@el).val(@model.getValue())
     
     return exports
 

@@ -48,7 +48,9 @@ define(
         @rounds          = new domain.Repository(domain.Round, this)
         @decks           = new domain.Repository(domain.Deck, this)
         @cards           = new domain.Repository(domain.Card, this)
+        @proposals       = new domain.Repository(domain.Proposal, this)
         @framedQuestions = new domain.Repository(domain.FramedQuestion, this)
+        @possibleAnswers = new domain.Repository(domain.PossibleAnswer, this)
         
       
       setPage : (page) -> @set 'page', page
@@ -66,31 +68,52 @@ define(
       
       routes : 
         ''      : 'index'
-        '/game/round/:r/question/:q' : 'question'
+        '/game/round/:r/question/:q'  : 'question'
+        '/game/round/:r/confirmation' : 'roundConfirmation'
+        '/game/round/:r/summary'      : 'roundSummary'
         
       constructor : (@application) ->
         super()
         @gameView = new game.GameView(@application)
         @signInView = new signIn.SignInView(@application)
         
-      notFound : () =>
-        @application.setPage @application.notFoundView
-        
       index : () =>
         @application.setPage @signInView
       
-      question : (roundIdx,questionIdx) =>
-        
+      question: (roundIdx,questionIdx) =>
         @application.setPage @gameView
         
         if not @application.getTeam()?
-          # Temporary
-          new domain.Team({id:294},{application:@application}).fetch success:(team)=>
+          @fetchPreviouslyUsedTeam success:(team)=>
             @application.setTeam team
             @application.game.showQuestion(roundIdx,questionIdx)
         else
           @application.game.showQuestion(roundIdx,questionIdx)
+          
+      roundConfirmation: (roundIdx) =>
+        @application.setPage @gameView
         
+        if not @application.getTeam()?
+          @fetchPreviouslyUsedTeam success:(team)=>
+            @application.setTeam team
+            @application.game.showRoundConfirmation(roundIdx)
+        else
+          @application.game.showRoundConfirmation(roundIdx)
+          
+      roundSummary: (roundIdx) =>
+        @application.setPage @gameView
+        
+        if not @application.getTeam()?
+          @fetchPreviouslyUsedTeam success:(team)=>
+            @application.setTeam team
+            @application.game.showRoundSummary(roundIdx)
+        else
+          @application.game.showRoundSummary(roundIdx)
+          
+          
+      fetchPreviouslyUsedTeam : (opts) ->
+        # Temporary
+        new domain.Team({id:294},{application:@application}).fetch opts
         
     exports.AppView = class AppView extends View
       

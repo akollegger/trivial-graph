@@ -144,7 +144,18 @@ define(
     
     exports.FramedQuestion = class FramedQuestion extends TrivialtModel
       
+      constructor : (attrs,opts)->
+        @possibleAnswers = new PossibleAnswers([],{url:@url() + "/possibleanswers",application:opts.application})
+        super(attrs,opts)
+      
       url : -> API_URL + "/framedquestions" + (if @id? then "/#{@id}" else "")
+      
+      set : (update, opts) ->
+        
+        if update.possibleAnswers?
+          @possibleAnswers.reset update.possibleAnswers
+          delete update.possibleAnswers
+        super update, opts
       
       getPhrase : -> @get 'phrase'
     
@@ -156,6 +167,22 @@ define(
       constructor : (models,opts) ->
         @repository = opts.application.framedQuestions
         super(models,opts)
+        
+    
+    exports.PossibleAnswer = class PossibleAnswer extends TrivialtModel
+      
+      url : -> API_URL + "/possibleanswers" + (if @id? then "/#{@id}" else "")
+      
+      getText : -> @get 'text'
+    
+    
+    exports.PossibleAnswers = class PossibleAnswers extends TrivialtCollection
+      
+      model : PossibleAnswer
+      
+      constructor : (models,opts) ->
+        @repository = opts.application.possibleAnswers
+        super(models,opts)
     
     
     exports.Proposal = class Proposal extends TrivialtModel
@@ -163,15 +190,26 @@ define(
       url : -> API_URL + "/proposals" + (if @id? then "/#{@id}" else "")
       
       set : (update, opts) ->
-        if update.framedQuestion?
-          @framedQuestion = @application.framedQuestions.addOrUpdate update.framedQuestion
-          delete update.framedQuestion
+        if update.posedQuestion?
+          update.posedQuestion = @application.framedQuestions.addOrUpdate update.posedQuestion
           
         if update.card?
-          @card = @application.cards.addOrUpdate update.card
-          delete update.card
+          update.card = @application.cards.addOrUpdate update.card
           
         super update, opts
+      
+      getCard: -> @get 'card'
+      getFramedQuestion: -> @get 'posedQuestion'
+      getAnswer: -> @get 'proposedAnswer',''
+      
+      setCard: (card) -> @set 'card' : card
+      setAnswer: (answer) -> @set 'proposedAnswer' : answer
+      
+      toJSON:->
+        attrs = @attributes
+        if @getCard()? then attrs.card = id:@getCard().id
+        if @getFramedQuestion()? then attrs.posedQuestion = id:@getFramedQuestion().id
+        return attrs
     
     
     exports.Proposals = class Proposals extends TrivialtCollection
@@ -185,10 +223,11 @@ define(
       
       getOrCreateFor : (framedQuestion) ->
         for proposal in @models
-          if proposal.framedQuestion.id == framedQuestion.id
+          qid = if proposal.getFramedQuestion()? then proposal.getFramedQuestion().id else -1
+          if  qid == framedQuestion.id
             return proposal
         prop = new Proposal {
-          framedQuestion : framedQuestion
+          posedQuestion : framedQuestion
           card : @card
           },{ application:@application }
         @add prop
@@ -207,11 +246,17 @@ define(
           card:this
           application:@application
     
-      set : (update, opts) ->
+      set: (update, opts) ->
         if update.round?
           @round = @application.rounds.addOrUpdate update.round
           delete update.round
         super update, opts
+        
+      confirmProposedAnswers: (opts)->
+        i = @proposals.models.length
+        for proposal in @proposals.models
+          proposal.save null, success:->
+            if --i <= 0 then opts.success()
     
     
     exports.Cards = class Cards extends TrivialtCollection
@@ -228,11 +273,13 @@ define(
           i = cards.models.length * 2
           for card in cards.models
             
-            card.proposals.fetch success:->
-              if --i <= 0 then success cards
+            card.proposals.fetch 
+              add: true
+              success:-> if --i <= 0 then success cards
             
-            card.round.framedQuestions.fetch success:->
-              if --i <= 0 then success cards
+            card.round.framedQuestions.fetch 
+              add:true
+              success:-> if --i <= 0 then success cards
             
         super opts
     

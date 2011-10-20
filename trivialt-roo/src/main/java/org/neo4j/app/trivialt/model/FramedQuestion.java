@@ -40,11 +40,11 @@ public class FramedQuestion {
     public FramedQuestion() {;}
 
 	public String toJson() {
-        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").include("possibleAnswers").serialize(this);
     }
     
     public static String toJsonArray(Collection<FramedQuestion> collection) {
-        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
+        return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").include("possibleAnswers").serialize(collection);
     }
 
 	public void add(Answer possibleAnswer) {

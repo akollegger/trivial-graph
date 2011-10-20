@@ -24,15 +24,22 @@ define(
    '../domain'
    '../widget/inputBar'
    './threeColumn'
-   './template/questionContentTpl'],
-  (View,Model,domain,inputBar,threeColumn,questionContentTpl) ->
+   './template/questionContentTpl'
+   './template/possibleAnswerTpl'
+   './template/roundConfirmationTpl'
+   './template/roundSummaryTpl'
+   './template/questionSummaryTpl'],
+  (View,Model,domain,inputBar,threeColumn,questionContentTpl,possibleAnswerTpl,roundConfirmationTpl,roundSummaryTpl,questionSummaryTpl)->
     exports = {}
     
     
     exports.GameState = class GameState
        
-      @QUESTION = 1
-      @WAITING_FOR_ROUND = 2
+      @WAITING_FOR_ROUND  = 0
+      
+      @QUESTION           = 1
+      @ROUND_CONFIRMATION = 3
+      @ROUND_SUMMARY      = 4
     
     
     exports.Game = class Game extends Model
@@ -55,10 +62,41 @@ define(
           card  = deck.cards.at roundIdx
           question = card.round.framedQuestions.at questionIdx
           @set 
-            "state"     : GameState.QUESTION
-            "card"      : card
+            "state"    : GameState.QUESTION
+            "card"     : card
             "proposal" : card.proposals.getOrCreateFor question
-      
+            
+      showRoundConfirmation: (roundIdx) ->
+        @fetchCurrentDeck success:=>
+          deck = @getDeck()
+          card = deck.cards.at roundIdx
+          @set 
+            "state"    : GameState.ROUND_CONFIRMATION
+            "card"     : card
+            
+      showRoundSummary: (roundIdx) ->
+        @fetchCurrentDeck success:=>
+          deck = @getDeck()
+          card = deck.cards.at roundIdx
+          @set 
+            "state"    : GameState.ROUND_SUMMARY
+            "card"     : card
+            
+      nextQuestion: ->
+        questionIdx = @getCurrentQuestionIndex()
+        if questionIdx > -1
+          nextIdx = questionIdx + 1
+          if @getRound().framedQuestions.length > nextIdx
+            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/question/#{nextIdx}")
+          else
+            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/confirmation")
+            
+      confirmAnswersForCurrentRound: ->
+        card = @getCard()
+        if card?
+          card.confirmProposedAnswers success:=>
+            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/summary")
+              
       fetchCurrentDeck : (opts) ->
         @application.getTeam().fetch success : (team) =>
           deck = team.currentDeck
@@ -68,12 +106,33 @@ define(
               if opts.success?
                 opts.success deck
           
+      
+      ## UTILS
+      
+      getCurrentQuestionIndex : -> 
+        if @getRound()? then @getRound().framedQuestions.indexOf @getProposal().getFramedQuestion()
+        else -1
+        
+      getCurrentRoundIndex : -> 
+        if @getMatch()? then @getMatch().rounds.indexOf @getRound()
+        else -1
+      
+      
+      ## ATTRIBUTES
+          
       getState    : -> @get 'state'
       getDeck     : -> @get 'deck'
+      getCard     : -> @get 'card'
       getProposal : -> @get 'proposal'
+      
+      getRound    : -> if @getCard()? then @getCard().round else null
+      getMatch    : -> if @getDeck()? then @getDeck().match else null
       
       setDeck : (deck) -> @set 'deck':deck
     
+    
+      
+    ## GAME VIEWS
     
     exports.GameView = class GameView extends View
       
@@ -83,35 +142,73 @@ define(
         
         @questionView = new QuestionView(@application)
         @waitingForRoundView = new WaitingForRoundView(@application)
+        @roundConfirmationView = new RoundConfirmationView(@application)
+        @roundSummaryView = new RoundSummaryView(@application)
       
       render : () ->
         super()
         @onGameStateChange()
         this
         
-      onGameStateChange : () =>
+      onGameStateChange : =>
+        $(@el).contents().detach()
         switch @application.game.getState()
           when GameState.QUESTION
-            $(@el).html @questionView.render().el
+            $(@el).append @questionView.render().el
           when GameState.WAITING_FOR_ROUND
-            $(@el).html @waitingForRoundView.render().el
-      
+            $(@el).append @waitingForRoundView.render().el
+          when GameState.ROUND_CONFIRMATION
+            $(@el).append @roundConfirmationView.render().el
+          when GameState.ROUND_SUMMARY
+            $(@el).append @roundSummaryView.render().el
+        
+    
     exports.QuestionView = class QuestionView extends threeColumn.ThreeColumnView
+      
+      events : 
+        'click .input-bar-execute' : 'onExecuteClicked'
       
       constructor : (@application)->
         super()
         @application.game.bind "change:proposal", @onQuestionChanged
+        
+        @inputBar = new inputBar.InputBarView()
       
       render : ->
         super()
-        if @application.game.getProposal()?
-          prop = @application.game.getProposal()
-          @content.append prop.framedQuestion.getPhrase()
+        if @proposal?
+        
+          question = @proposal.getFramedQuestion()
+          @content.append questionContentTpl question : question.getPhrase()
+          
+          ul = $('.answer-alternatives',@el)
+          for alternative in question.possibleAnswers.models
+            ul.append (new PossibleAnswerView(@proposal, alternative).render().el)
+            
+          @content.append @inputBar.render().el
+          @onProposalAnswerChanged()
+          
         this
         
       onQuestionChanged : =>
+        if @proposal?
+          @proposal.unbind "change:proposedAnswer", @onProposalAnswerChanged
+        
+        @proposal = @application.game.getProposal()
+        
+        if @proposal?
+          @proposal.bind "change:proposedAnswer", @onProposalAnswerChanged
+        
         @render()
+        
+      onProposalAnswerChanged : =>
+        @inputBar.model.setValue @proposal.getAnswer()
+        
+      onExecuteClicked : =>
+        @proposal.setAnswer @inputBar.model.getValue()
+        @application.game.nextQuestion()
       
+    
     exports.WaitingForRoundView = class WaitingForRoundView extends threeColumn.ThreeColumnView
       
       constructor : (@application)->
@@ -120,6 +217,111 @@ define(
       render : ->
         super()
         @content.append "Waiting for round to start.."
+        this
+       
+    
+    exports.RoundConfirmationView = class RoundConfirmationView extends threeColumn.ThreeColumnView
+      
+      events : 
+        'click .confirm-answers'   : 'onConfirmAnswersClicked'
+        'click .input-bar-execute' : 'onExecuteClicked'
+        
+      constructor : (@application)->
+        super()
+        @application.game.bind "change:card", @onCardChanged
+        @inputBar = new inputBar.InputBarView()
+      
+      render : ->
+        super()
+        if @round?
+        
+          @content.append roundConfirmationTpl()
+          
+          summaryList = $(".question-summary-list",@el)
+          for q in @round.framedQuestions.models
+            proposal = @card.proposals.getOrCreateFor q
+            summaryList.append (new QuestionSummaryView(proposal).render().el)
+          
+          @content.append @inputBar.render().el
+          
+        this 
+        
+      onCardChanged : =>
+        @round = @application.game.getRound()
+        @card = @application.game.getCard()
+        @render()
+        
+      onConfirmAnswersClicked: =>
+        @inputBar.model.setValue("Yes")
+        
+      onExecuteClicked: =>
+        if @inputBar.model.getValue().toLowerCase() is "yes"
+          @application.game.confirmAnswersForCurrentRound()
+        
+    
+    exports.RoundSummaryView = class RoundSummaryView extends threeColumn.ThreeColumnView
+      
+      constructor : (@application)->
+        super()
+        @inputBar = new inputBar.InputBarView()
+        @application.game.bind "change:card",@onCardChanged
+      
+      render : ->
+        super()
+        if @round?
+        
+          if @round.isClosed()
+            @content.append roundSummaryTpl()
+          else
+            @content.append "Waiting for other players to finish.."
+        this 
+        
+      onCardChanged : =>
+        if @round?
+          clearInterval @roundUpdateInterval
+          @round.unbind "change:closed", @onRoundCloseStatusChanged
+        
+        @round = @application.game.getRound()
+        @round.bind "change:closed", @onRoundCloseStatusChanged
+        
+        @roundUpdateInterval = setInterval (=>@round.fetch()), 1000
+        
+        @render()
+        
+      onRoundCloseStatusChanged: =>
+        clearInterval @roundUpdateInterval
+        @render()
+        
+    ## WIDGETS
+    
+    exports.PossibleAnswerView = class PossibleAnswerView extends View
+      
+      tagName : 'li'
+      
+      events : 
+        'click' : "onClick"
+      
+      constructor: (@proposal, @alternative) -> 
+        super()
+      
+      render : ->
+        $(@el).html possibleAnswerTpl alternative : @alternative
+        this
+        
+      onClick : =>
+        @proposal.setAnswer(@alternative.getText())
+        
+    
+    
+    exports.QuestionSummaryView = class QuestionSummaryView extends View
+      
+      tagName : 'li'
+      
+      constructor: (@proposal) -> 
+        super()
+      
+      render: ->
+        $(@el).html questionSummaryTpl proposal : @proposal
         this
       
     return exports

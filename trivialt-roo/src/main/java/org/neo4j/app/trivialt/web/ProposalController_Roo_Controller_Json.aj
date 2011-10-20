@@ -37,14 +37,6 @@ privileged aspect ProposalController_Roo_Controller_Json {
         return new ResponseEntity<String>(Proposal.toJsonArray(Proposal.findAll()), headers, HttpStatus.OK);
     }
     
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public ResponseEntity<String> ProposalController.createFromJson(@RequestBody String json) {
-        Proposal.fromJsonToProposal(json).save();
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
     @RequestMapping(value = "/jsonArray", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> ProposalController.createFromJsonArray(@RequestBody String json) {
         for (Proposal proposal: Proposal.fromJsonArrayToProposals(json)) {
@@ -53,16 +45,6 @@ privileged aspect ProposalController_Roo_Controller_Json {
         HttpHeaders headers= new HttpHeaders();
         headers.add("Content-Type", "application/text");
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
-    @RequestMapping(method = RequestMethod.PUT, headers = "Accept=application/json")
-    public ResponseEntity<String> ProposalController.updateFromJson(@RequestBody String json) {
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        if (Proposal.fromJsonToProposal(json).save() == null) {
-            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<String>(headers, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/jsonArray", method = RequestMethod.PUT, headers = "Accept=application/json")
