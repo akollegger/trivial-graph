@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import org.neo4j.app.trivialt.model.Player;
 import org.neo4j.app.trivialt.model.Role;
 import org.neo4j.app.trivialt.model.Team;
+import org.neo4j.graphdb.Node;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.support.GraphDatabaseContext;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,5 +25,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PlayerController {
 
+	@Autowired GraphDatabaseContext gdc;
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public String update(@Valid Player player, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
+    		@RequestParam(value = "id", required = true) Long nodeId) {
+
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("player", player);
+            return "api/players/update";
+        }
+        Node node = gdc.getNodeById(nodeId);
+        player.setPersistentState(node);
+        uiModel.asMap().clear();
+        player.save();
+        return "redirect:/api/players/" + encodeUrlPathSegment(player.getId().toString(), httpServletRequest);
+    }
 
 }

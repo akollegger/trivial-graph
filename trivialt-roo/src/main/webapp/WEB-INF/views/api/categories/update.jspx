@@ -3,7 +3,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_org_neo4j_app_trivialt_model_Category" modelAttribute="category" path="/api/categories" versionField="none" z="4mvfW8YEe9xSBFzVWUyGjjnIO3I=">
-        <field:input field="name" id="c_org_neo4j_app_trivialt_model_Category_name" z="QsjssIGMY5Wb/3Aq65FAKpaB88A="/>
+    	<field:input field="name" id="c_org_neo4j_app_trivialt_model_Category_name" z="QsjssIGMY5Wb/3Aq65FAKpaB88A="/>
         <field:select field="questions" id="c_org_neo4j_app_trivialt_model_Category_questions" itemValue="id" items="${questions}" multiple="true" path="/questions" z="v4s/dKYbyvZN93WlyrJwG+Oqirw="/>
     </form:update>
 </div>

@@ -62,17 +62,6 @@ privileged aspect FramedQuestionController_Roo_Controller {
         return "api/framedquestions/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String FramedQuestionController.update(@Valid FramedQuestion framedQuestion, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("framedQuestion", framedQuestion);
-            return "api/framedquestions/update";
-        }
-        uiModel.asMap().clear();
-        framedQuestion.save();
-        return "redirect:/api/framedquestions/" + encodeUrlPathSegment(framedQuestion.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String FramedQuestionController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("framedQuestion", FramedQuestion.findFramedQuestion(id));

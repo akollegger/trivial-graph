@@ -5,7 +5,7 @@
     <page:show id="ps_org_neo4j_app_trivialt_model_Team" object="${team}" path="/api/teams" z="user-managed">
         <field:display field="name" id="s_org_neo4j_app_trivialt_model_Team_name" object="${team}" z="u7ib1uHWcw7U1hsC9xytauQMx38="/>
         <field:display field="secret" id="s_org_neo4j_app_trivialt_model_Team_secret" object="${team}" z="rT+2NlrKVjIiCA8J2gcPsR7+FQM="/>
-        <field:display field="decks" id="s_org_neo4j_app_trivialt_model_Team_decks" object="${team}" z="NGQzT4n+tpn1Yq7G/nb/ZxeQhRo="/>
+        <placeholder field="decks" id="s_org_neo4j_app_trivialt_model_Team_decks" object="${team}" z="user-managed"/>
         <field:display field="members" id="s_org_neo4j_app_trivialt_model_Team_members" object="${team}" z="SRMPtTfkM0FYQIIirtDRsn+16u8="/>
         <field:display field="currentDeck" id="s_org_neo4j_app_trivialt_model_Team_currentDeck" object="${team}" z="NiiyO3ZCt1vK9eMDZ//YeX0y+WY="/>
     </page:show>

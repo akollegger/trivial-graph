@@ -61,17 +61,6 @@ privileged aspect RoundController_Roo_Controller {
         return "api/rounds/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String RoundController.update(@Valid Round round, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("round", round);
-            return "api/rounds/update";
-        }
-        uiModel.asMap().clear();
-        round.save();
-        return "redirect:/api/rounds/" + encodeUrlPathSegment(round.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String RoundController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("round", Round.findRound(id));

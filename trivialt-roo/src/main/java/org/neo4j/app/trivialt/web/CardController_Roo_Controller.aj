@@ -63,17 +63,6 @@ privileged aspect CardController_Roo_Controller {
         return "api/cards/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String CardController.update(@Valid Card card, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("card", card);
-            return "api/cards/update";
-        }
-        uiModel.asMap().clear();
-        card.save();
-        return "redirect:/api/cards/" + encodeUrlPathSegment(card.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String CardController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("card", Card.findCard(id));

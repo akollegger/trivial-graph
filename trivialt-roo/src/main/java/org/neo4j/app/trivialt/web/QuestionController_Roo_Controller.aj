@@ -62,17 +62,6 @@ privileged aspect QuestionController_Roo_Controller {
         return "api/questions/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String QuestionController.update(@Valid Question question, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("question", question);
-            return "api/questions/update";
-        }
-        uiModel.asMap().clear();
-        question.save();
-        return "redirect:/api/questions/" + encodeUrlPathSegment(question.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String QuestionController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("question", Question.findQuestion(id));

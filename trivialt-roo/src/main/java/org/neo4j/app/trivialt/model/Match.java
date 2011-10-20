@@ -1,9 +1,13 @@
 package org.neo4j.app.trivialt.model;
 
 import static org.springframework.data.neo4j.core.Direction.INCOMING;
+import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 
 import java.util.Collection;
 import java.util.Set;
+
+import org.neo4j.graphdb.DynamicRelationshipType;
+import org.neo4j.graphdb.RelationshipType;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -19,6 +23,9 @@ import flexjson.JSONSerializer;
 @RooJson
 public class Match {
 
+    public static final String MATCH_TO_ROUNDS = "ROUND";
+	public static final RelationshipType MATCH_TO_ROUNDS_REL = DynamicRelationshipType.withName(MATCH_TO_ROUNDS);
+	
     public static final String READY = "ready";
 
 	@Indexed
@@ -28,8 +35,11 @@ public class Match {
     
     private String mode = READY;
 
-    @RelatedTo(elementClass = Round.class, type = "ORDINAL", direction = INCOMING)
+    @RelatedTo(elementClass = Round.class, type = MATCH_TO_ROUNDS, direction = OUTGOING)
     private Set<Round> rounds;
+    
+    @RelatedTo(elementClass = Deck.class, type = Deck.DECK_TO_MATCH, direction = INCOMING)
+    private Set<Round> decks;
 
     @RelatedTo(elementClass = Player.class)
     private Player triviaMaster;

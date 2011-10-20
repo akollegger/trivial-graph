@@ -63,17 +63,6 @@ privileged aspect ProposalController_Roo_Controller {
         return "api/proposals/list";
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public String ProposalController.update(@Valid Proposal proposal, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("proposal", proposal);
-            return "api/proposals/update";
-        }
-        uiModel.asMap().clear();
-        proposal.save();
-        return "redirect:/api/proposals/" + encodeUrlPathSegment(proposal.getId().toString(), httpServletRequest);
-    }
-    
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String ProposalController.updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("proposal", Proposal.findProposal(id));

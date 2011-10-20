@@ -5,9 +5,7 @@ import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
-import org.neo4j.app.trivialt.model.Round;
 import org.springframework.data.neo4j.annotation.RelatedTo;
-import org.neo4j.app.trivialt.model.Proposal;
 import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.graphdb.RelationshipType;
 
@@ -39,6 +37,8 @@ public class Card {
 
     @RelatedTo(elementClass = Proposal.class, type=CARD_TO_PROPOSALS, direction = OUTGOING)
     private Set<Proposal> proposals;
+    
+//    private String reference;
     
     public Card() {
 	}
