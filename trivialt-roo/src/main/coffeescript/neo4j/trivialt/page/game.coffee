@@ -70,15 +70,19 @@ define(
         @set 'state' : GameState.WAITING_FOR_ROUND_START
         @fetchCurrentDeck success:=>
           currentRound = @getDeck().match.rounds.getCurrent()
-          roundIdx = @getDeck().match.rounds.indexOf currentRound
           
-          @application.navigate @url.forQuestion(roundIdx,0)
+          if currentRound?
+            roundIdx = @getDeck().match.rounds.indexOf currentRound
+            
+            @application.navigate @url.forQuestion(roundIdx,0)
+          else
+            # No open rounds
+            @application.navigate @url.forMatchSummary()
           
       showQuestion: (roundIdx,questionIdx) ->
-      
         @fetchCurrentDeck success:=>
           deck = @getDeck()
-          card  = deck.cards.at roundIdx
+          card  = deck.getCardFromRoundIndex roundIdx
           question = card.round.framedQuestions.at questionIdx
           @set 
             "state"    : GameState.QUESTION
@@ -88,7 +92,7 @@ define(
       showRoundConfirmation: (roundIdx) ->
         @fetchCurrentDeck success:=>
           deck = @getDeck()
-          card = deck.cards.at roundIdx
+          card = deck.getCardFromRoundIndex roundIdx
           @set 
             "state"    : GameState.ROUND_CONFIRMATION
             "card"     : card
@@ -96,7 +100,7 @@ define(
       showRoundSummary: (roundIdx) ->
         @fetchCurrentDeck success:=>
           deck = @getDeck()
-          card = deck.cards.at roundIdx
+          card = deck.getCardFromRoundIndex roundIdx
           
           @set 
             "state"    : GameState.WAITING_FOR_ROUND_END
@@ -118,7 +122,7 @@ define(
             
       showNextQuestion: ->
         next = @getNextQuestionIndex()
-        if @next isnt null
+        if next isnt null
           @application.navigate @url.forQuestion(@getCurrentRoundIndex(),next)
         else
           @application.navigate @url.forRoundConfirmation(@getCurrentRoundIndex())
@@ -162,6 +166,7 @@ define(
         questionIdx = @getCurrentQuestionIndex()
         if questionIdx > -1
           nextIdx = questionIdx + 1
+          console.log @getRound().framedQuestions, @getCurrentRoundIndex()
           if @getRound().framedQuestions.length > nextIdx
             return nextIdx
         return null

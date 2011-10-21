@@ -296,6 +296,12 @@ define(
               success:-> if --i <= 0 then success cards
             
         super opts
+        
+      forRound : (round)->
+        for card in @models
+          if card.round? and card.round.id is round.id
+            return card
+        return null
     
     
     exports.Deck = class Deck extends TrivialtModel
@@ -314,6 +320,9 @@ define(
           @match = @application.matches.addOrUpdate update.match
           delete update.match
         super update, opts
+        
+      getCardFromRoundIndex: (roundIdx)->
+        @cards.forRound @match.rounds.at(roundIdx)
     
     return exports
 

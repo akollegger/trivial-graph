@@ -2,17 +2,16 @@ package org.neo4j.app.trivialt.model;
 
 import static org.springframework.data.neo4j.core.Direction.OUTGOING;
 
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
-
 import java.util.Collection;
 import java.util.Set;
-import org.neo4j.app.trivialt.model.FramedQuestion;
+
 import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.graphdb.RelationshipType;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.json.RooJson;
+import org.springframework.roo.addon.tostring.RooToString;
 
 import flexjson.JSONSerializer;
 
@@ -48,7 +47,7 @@ public class Round {
     /**
      * Whether a round is available for play during a live match.
      */
-    private Boolean available = false;
+    private Boolean available = true;
     
     Integer pointsPerQuestion = 0;
 

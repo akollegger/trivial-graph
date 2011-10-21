@@ -81,7 +81,10 @@ public class TrivialtMatchPlay {
 			apologetic = new Match(EMPTY_MATCH_TITLE);
 			apologetic.setFeatured(true);
 			apologetic.save();
-			Round oneSadRound = new Round(EMPTY_ROUND_TITLE).save();
+			
+			// Sad round 1
+			
+			Round oneSadRound = new Round("Round 1: Nothing to see here").save();
 			
 			Question apology = uniqueQuestion("Sorry, were you hoping to play Trivialt?");
 			Answer yes = uniqueAnswer("yes").save();
@@ -102,8 +105,44 @@ public class TrivialtMatchPlay {
 			
 			oneSadRound.add(frame);
 			oneSadRound.save();
+			
+			// Sad round 2
+			
+			Round anotherSadRound = new Round("Round 2: Please go home").save();
+			
+			Question stillHere = uniqueQuestion("Sorry, are you still here?");
+			stillHere.setAnswer(yes);
+			stillHere.setCategory(general);
+			stillHere.save();
+            
+            frame = new FramedQuestion().save();
+            frame.setOriginalQuestion(stillHere);
+            frame.setPhrase("Sorry, are you still here?");
+            frame.add(yes);
+            frame.add(no);
+            frame.save();
+
+            anotherSadRound.add(frame);
+
+            
+            Question openEnded = uniqueQuestion("What is the answer to this open ended question?");
+            openEnded.setAnswer(yes);
+            openEnded.setCategory(general);
+            openEnded.save();
+            
+            frame = new FramedQuestion().save();
+            frame.setOriginalQuestion(openEnded);
+            frame.setPhrase("What is the answer to this open ended question?");
+            frame.save();
+            
+            anotherSadRound.add(frame);
+            anotherSadRound.save();
+			
 			apologetic.add(oneSadRound);
-			apologetic.setCurrentRound(oneSadRound);			
+			apologetic.add(anotherSadRound);
+			apologetic.setCurrentRound(oneSadRound);
+			
+			
 		}
 		return apologetic;
 	}
