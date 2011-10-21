@@ -104,6 +104,17 @@ define(
         super(attrs,opts)
         @rounds = new Rounds([],{url:@url() + "/rounds",application:@application})
         
+      getScores:-> @scores ?= new Scores([],{match:this,application:@application})
+      
+    exports.Score = class Score extends TrivialtModel
+    
+    exports.Scores = class Scores extends TrivialtCollection
+      
+      model : Score
+    
+      fetch : ->
+        @reset()
+        @add([{id:1,name:"Jacob",score:10000},{id:2,name:"Andreas",score:1}])
     
     exports.Round = class Round extends TrivialtModel
     
@@ -129,7 +140,7 @@ define(
         opts.success = (rounds) ->
           i = rounds.models.length
           for round in rounds.models
-            round.framedQuestions.fetch success:()->
+            round.framedQuestions.fetch success:->
               if --i <= 0 then success rounds
         super opts
       

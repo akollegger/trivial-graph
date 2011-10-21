@@ -57,6 +57,7 @@ define(
             
             
       showQuestion: (roundIdx,questionIdx) ->
+      
         @fetchCurrentDeck success:=>
           deck = @getDeck()
           card  = deck.cards.at roundIdx
@@ -100,6 +101,8 @@ define(
       fetchCurrentDeck : (opts) ->
         @application.getTeam().fetch success : (team) =>
           deck = team.currentDeck
+          
+          deck.match.getScores().fetch()
           deck.cards.fetch success : =>
             @setDeck deck
             deck.match.rounds.fetch success : =>
@@ -152,6 +155,7 @@ define(
         
       onGameStateChange : =>
         $(@el).contents().detach()
+        console.log @application.game.getState()
         switch @application.game.getState()
           when GameState.QUESTION
             $(@el).append @questionView.render().el
@@ -269,8 +273,7 @@ define(
       render : ->
         super()
         if @round?
-        
-          if @round.isClosed()
+          if @round.isClosed() or true
             @content.append roundSummaryTpl()
           else
             @content.append "Waiting for other players to finish.."
@@ -284,7 +287,7 @@ define(
         @round = @application.game.getRound()
         @round.bind "change:closed", @onRoundCloseStatusChanged
         
-        @roundUpdateInterval = setInterval (=>@round.fetch()), 1000
+        #@roundUpdateInterval = setInterval (=>@round.fetch()), 1000
         
         @render()
         
@@ -322,6 +325,22 @@ define(
       
       render: ->
         $(@el).html questionSummaryTpl proposal : @proposal
+        this
+        
+    
+        
+    
+    
+    exports.ScoresView = class ScoresView extends View
+      
+      tagName : 'ul'
+      
+      constructor: (@scores) -> 
+        super()
+        @scores.bind "change",@render
+      
+      render:=>
+        $(@el).html "scores"
         this
       
     return exports
