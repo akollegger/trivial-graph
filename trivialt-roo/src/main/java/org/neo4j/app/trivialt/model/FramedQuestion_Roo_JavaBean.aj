@@ -3,12 +3,21 @@
 
 package org.neo4j.app.trivialt.model;
 
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Set;
 import org.neo4j.app.trivialt.model.Answer;
 import org.neo4j.app.trivialt.model.Question;
 
 privileged aspect FramedQuestion_Roo_JavaBean {
+    
+    public Boolean FramedQuestion.getAvailable() {
+        return this.available;
+    }
+    
+    public void FramedQuestion.setAvailable(Boolean available) {
+        this.available = available;
+    }
     
     public String FramedQuestion.getPhrase() {
         return this.phrase;

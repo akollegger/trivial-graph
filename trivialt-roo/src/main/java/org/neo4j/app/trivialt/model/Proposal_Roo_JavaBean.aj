@@ -7,7 +7,6 @@ import java.lang.Integer;
 import java.lang.String;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.FramedQuestion;
-import org.neo4j.app.trivialt.model.Player;
 
 privileged aspect Proposal_Roo_JavaBean {
     
@@ -35,20 +34,12 @@ privileged aspect Proposal_Roo_JavaBean {
         this.card = card;
     }
     
-    public FramedQuestion Proposal.getPosedQuestion() {
-        return this.posedQuestion;
+    public FramedQuestion Proposal.getFramedQuestion() {
+        return this.framedQuestion;
     }
     
-    public void Proposal.setPosedQuestion(FramedQuestion posedQuestion) {
-        this.posedQuestion = posedQuestion;
-    }
-    
-    public Player Proposal.getSubmittingPlayer() {
-        return this.submittingPlayer;
-    }
-    
-    public void Proposal.setSubmittingPlayer(Player submittingPlayer) {
-        this.submittingPlayer = submittingPlayer;
+    public void Proposal.setFramedQuestion(FramedQuestion framedQuestion) {
+        this.framedQuestion = framedQuestion;
     }
     
 }

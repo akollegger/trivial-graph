@@ -6,5 +6,6 @@
         <field:display field="phrase" id="s_org_neo4j_app_trivialt_model_FramedQuestion_phrase" object="${framedquestion}" z="xIb6V0v6ULLYKmf/0HurqAumvro="/>
         <field:display field="originalQuestion" id="s_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" object="${framedquestion}" z="O0ihenSiqrrrOoEgUmokj0MXPRI="/>
         <field:display field="possibleAnswers" id="s_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" object="${framedquestion}" z="o6ClypQV2mL0lai04HjOp64za+0="/>
+        <field:display field="available" id="s_org_neo4j_app_trivialt_model_FramedQuestion_available" object="${framedquestion}" z="6bwTMkxMPDxzb4CAwnpBWyBmNVM="/>
     </page:show>
 </div>

@@ -7,4 +7,8 @@ fi
 
 TEAM_ID=$1
 
-curl --verbose -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams/${TEAM_ID}/decks/current
+SCRIPT=`basename $0`
+
+JSON=`curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams/${TEAM_ID}/decks/current`
+
+echo $JSON | jgrep -s id

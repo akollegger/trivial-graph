@@ -4,9 +4,8 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_org_neo4j_app_trivialt_model_Proposal" object="${proposal}" path="/api/proposals" z="user-managed">
         <field:display field="card" id="s_org_neo4j_app_trivialt_model_Proposal_card" object="${proposal}" z="tF2lrMF2bLI41eSSeuFQ//2y7ss="/>
-        <field:display field="posedQuestion" id="s_org_neo4j_app_trivialt_model_Proposal_posedQuestion" object="${proposal}" z="0fXVk7dnB+NCDSuvBHOuP36aYkA="/>
         <field:display field="proposedAnswer" id="s_org_neo4j_app_trivialt_model_Proposal_proposedAnswer" object="${proposal}" z="auTjBxPYvYnt9fCnrx+GQVJ4Kwk="/>
-        <field:display field="submittingPlayer" id="s_org_neo4j_app_trivialt_model_Proposal_submittingPlayer" object="${proposal}" z="68KePXX6ZCrcrHxVO722ZZwS8YU="/>
         <field:display field="score" id="s_org_neo4j_app_trivialt_model_Proposal_score" object="${proposal}" z="sRQCKf4H6ba5SDd3FlEOYV0zQ28="/>
+        <field:display field="framedQuestion" id="s_org_neo4j_app_trivialt_model_Proposal_framedQuestion" object="${proposal}" z="Grm+ftUZlp/kkvy+sRgNYJR1imM="/>
     </page:show>
 </div>

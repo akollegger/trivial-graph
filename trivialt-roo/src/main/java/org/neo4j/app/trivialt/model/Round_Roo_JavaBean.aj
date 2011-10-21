@@ -19,12 +19,12 @@ privileged aspect Round_Roo_JavaBean {
         this.title = title;
     }
     
-    public Boolean Round.getClosed() {
-        return this.closed;
+    public Boolean Round.getAvailable() {
+        return this.available;
     }
     
-    public void Round.setClosed(Boolean closed) {
-        this.closed = closed;
+    public void Round.setAvailable(Boolean available) {
+        this.available = available;
     }
     
     public Integer Round.getPointsPerQuestion() {
@@ -41,6 +41,14 @@ privileged aspect Round_Roo_JavaBean {
     
     public void Round.setFramedQuestions(Set<FramedQuestion> framedQuestions) {
         this.framedQuestions = framedQuestions;
+    }
+    
+    public FramedQuestion Round.getCurrentQuestion() {
+        return this.currentQuestion;
+    }
+    
+    public void Round.setCurrentQuestion(FramedQuestion currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
     
 }

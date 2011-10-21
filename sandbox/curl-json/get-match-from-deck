@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: get-match-from-deck <deck-id>"
+exit
+fi
+
+DECK_ID=$1
+
+JSON=`curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/decks/${DECK_ID}`
+
+echo $JSON | jgrep -s match.id

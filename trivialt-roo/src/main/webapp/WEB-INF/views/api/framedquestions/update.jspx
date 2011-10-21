@@ -6,5 +6,6 @@
         <field:input field="phrase" id="c_org_neo4j_app_trivialt_model_FramedQuestion_phrase" z="Vu74dS87rC7Y8oC0ZRVRtjbrWJM="/>
         <field:select field="originalQuestion" id="c_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" itemValue="id" items="${questions}" path="/api/questions" z="user-managed"/>
         <field:select field="possibleAnswers" id="c_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" itemValue="id" items="${answers}" multiple="true" path="/api/answers" z="user-managed"/>
+        <field:checkbox field="available" id="c_org_neo4j_app_trivialt_model_FramedQuestion_available" z="Vxby3cu5LA3J08YeKMCpm9D5K64="/>
     </form:update>
 </div>

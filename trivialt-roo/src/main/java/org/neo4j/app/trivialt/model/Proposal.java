@@ -32,10 +32,7 @@ public class Proposal {
     private Card card;
 
     @RelatedTo(elementClass=FramedQuestion.class, type=PROPOSAL_TO_FRAMED_QUESTION, direction=OUTGOING)
-    private FramedQuestion posedQuestion;
-
-    @RelatedTo
-    private Player submittingPlayer;
+    private FramedQuestion framedQuestion;
     
     public String toJson() {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(this);

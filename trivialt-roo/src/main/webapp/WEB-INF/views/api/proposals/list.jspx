@@ -5,10 +5,9 @@
     <page:list id="pl_org_neo4j_app_trivialt_model_Proposal" items="${proposals}" z="lpvydejr61RMgdyAPYAgRqhO1BQ=">
         <table:table data="${proposals}" id="l_org_neo4j_app_trivialt_model_Proposal" path="/api/proposals" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_card" property="card" z="HDVhcv/4xReE3IMkR1dq9wk7/J0="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Proposal_posedQuestion" property="posedQuestion" z="m21RrWSpMFbdM/gNUM1+MoN5Utw="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_proposedAnswer" property="proposedAnswer" z="R26DxtRGmZxIkwGR2IDGdNb/Fk8="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Proposal_submittingPlayer" property="submittingPlayer" z="lHa7tY8lfJa5n6n35jOi6DoUjyc="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Proposal_score" property="score" z="B3knE+LsolKvrB9x+wfV7fgiITI="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Proposal_framedQuestion" property="framedQuestion" z="4SnQPvM6p6ORWgUm5fQVWx4wuSw="/>
         </table:table>
     </page:list>
 </div>

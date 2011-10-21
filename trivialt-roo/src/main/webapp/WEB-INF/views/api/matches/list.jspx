@@ -7,9 +7,9 @@
             <table:column id="c_org_neo4j_app_trivialt_model_Match_title" property="title" z="4cJS74l2Fz3C/Mqv7gjOfIW+nP4="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_rounds" property="rounds" z="6RNr7oAf77Ccw6qdBBtWBd+w8Ko="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_triviaMaster" property="triviaMaster" z="DgBsaBpK6HsarhvLQZM18BpPuNs="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Match_mode" property="mode" z="8P7acZfkCTc1nKVwHhA8sSwxm/Q="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_featured" property="featured" z="BBvfCPXERN7gTazK1K9PaobvlBU="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Match_decks" property="decks" z="YRIQUCP9ce+k/zMY/2H5TH0M2h0="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Match_available" property="available" z="ludNYa/tD6Ct7PPWwQO9gauBSjU="/>
         </table:table>
     </page:list>
 </div>

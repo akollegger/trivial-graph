@@ -6,8 +6,9 @@
         <table:table data="${rounds}" id="l_org_neo4j_app_trivialt_model_Round" path="/api/rounds" z="user-managed">
             <table:column id="c_org_neo4j_app_trivialt_model_Round_title" property="title" z="uNRHsfrsgzN5pQY6aZznJCERi/Q="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Round_framedQuestions" property="framedQuestions" z="/SiFoWPH9d++2c/VZsaPIBJrNT4="/>
-            <table:column id="c_org_neo4j_app_trivialt_model_Round_closed" property="closed" z="6OtrUYF7hHe5AQj0b3hBegtOwBI="/>
             <table:column id="c_org_neo4j_app_trivialt_model_Round_pointsPerQuestion" property="pointsPerQuestion" z="WuFUKoyyqAVC9x0BOxcg7YbKbOo="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Round_currentQuestion" property="currentQuestion" z="emvKKfdLMeYYI3ghTr0OfNkiGk8="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_Round_available" property="available" z="8rCs4pWETKKsPBMmUFrE6QqQxa8="/>
         </table:table>
     </page:list>
 </div>

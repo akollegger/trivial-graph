@@ -76,9 +76,10 @@ public class TrivialtMatchPlay {
 	}
 
 	private Match getApologeticEmptyMatch() {
-		Match apologetic = matches.findByPropertyValue("name", EMPTY_MATCH_TITLE);
+		Match apologetic = matches.findByPropertyValue("title", EMPTY_MATCH_TITLE);
 		if (apologetic == null) {
 			apologetic = new Match(EMPTY_MATCH_TITLE);
+			apologetic.setFeatured(true);
 			apologetic.save();
 			Round oneSadRound = new Round(EMPTY_ROUND_TITLE).save();
 			
