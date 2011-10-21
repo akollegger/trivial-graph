@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.FramedQuestion;
-import org.neo4j.app.trivialt.model.Player;
 import org.neo4j.app.trivialt.model.Proposal;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,11 +85,6 @@ privileged aspect ProposalController_Roo_Controller {
     @ModelAttribute("framedquestions")
     public Collection<FramedQuestion> ProposalController.populateFramedQuestions() {
         return FramedQuestion.findAll();
-    }
-    
-    @ModelAttribute("players")
-    public Collection<Player> ProposalController.populatePlayers() {
-        return Player.findAll();
     }
     
     @ModelAttribute("proposals")

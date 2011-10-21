@@ -27,12 +27,12 @@ privileged aspect Match_Roo_JavaBean {
         this.featured = featured;
     }
     
-    public String Match.getMode() {
-        return this.mode;
+    public Boolean Match.getAvailable() {
+        return this.available;
     }
     
-    public void Match.setMode(String mode) {
-        this.mode = mode;
+    public void Match.setAvailable(Boolean available) {
+        this.available = available;
     }
     
     public Set<Round> Match.getRounds() {

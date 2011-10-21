@@ -28,6 +28,11 @@ public class FramedQuestion {
     public static final String FRAME_TO_ANSWERS = "POSSIBLE_ANSWER";
 	public static final RelationshipType FRAME_TO_ANSWERS_REL = DynamicRelationshipType.withName(FRAME_TO_ANSWERS);
 	
+	/**
+	 * Whether the question is available during a live match.
+	 */
+	private Boolean available = false;
+	
     @Indexed
     private String phrase;
 

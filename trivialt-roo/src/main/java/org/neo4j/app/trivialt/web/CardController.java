@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.neo4j.app.trivialt.model.Card;
 import org.neo4j.app.trivialt.model.Proposal;
+import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.GraphDatabaseContext;
 import org.springframework.http.HttpHeaders;

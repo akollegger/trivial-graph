@@ -7,8 +7,8 @@
         <field:display field="rounds" id="s_org_neo4j_app_trivialt_model_Match_rounds" object="${match}" z="8wKOWKSmD67yG7e47MbTT3+RcTo="/>
         <field:display field="triviaMaster" id="s_org_neo4j_app_trivialt_model_Match_triviaMaster" object="${match}" z="BtGc6wBB2ZU1Lp8u1x48uDGxpmk="/>
         <field:display field="currentRound" id="s_org_neo4j_app_trivialt_model_Match_currentRound" object="${match}" z="xqH8v07mxYc9yM0dWAZlptmqBKA="/>
-        <field:display field="mode" id="s_org_neo4j_app_trivialt_model_Match_mode" object="${match}" z="eEuwcjpeh9d7+NYF9vTEyyD8nbg="/>
         <field:display field="featured" id="s_org_neo4j_app_trivialt_model_Match_featured" object="${match}" z="hsFDHdgWVIn0W32TtYCJ+cxelfY="/>
         <field:display field="decks" id="s_org_neo4j_app_trivialt_model_Match_decks" object="${match}" z="xMigKCibYm1wTRrI4EGYZ4X8i3M="/>
+        <field:display field="available" id="s_org_neo4j_app_trivialt_model_Match_available" object="${match}" z="iSp0G6sVe3bIRZMH5rhZ74B7sbM="/>
     </page:show>
 </div>

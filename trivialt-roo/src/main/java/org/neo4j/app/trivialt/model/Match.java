@@ -26,14 +26,12 @@ public class Match {
     public static final String MATCH_TO_ROUNDS = "ROUND";
 	public static final RelationshipType MATCH_TO_ROUNDS_REL = DynamicRelationshipType.withName(MATCH_TO_ROUNDS);
 	
-    public static final String READY = "ready";
-
 	@Indexed
     private String title;
 
     private Boolean featured = false;
     
-    private String mode = READY;
+    private Boolean available = false;
 
     @RelatedTo(elementClass = Round.class, type = MATCH_TO_ROUNDS, direction = OUTGOING)
     private Set<Round> rounds;

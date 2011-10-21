@@ -16,6 +16,21 @@ import org.springframework.roo.addon.json.RooJson;
 
 import flexjson.JSONSerializer;
 
+/**
+ * A Round of FramedQuestions during a Match.
+ * 
+ * When starting a round:
+ * <ol>
+ *   <li>Wait for the round to become available</li>
+ *   <li>Get current question</li>
+ *   <li>Wait for the question to become available</li>
+ *   <li>Proposals can only be submitted while the round is available</li>
+ *   <li>The round closes by becoming un-available again</li>
+ * </ol>
+ * 
+ * @see Match
+ * @see FramedQuestion
+ */
 @NodeEntity
 @RooToString
 @RooJavaBean
@@ -24,16 +39,25 @@ public class Round {
 
     public static final String ROUND_TO_FRAMES = "FRAME";
 	public static final RelationshipType ROUND_TO_FRAMES_REL = DynamicRelationshipType.withName(ROUND_TO_FRAMES);
+
+    public static final String ROUND_TO_CURRENT_FRAME = "CURRENT_FRAME";
+	public static final RelationshipType ROUND_TO_CURRENT_FRAME_REL = DynamicRelationshipType.withName(ROUND_TO_CURRENT_FRAME);
 	
     private String title;
     
-    private Boolean closed = false;
+    /**
+     * Whether a round is available for play during a live match.
+     */
+    private Boolean available = false;
     
     Integer pointsPerQuestion = 0;
 
     @RelatedTo(elementClass=FramedQuestion.class, type=ROUND_TO_FRAMES, direction=OUTGOING)
     private Set<FramedQuestion> framedQuestions;
 
+    @RelatedTo(elementClass=FramedQuestion.class, type=ROUND_TO_CURRENT_FRAME, direction=OUTGOING)
+    private FramedQuestion currentQuestion;
+    
     public Round() {;}
     
     public Round(String title) {

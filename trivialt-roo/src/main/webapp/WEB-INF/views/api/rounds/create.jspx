@@ -5,8 +5,9 @@
     <form:create id="fc_org_neo4j_app_trivialt_model_Round" modelAttribute="round" path="/api/rounds" render="${empty dependencies}" z="user-managed">
         <field:input field="title" id="c_org_neo4j_app_trivialt_model_Round_title" z="0dBKkHvn7ic87GD9q49ohGYjACc="/>
         <field:select field="framedQuestions" id="c_org_neo4j_app_trivialt_model_Round_framedQuestions" itemValue="id" items="${framedquestions}" multiple="true" path="/api/framedquestions" z="user-managed"/>
-        <field:checkbox field="closed" id="c_org_neo4j_app_trivialt_model_Round_closed" z="wvRX//j0QQEwOufJwDERUeRVy1Y="/>
         <field:input field="pointsPerQuestion" id="c_org_neo4j_app_trivialt_model_Round_pointsPerQuestion" validationMessageCode="field_invalid_integer" z="2EALEbIm9Vi2Gs1WQy5p/PzFmx8="/>
+        <field:select field="currentQuestion" id="c_org_neo4j_app_trivialt_model_Round_currentQuestion" itemValue="id" items="${framedquestions}" path="/api/framedquestions" z="9l7Uv2vlyjx/AkJ5xaCplW07Eo4="/>
+        <field:checkbox field="available" id="c_org_neo4j_app_trivialt_model_Round_available" z="wqOKt5l1LorpI7gCtzjE2OmYq0o="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_org_neo4j_app_trivialt_model_Round" render="${not empty dependencies}" z="+wq8DZ+JftqlzG+OjEY733pLJew="/>
 </div>

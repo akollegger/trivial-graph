@@ -9,7 +9,8 @@ privileged aspect Round_Roo_ToString {
     
     public String Round.toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Closed: ").append(getClosed()).append(", ");
+        sb.append("Available: ").append(getAvailable()).append(", ");
+        sb.append("CurrentQuestion: ").append(getCurrentQuestion()).append(", ");
         sb.append("FramedQuestions: ").append(getFramedQuestions() == null ? "null" : getFramedQuestions().size()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("PointsPerQuestion: ").append(getPointsPerQuestion()).append(", ");

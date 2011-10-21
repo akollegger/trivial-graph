@@ -7,6 +7,7 @@
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_phrase" property="phrase" z="opUX/RL8IYQlhD7kFxsw+3Z43iI="/>
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_originalQuestion" property="originalQuestion" z="s6X8FKfUI1WzUNe6STQ80MbTcQQ="/>
             <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_possibleAnswers" property="possibleAnswers" z="vtY1gNllwHapBD2T74DZ1zrjMrU="/>
+            <table:column id="c_org_neo4j_app_trivialt_model_FramedQuestion_available" property="available" z="mj7kPmJv/aWrf2XLT6Mnw1W6Zko="/>
         </table:table>
     </page:list>
 </div>
