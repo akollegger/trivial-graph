@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: get-current-round <match-id>"
+exit
+fi
+
+MATCH_ID=$1
+
+JSON=`curl --verbose -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/matches/${DECK_ID}`
+
+echo $JSON | jgrep -s currentRound.id

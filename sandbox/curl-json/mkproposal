@@ -1,11 +1,17 @@
 #!/bin/sh
 
-if [ "$1" == "" ]; then
-echo "Usage: mkteam <teamname>"
-exit
+function usage {
+  echo "Usage: mkproposal <card-id> <framedQuestion-id> <answer-text>"
+}
+
+if [ $# -ne "3" ]; then
+  usage
+  exit 1
 fi
 
-TEAM=$1
+CARD_ID=$1
+QUESTION_ID=$2
+ANSWER=$3
 
 SCRIPT=`basename $0`
 JSON_RESULT="./${TEAM}.json"

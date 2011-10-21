@@ -6,5 +6,6 @@ exit
 fi
 
 DECK_ID=$1
+JSON_RESULT="./deck_${DECK_ID}.json"
 
-curl --verbose -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/decks/${DECK_ID}/cards
+curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/decks/${DECK_ID}/cards > ${JSON_RESULT}

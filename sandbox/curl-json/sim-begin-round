@@ -1,0 +1,74 @@
+#!/bin/sh
+
+TEAM_1="A TEAM"
+TEAM_2="Ska Masters"
+TEAM_3="Graphistas"
+
+# strip whitespace from team names
+TEAM_1=${TEAM_1/ /}
+TEAM_2=${TEAM_2/ /}
+TEAM_3=${TEAM_3/ /}
+
+function get_team_id {
+  local  myresult=`./find-team ${1} | jgrep -s id`
+  echo $myresult
+}
+
+function get_deck_id {
+  local team_id=$(get_team_id ${1})
+  local result=`./get-current-deck ${team_id}`
+  if [ ! $? ]; then
+    echo "Failed to get current deck for ${1} ${team_id}"
+    exit 1
+  fi
+  echo $result
+}
+
+function get_deck_cards {
+  local result=`./get-deck-cards ${1}`
+  if [ ! $? ]; then
+    echo "Failed to get cards for deck ${1}"
+    exit 1
+  fi 
+}
+
+function get_match_from_deck {
+  local result=$(./get-match-from-deck ${1})
+  if [ -z "$result" ]; then
+    echo "Failed to get match from deck ${1}"
+    exit 1
+  fi
+  echo $result
+}
+
+function get_match_rounds {
+  local result=`./get-match-rounds ${1}`
+  if [ ! $? ]; then
+    echo "Failed to get rounds for match ${1}"
+    exit 1
+  fi
+}
+
+function get_current_round {
+  local result=`./get-current-round ${1}`
+  if [ ! $? ]; then
+    echo "Failed to get current round of match ${1}"
+    exit 1
+  fi
+  echo $result
+}
+
+
+TEAM_1_ID=`get_team_id ${TEAM_1}`
+TEAM_1_ID=`get_team_id ${TEAM_2}`
+TEAM_1_ID=`get_team_id ${TEAM_3}`
+
+TEAM_1_DECK_ID=`get_deck_id ${TEAM_1}`
+TEAM_2_DECK_ID=`get_deck_id ${TEAM_2}`
+TEAM_3_DECK_ID=`get_deck_id ${TEAM_3}`
+
+MATCH_ID=`get_match_from_deck ${TEAM_1_DECK_ID}`
+
+CURRENT_ROUND_ID=`get_current_round ${MATCH_ID}`
+
+get_match_rounds ${MATCH_ID}

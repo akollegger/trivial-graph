@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: find-team <teamname>"
+exit
+fi
+
+TEAM=${1}
+
+JSON_RESULT="./${TEAM/ /}.json"
+
+curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams | jgrep "name=${TEAM}" > ${JSON_RESULT}
+
+if [ $? ]; then
+  cat ${JSON_RESULT} | jgrep -s "name id"
+else
+  echo "Not found"
+  exit 1
+fi

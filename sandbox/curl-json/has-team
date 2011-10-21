@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+  echo "Usage: has-team <teamname>"
+  exit 1
+fi
+
+TEAM=${1}
+
+FOUND=`curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams | jgrep "name=${TEAM}" -s name`
+
+if [ "$FOUND" != "$TEAM" ] ; then exit 1; fi
+
+exit 0
