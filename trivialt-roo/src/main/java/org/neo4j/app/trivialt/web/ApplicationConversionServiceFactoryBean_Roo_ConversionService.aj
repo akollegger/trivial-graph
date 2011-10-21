@@ -60,7 +60,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.MatchConverter implements Converter<Match, String> {
         public String convert(Match match) {
-            return new StringBuilder().append(match.getTitle()).append(" ").append(match.getMode()).toString();
+            return new StringBuilder().append(match.getTitle()).toString();
         }
         
     }

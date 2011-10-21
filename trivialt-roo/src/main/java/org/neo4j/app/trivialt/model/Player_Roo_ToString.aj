@@ -11,7 +11,6 @@ privileged aspect Player_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Friends: ").append(getFriends() == null ? "null" : getFriends().size()).append(", ");
         sb.append("Handle: ").append(getHandle()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Teams: ").append(getTeams() == null ? "null" : getTeams().size());
         return sb.toString();

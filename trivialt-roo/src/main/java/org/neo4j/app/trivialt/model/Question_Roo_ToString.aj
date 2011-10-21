@@ -11,7 +11,6 @@ privileged aspect Question_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Answer: ").append(getAnswer()).append(", ");
         sb.append("Category: ").append(getCategory()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("Text: ").append(getText());
         return sb.toString();
     }

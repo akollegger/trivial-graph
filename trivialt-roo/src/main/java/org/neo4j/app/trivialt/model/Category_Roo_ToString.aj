@@ -9,7 +9,6 @@ privileged aspect Category_Roo_ToString {
     
     public String Category.toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("Name: ").append(getName()).append(", ");
         sb.append("Questions: ").append(getQuestions() == null ? "null" : getQuestions().size());
         return sb.toString();

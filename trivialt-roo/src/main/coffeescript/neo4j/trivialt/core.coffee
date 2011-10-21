@@ -37,6 +37,10 @@ define(
         super()
         @notFoundView = new notFound.NotFoundView
         
+        savedTeam = @getLocallySavedTeam()
+        if savedTeam?
+          @setTeam savedTeam
+        
         @game = new game.Game(this)
         
         opts = {application:this}
@@ -56,12 +60,27 @@ define(
       setPage : (page) -> @set 'page', page
       getPage :        -> @get 'page', @notFoundView
       
-      setTeam : (team) -> @set 'team', team
+      setTeam : (team) -> 
+        @set 'team', team
+        @saveTeamLocally team
+        
       getTeam : ()     -> @get 'team'
       
       
       navigate : (url, route=true) ->
         Backbone.history.navigate(url, route)
+        
+      saveTeamLocally : (team)->
+        if window.localStorage?
+          window.localStorage['team'] = JSON.stringify(team.toJSON())
+          
+      getLocallySavedTeam : ->
+        try
+          if window.localStorage? and window.localStorage['team']?
+            return new domain.Team(JSON.parse(window.localStorage['team']),application:this)
+        catch e
+          return null
+        return null
     
     
     exports.AppRouter = class AppRouter extends Router
@@ -71,6 +90,7 @@ define(
         '/game/round/:r/question/:q'  : 'question'
         '/game/round/:r/confirmation' : 'roundConfirmation'
         '/game/round/:r/summary'      : 'roundSummary'
+        '/game/match/summary'         : 'matchSummary'
         
       constructor : (@application) ->
         super()
@@ -84,9 +104,7 @@ define(
         @application.setPage @gameView
         
         if not @application.getTeam()?
-          @fetchPreviouslyUsedTeam success:(team)=>
-            @application.setTeam team
-            @application.game.showQuestion(roundIdx,questionIdx)
+          @application.navigate("#")
         else
           @application.game.showQuestion(roundIdx,questionIdx)
           
@@ -94,9 +112,7 @@ define(
         @application.setPage @gameView
         
         if not @application.getTeam()?
-          @fetchPreviouslyUsedTeam success:(team)=>
-            @application.setTeam team
-            @application.game.showRoundConfirmation(roundIdx)
+          @application.navigate("#")
         else
           @application.game.showRoundConfirmation(roundIdx)
           
@@ -104,16 +120,17 @@ define(
         @application.setPage @gameView
         
         if not @application.getTeam()?
-          @fetchPreviouslyUsedTeam success:(team)=>
-            @application.setTeam team
-            @application.game.showRoundSummary(roundIdx)
+          @application.navigate("#")
         else
           @application.game.showRoundSummary(roundIdx)
-          
-          
-      fetchPreviouslyUsedTeam : (opts) ->
-        # Temporary
-        new domain.Team({id:294},{application:@application}).fetch opts
+      
+      matchSummary: (roundIdx) =>
+        @application.setPage @gameView
+        
+        if not @application.getTeam()?
+          @application.navigate("#")
+        else
+          @application.game.showMatchSummary()
         
     exports.AppView = class AppView extends View
       

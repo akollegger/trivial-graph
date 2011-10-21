@@ -23,18 +23,44 @@ define(
 
     class Model extends Backbone.Model
       
-      get : (key, defaultValue=null) ->
+      get: (key, defaultValue=null) ->
         val = super key
         if not val
           return defaultValue
         val
         
-      set : (update, val, opts) ->
+      set: (update, val, opts) ->
         if _(update).isString()
           updateMap = {}
           updateMap[update] = val
           update = updateMap
         else
           opts = val
-        super update, opts
+          
+        res = super update, opts
+          
+        if @_continuousFetchInterval? and @_continousFetchTargetsAchieved()
+          clearInterval @_continuousFetchInterval
+          
+        res
+          
+      fetch:(attrs,opts)=>
+        super(attrs,opts)
+        
+      fetchUntil: (key, targetValue)->
+        if @get(key) isnt targetValue
+          @_continuousFetchTargets      ?= {}
+          @_continuousFetchTargets[key] ?= {}
+          @_continuousFetchTargets[key][targetValue] = 1
+          
+          if not @_continuousFetchInterval?
+            setInterval @fetch, 500
+            
+      _continousFetchTargetsAchieved:->
+        for key, targets of @_continuousFetchTargets
+          delete targets[@get(key)]
+          if _(targets).keys().length == 0
+            delete @_continuousFetchTargets[key]
+        return _(@_continuousFetchTargets).keys().length == 0
+            
 )

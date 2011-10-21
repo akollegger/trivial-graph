@@ -11,7 +11,6 @@ privileged aspect Proposal_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("Card: ").append(getCard()).append(", ");
         sb.append("FramedQuestion: ").append(getFramedQuestion()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("ProposedAnswer: ").append(getProposedAnswer()).append(", ");
         sb.append("Score: ").append(getScore());
         return sb.toString();

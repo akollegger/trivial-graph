@@ -28,28 +28,31 @@ define(
    './template/possibleAnswerTpl'
    './template/roundConfirmationTpl'
    './template/roundSummaryTpl'
-   './template/questionSummaryTpl'],
-  (View,Model,domain,inputBar,threeColumn,questionContentTpl,possibleAnswerTpl,roundConfirmationTpl,roundSummaryTpl,questionSummaryTpl)->
+   './template/questionSummaryTpl'
+   './template/matchSummaryTpl'
+   './template/scoresTpl'],
+  (View,Model,domain,inputBar,threeColumn,questionContentTpl,possibleAnswerTpl,roundConfirmationTpl,roundSummaryTpl,questionSummaryTpl,matchSummaryTpl,scoresTpl)->
     exports = {}
     
     
     exports.GameState = class GameState
        
-      @WAITING_FOR_ROUND  = 0
-      
-      @QUESTION           = 1
-      @ROUND_CONFIRMATION = 3
-      @ROUND_SUMMARY      = 4
+      @WAITING_FOR_ROUND_START = 0
+      @QUESTION                = 1
+      @ROUND_CONFIRMATION      = 2
+      @WAITING_FOR_ROUND_END   = 3
+      @ROUND_SUMMARY           = 4
+      @MATCH_SUMMARY           = 5
     
     
     exports.Game = class Game extends Model
     
       constructor : (@application) ->
         super()
-        @set 'state' : GameState.WAITING_FOR_ROUND
+        @set 'state' : GameState.WAITING_FOR_ROUND_START
             
       joinCurrentMatch : () ->
-        @set 'state' : GameState.WAITING_FOR_ROUND
+        @set 'state' : GameState.WAITING_FOR_ROUND_START
         @fetchCurrentDeck success:=>
           currentRound = @getDeck().match.rounds.getCurrent()
           roundIdx = @getDeck().match.rounds.indexOf currentRound
@@ -79,9 +82,24 @@ define(
         @fetchCurrentDeck success:=>
           deck = @getDeck()
           card = deck.cards.at roundIdx
+          
           @set 
-            "state"    : GameState.ROUND_SUMMARY
-            "card"     : card
+            "state"    : GameState.WAITING_FOR_ROUND_END
+            "card"     : card 
+          
+          if card.round.isAvailable()
+            # Round is not over yet
+            card.round.fetchUntil('available',true)
+          else 
+            #@set 
+            #  "state"    : GameState.ROUND_SUMMARY
+            #  "card"     : card
+            @nextRound()
+      
+      showMatchSummary: ->
+        @fetchCurrentDeck success:=>
+          @set 
+            "state"    : GameState.MATCH_SUMMARY
             
       nextQuestion: ->
         questionIdx = @getCurrentQuestionIndex()
@@ -91,6 +109,15 @@ define(
             @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/question/#{nextIdx}")
           else
             @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/confirmation")
+            
+      nextRound: ->
+        roundIdx = @getCurrentRoundIndex()
+        if roundIdx > -1
+          nextIdx = roundIdx + 1
+          if @getMatch().rounds.length > nextIdx
+            @application.navigate("#/game/round/#{@nextIdx}/question/0")
+          else
+            @application.navigate("#/game/match/summary")
             
       confirmAnswersForCurrentRound: ->
         card = @getCard()
@@ -128,8 +155,9 @@ define(
       getCard     : -> @get 'card'
       getProposal : -> @get 'proposal'
       
-      getRound    : -> if @getCard()? then @getCard().round else null
-      getMatch    : -> if @getDeck()? then @getDeck().match else null
+      getRound    : -> if @getCard()?  then @getCard().round else null
+      getMatch    : -> if @getDeck()?  then @getDeck().match else null
+      getScores   : -> if @getMatch()? then @getMatch().getScores() else null
       
       setDeck : (deck) -> @set 'deck':deck
     
@@ -143,10 +171,12 @@ define(
         super()
         @application.game.bind "change:state", @onGameStateChange
         
-        @questionView = new QuestionView(@application)
-        @waitingForRoundView = new WaitingForRoundView(@application)
-        @roundConfirmationView = new RoundConfirmationView(@application)
-        @roundSummaryView = new RoundSummaryView(@application)
+        @waitingForRoundStartView = new WaitingForRoundStartView(@application)
+        @questionView             = new QuestionView(@application)
+        @roundConfirmationView    = new RoundConfirmationView(@application)
+        @waitingForRoundEndView   = new WaitingForRoundEndView(@application)
+        @roundSummaryView         = new RoundSummaryView(@application)
+        @matchSummaryView         = new MatchSummaryView(@application)
       
       render : () ->
         super()
@@ -155,25 +185,62 @@ define(
         
       onGameStateChange : =>
         $(@el).contents().detach()
-        console.log @application.game.getState()
         switch @application.game.getState()
+        
+          when GameState.WAITING_FOR_ROUND_START
+            view = @waitingForRoundStartView
+            
           when GameState.QUESTION
-            $(@el).append @questionView.render().el
-          when GameState.WAITING_FOR_ROUND
-            $(@el).append @waitingForRoundView.render().el
+            view = @questionView
+            
           when GameState.ROUND_CONFIRMATION
-            $(@el).append @roundConfirmationView.render().el
+            view = @roundConfirmationView
+           
+          when GameState.WAITING_FOR_ROUND_END
+            view = @waitingForRoundEndView
+          
           when GameState.ROUND_SUMMARY
-            $(@el).append @roundSummaryView.render().el
+            view = @roundSummaryView
+            
+          when GameState.MATCH_SUMMARY
+            view = @matchSummaryView
+            
+        if view?
+          $(@el).append view.render().el
         
     
-    exports.QuestionView = class QuestionView extends threeColumn.ThreeColumnView
+    exports.AbstractMatchView = class AbstractMatchView extends threeColumn.ThreeColumnView
+    
+      constructor : (@application)->
+        super()
+        @scoresView = new ScoresView()
+        @application.game.bind "change:deck",@onDeckChanged
+      
+      render : ->
+        $(@scoresView.el).detach()
+        super()
+        @leftSidebar.append @scoresView.render().el
+        this
+        
+      onDeckChanged:=>
+        @scoresView.setScores @application.game.getScores()
+        
+      
+    exports.WaitingForRoundStartView = class WaitingForRoundStartView extends AbstractMatchView
+      
+      render : ->
+        super()
+        @content.append "Waiting for round to start.."
+        this
+    
+    
+    exports.QuestionView = class QuestionView extends AbstractMatchView
       
       events : 
         'click .input-bar-execute' : 'onExecuteClicked'
       
       constructor : (@application)->
-        super()
+        super(@application)
         @application.game.bind "change:proposal", @onQuestionChanged
         
         @inputBar = new inputBar.InputBarView()
@@ -211,27 +278,16 @@ define(
       onExecuteClicked : =>
         @proposal.setAnswer @inputBar.model.getValue()
         @application.game.nextQuestion()
-      
-    
-    exports.WaitingForRoundView = class WaitingForRoundView extends threeColumn.ThreeColumnView
-      
-      constructor : (@application)->
-        super()
-      
-      render : ->
-        super()
-        @content.append "Waiting for round to start.."
-        this
        
     
-    exports.RoundConfirmationView = class RoundConfirmationView extends threeColumn.ThreeColumnView
+    exports.RoundConfirmationView = class RoundConfirmationView extends AbstractMatchView
       
       events : 
         'click .confirm-answers'   : 'onConfirmAnswersClicked'
         'click .input-bar-execute' : 'onExecuteClicked'
         
       constructor : (@application)->
-        super()
+        super(@application)
         @application.game.bind "change:card", @onCardChanged
         @inputBar = new inputBar.InputBarView()
       
@@ -262,38 +318,48 @@ define(
         if @inputBar.model.getValue().toLowerCase() is "yes"
           @application.game.confirmAnswersForCurrentRound()
         
+        
     
-    exports.RoundSummaryView = class RoundSummaryView extends threeColumn.ThreeColumnView
+    exports.WaitingForRoundEndView = class WaitingForRoundEndView extends AbstractMatchView
       
       constructor : (@application)->
+        super(@application)
+      
+      render : ->
         super()
+        @content.append "Waiting for round to finish.."
+        this
+        
+    
+    exports.RoundSummaryView = class RoundSummaryView extends AbstractMatchView
+      
+      constructor : (@application)->
+        super(@application)
         @inputBar = new inputBar.InputBarView()
         @application.game.bind "change:card",@onCardChanged
       
       render : ->
         super()
         if @round?
-          if @round.isClosed() or true
-            @content.append roundSummaryTpl()
-          else
-            @content.append "Waiting for other players to finish.."
+          @content.append roundSummaryTpl()
+          @content.append @inputBar.render().el
         this 
         
       onCardChanged : =>
-        if @round?
-          clearInterval @roundUpdateInterval
-          @round.unbind "change:closed", @onRoundCloseStatusChanged
-        
         @round = @application.game.getRound()
-        @round.bind "change:closed", @onRoundCloseStatusChanged
-        
-        #@roundUpdateInterval = setInterval (=>@round.fetch()), 1000
-        
         @render()
         
-      onRoundCloseStatusChanged: =>
-        clearInterval @roundUpdateInterval
-        @render()
+    
+    exports.MatchSummaryView = class MatchSummaryView extends AbstractMatchView
+      
+      constructor : (@application)->
+        super(@application)
+        #@application.game.bind "change:deck",@onCardChanged
+      
+      render : ->
+        super()
+        @content.append matchSummaryTpl()
+        this 
         
     ## WIDGETS
     
@@ -326,22 +392,26 @@ define(
       render: ->
         $(@el).html questionSummaryTpl proposal : @proposal
         this
-        
-    
-        
     
     
     exports.ScoresView = class ScoresView extends View
       
-      tagName : 'ul'
-      
-      constructor: (@scores) -> 
-        super()
-        @scores.bind "change",@render
-      
       render:=>
-        $(@el).html "scores"
+        if @scores?
+          $(@el).html scoresTpl()
+          scoreList = $(".score-list",@el)
+          for score in @scores.models
+            scoreList.append "<li>#{score.getName()}: #{score.getScore()}</li>"
         this
+      
+      setScores:(scores)->
+        if @scores?
+          @scores.unbind "change", @onScoresChanged
+        @scores = scores
+        @scores.bind "change", @onScoresChanged
+        
+      onScoresChanged:=>
+        @render()
       
     return exports
 

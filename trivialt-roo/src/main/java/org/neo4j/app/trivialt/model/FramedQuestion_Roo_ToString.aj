@@ -10,7 +10,6 @@ privileged aspect FramedQuestion_Roo_ToString {
     public String FramedQuestion.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Available: ").append(getAvailable()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("OriginalQuestion: ").append(getOriginalQuestion()).append(", ");
         sb.append("Phrase: ").append(getPhrase()).append(", ");
         sb.append("PossibleAnswers: ").append(getPossibleAnswers() == null ? "null" : getPossibleAnswers().size());

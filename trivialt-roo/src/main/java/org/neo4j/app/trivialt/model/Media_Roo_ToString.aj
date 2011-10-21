@@ -10,7 +10,6 @@ privileged aspect Media_Roo_ToString {
     public String Media.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ContentType: ").append(getContentType()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("RepresentedQuestion: ").append(getRepresentedQuestion()).append(", ");
         sb.append("Url: ").append(getUrl());
         return sb.toString();

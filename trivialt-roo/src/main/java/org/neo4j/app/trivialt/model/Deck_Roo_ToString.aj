@@ -10,7 +10,6 @@ privileged aspect Deck_Roo_ToString {
     public String Deck.toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cards: ").append(getCards() == null ? "null" : getCards().size()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("Match: ").append(getMatch()).append(", ");
         sb.append("Team: ").append(getTeam());
         return sb.toString();

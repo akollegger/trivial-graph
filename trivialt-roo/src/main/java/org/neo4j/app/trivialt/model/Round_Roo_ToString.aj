@@ -12,7 +12,6 @@ privileged aspect Round_Roo_ToString {
         sb.append("Available: ").append(getAvailable()).append(", ");
         sb.append("CurrentQuestion: ").append(getCurrentQuestion()).append(", ");
         sb.append("FramedQuestions: ").append(getFramedQuestions() == null ? "null" : getFramedQuestions().size()).append(", ");
-        sb.append("Id: ").append(getId()).append(", ");
         sb.append("PointsPerQuestion: ").append(getPointsPerQuestion()).append(", ");
         sb.append("Title: ").append(getTitle());
         return sb.toString();

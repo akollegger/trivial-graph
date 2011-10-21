@@ -108,6 +108,9 @@ define(
       
     exports.Score = class Score extends TrivialtModel
     
+      getName:-> @get 'name'
+      getScore:-> @get 'score'
+    
     exports.Scores = class Scores extends TrivialtCollection
       
       model : Score
@@ -124,7 +127,7 @@ define(
         super(attrs,opts)
         @framedQuestions = new FramedQuestions([],{url:@url() + "/frames",application:@application})
         
-      isClosed : -> @get('closed') is true
+      isAvailable : -> @get('available') is true
     
       
     exports.Rounds = class Rounds extends TrivialtCollection
@@ -149,7 +152,7 @@ define(
       ###
       getCurrent : ->
         for round in @models
-          if not round.isClosed()
+          if round.isAvailable()
             return round
     
     
