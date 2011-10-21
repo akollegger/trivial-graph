@@ -28,9 +28,19 @@ define(
       
       className : 'header'
       
+      events:
+        'click .leave' : "onLeaveClicked"
+      
+      constructor:(@application)->
+        super()
+      
       render : () ->
-        @el.innerHTML = headerTpl()
+        @el.innerHTML = headerTpl
+          signedIn : @application.isSignedIn()
         this
+        
+      onLeaveClicked: =>
+        @application.quit()
     
     return exports
 

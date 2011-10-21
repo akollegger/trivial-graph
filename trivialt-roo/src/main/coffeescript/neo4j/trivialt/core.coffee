@@ -70,6 +70,14 @@ define(
       navigate : (url, route=true) ->
         Backbone.history.navigate(url, route)
         
+      quit:->
+        if window.localStorage?
+          delete window.localStorage['team']
+        @navigate "#/signin"
+        
+      isSignedIn : () ->
+        @getTeam()?
+        
       saveTeamLocally : (team)->
         if window.localStorage?
           window.localStorage['team'] = JSON.stringify(team.toJSON())
@@ -86,51 +94,44 @@ define(
     exports.AppRouter = class AppRouter extends Router
       
       routes : 
-        ''      : 'index'
+        '' : 'index'
+        '/signin' : 'signIn'
         '/game/round/:r/question/:q'  : 'question'
         '/game/round/:r/confirmation' : 'roundConfirmation'
         '/game/round/:r/summary'      : 'roundSummary'
         '/game/match/summary'         : 'matchSummary'
         
-      constructor : (@application) ->
+      @inGame = (f) ->
+        ->
+          @application.setPage @gameView
+          if not @application.getTeam()?
+            @application.navigate("#/signin")
+          else
+            f.apply(this,arguments)
+        
+      constructor: (@application) ->
         super()
         @gameView = new game.GameView(@application)
         @signInView = new signIn.SignInView(@application)
         
-      index : () =>
+      index: @inGame ->
+        @application.game.joinCurrentMatch()
+        
+      signIn : () ->
         @application.setPage @signInView
       
-      question: (roundIdx,questionIdx) =>
-        @application.setPage @gameView
-        
-        if not @application.getTeam()?
-          @application.navigate("#")
-        else
-          @application.game.showQuestion(roundIdx,questionIdx)
+      question: @inGame (roundIdx,questionIdx) ->
+        @application.game.showQuestion(roundIdx,questionIdx)
           
-      roundConfirmation: (roundIdx) =>
-        @application.setPage @gameView
-        
-        if not @application.getTeam()?
-          @application.navigate("#")
-        else
-          @application.game.showRoundConfirmation(roundIdx)
+      roundConfirmation: @inGame (roundIdx) ->
+        @application.game.showRoundConfirmation(roundIdx)
           
-      roundSummary: (roundIdx) =>
-        @application.setPage @gameView
-        
-        if not @application.getTeam()?
-          @application.navigate("#")
-        else
-          @application.game.showRoundSummary(roundIdx)
+      roundSummary: @inGame (roundIdx) ->
+        @application.game.showRoundSummary(roundIdx)
       
-      matchSummary: (roundIdx) =>
-        @application.setPage @gameView
-        
-        if not @application.getTeam()?
-          @application.navigate("#")
-        else
-          @application.game.showMatchSummary()
+      matchSummary: @inGame (roundIdx) ->
+        @application.game.showMatchSummary()
+      
         
     exports.AppView = class AppView extends View
       
