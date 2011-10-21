@@ -129,6 +129,7 @@ define(
         
       isAvailable : -> @get('available') is true
     
+      getTitle:-> @get 'title'
       
     exports.Rounds = class Rounds extends TrivialtCollection
       

@@ -1,2 +1,7 @@
+:if prev != false
+  %a(href="#{prev}") Prev
+%p= title
+:if next != false
+  %a(href="#{next}") Next
 %p= question
 %ul.answer-alternatives

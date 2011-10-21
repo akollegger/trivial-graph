@@ -85,17 +85,17 @@ define(
           card  = deck.getCardFromRoundIndex roundIdx
           question = card.round.framedQuestions.at questionIdx
           @set 
-            "state"    : GameState.QUESTION
             "card"     : card
             "proposal" : card.proposals.getOrCreateFor question
+            "state"    : GameState.QUESTION
             
       showRoundConfirmation: (roundIdx) ->
         @fetchCurrentDeck success:=>
           deck = @getDeck()
           card = deck.getCardFromRoundIndex roundIdx
           @set 
-            "state"    : GameState.ROUND_CONFIRMATION
             "card"     : card
+            "state"    : GameState.ROUND_CONFIRMATION
             
       showRoundSummary: (roundIdx) ->
         @fetchCurrentDeck success:=>
@@ -103,8 +103,8 @@ define(
           card = deck.getCardFromRoundIndex roundIdx
           
           @set 
-            "state"    : GameState.WAITING_FOR_ROUND_END
             "card"     : card 
+            "state"    : GameState.WAITING_FOR_ROUND_END
           
           if card.round.isAvailable()
             # Round is not over yet
@@ -122,14 +122,14 @@ define(
             
       showNextQuestion: ->
         next = @getNextQuestionIndex()
-        if next isnt null
+        if next isnt -1
           @application.navigate @url.forQuestion(@getCurrentRoundIndex(),next)
         else
           @application.navigate @url.forRoundConfirmation(@getCurrentRoundIndex())
             
       showNextRound: ->
         next = @getNextRoundIndex()
-        if next isnt null
+        if next isnt -1
           @application.navigate @url.forQuestion(next,0)
         else
           @application.navigate @url.forMatchSummary()
@@ -154,6 +154,14 @@ define(
       
       ## UTILS
       
+      getPreviousQuestionIndex : -> 
+        if @getState() is GameState.QUESTION
+          @getCurrentQuestionIndex() - 1
+        else
+          @getRound().framedQuestions.length - 1
+        
+      getPreviousRoundIndex : -> @getCurrentRoundIndex() - 1
+      
       getCurrentQuestionIndex : -> 
         if @getRound()? then @getRound().framedQuestions.indexOf @getProposal().getFramedQuestion()
         else -1
@@ -169,7 +177,7 @@ define(
           console.log @getRound().framedQuestions, @getCurrentRoundIndex()
           if @getRound().framedQuestions.length > nextIdx
             return nextIdx
-        return null
+        return -1
             
       getNextRoundIndex:->
         roundIdx = @getCurrentRoundIndex()
@@ -177,7 +185,20 @@ define(
           nextIdx = roundIdx + 1
           if @getMatch().rounds.length > nextIdx
             return nextIdx
-        return null
+        return -1
+      
+        
+      getNextQuestionUrl:->
+        n = @getNextQuestionIndex()
+        if n isnt -1
+          return @url.forQuestion @getCurrentRoundIndex(),n
+        return false
+      
+      getPreviousQuestionUrl:->
+        n = @getPreviousQuestionIndex()
+        if n isnt -1
+          return @url.forQuestion @getCurrentRoundIndex(),n
+        return false
       
       
       ## ATTRIBUTES
@@ -245,6 +266,7 @@ define(
     
       constructor : (@application)->
         super()
+        @game = @application.game
         @scoresView = new ScoresView()
         @application.game.bind "change:deck",@onDeckChanged
       
@@ -273,7 +295,8 @@ define(
       
       constructor : (@application)->
         super(@application)
-        @application.game.bind "change:proposal", @onQuestionChanged
+        
+        @game.bind "change:proposal", @onQuestionChanged
         
         @inputBar = new inputBar.InputBarView()
       
@@ -282,7 +305,11 @@ define(
         if @proposal?
         
           question = @proposal.getFramedQuestion()
-          @content.append questionContentTpl question : question.getPhrase()
+          @content.append questionContentTpl 
+            question : question.getPhrase()
+            next     : @game.getNextQuestionUrl()
+            prev     : @game.getPreviousQuestionUrl()
+            title    : @game.getRound().getTitle()
           
           ul = $('.answer-alternatives',@el)
           for alternative in question.possibleAnswers.models
@@ -327,7 +354,8 @@ define(
         super()
         if @round?
         
-          @content.append roundConfirmationTpl()
+          @content.append roundConfirmationTpl
+            prev : @game.getPreviousQuestionUrl()
           
           summaryList = $(".question-summary-list",@el)
           for q in @round.framedQuestions.models
