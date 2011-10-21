@@ -43,6 +43,20 @@ define(
       @WAITING_FOR_ROUND_END   = 3
       @ROUND_SUMMARY           = 4
       @MATCH_SUMMARY           = 5
+      
+    exports.GameUrlFactory = class GameUrlFactory
+      
+      forQuestion:(roundIdx,questionIdx)->
+        "#/game/round/#{roundIdx}/question/#{questionIdx}"
+      
+      forRoundConfirmation:(roundIdx)->
+        "#/game/round/#{roundIdx}/confirmation"
+      
+      forRoundSummary:(roundIdx)->
+        "#/game/round/#{roundIdx}/summary"
+      
+      forMatchSummary:()->
+        "#/game/match/summary"
     
     
     exports.Game = class Game extends Model
@@ -50,15 +64,16 @@ define(
       constructor : (@application) ->
         super()
         @set 'state' : GameState.WAITING_FOR_ROUND_START
+        @url = new GameUrlFactory()
             
       joinCurrentMatch : () ->
         @set 'state' : GameState.WAITING_FOR_ROUND_START
         @fetchCurrentDeck success:=>
           currentRound = @getDeck().match.rounds.getCurrent()
           roundIdx = @getDeck().match.rounds.indexOf currentRound
-          @application.navigate("#/game/round/#{roundIdx}/question/0")
-            
-            
+          
+          @application.navigate @url.forQuestion(roundIdx,0)
+          
       showQuestion: (roundIdx,questionIdx) ->
       
         @fetchCurrentDeck success:=>
@@ -89,41 +104,37 @@ define(
           
           if card.round.isAvailable()
             # Round is not over yet
-            card.round.fetchUntil('available',true)
+            card.round.fetchUntil('available',false)
           else 
             #@set 
             #  "state"    : GameState.ROUND_SUMMARY
             #  "card"     : card
-            @nextRound()
+            @showNextRound()
       
       showMatchSummary: ->
         @fetchCurrentDeck success:=>
           @set 
             "state"    : GameState.MATCH_SUMMARY
             
-      nextQuestion: ->
-        questionIdx = @getCurrentQuestionIndex()
-        if questionIdx > -1
-          nextIdx = questionIdx + 1
-          if @getRound().framedQuestions.length > nextIdx
-            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/question/#{nextIdx}")
-          else
-            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/confirmation")
+      showNextQuestion: ->
+        next = @getNextQuestionIndex()
+        if @next isnt null
+          @application.navigate @url.forQuestion(@getCurrentRoundIndex(),next)
+        else
+          @application.navigate @url.forRoundConfirmation(@getCurrentRoundIndex())
             
-      nextRound: ->
-        roundIdx = @getCurrentRoundIndex()
-        if roundIdx > -1
-          nextIdx = roundIdx + 1
-          if @getMatch().rounds.length > nextIdx
-            @application.navigate("#/game/round/#{@nextIdx}/question/0")
-          else
-            @application.navigate("#/game/match/summary")
+      showNextRound: ->
+        next = @getNextRoundIndex()
+        if next isnt null
+          @application.navigate @url.forQuestion(next,0)
+        else
+          @application.navigate @url.forMatchSummary()
             
       confirmAnswersForCurrentRound: ->
         card = @getCard()
         if card?
           card.confirmProposedAnswers success:=>
-            @application.navigate("#/game/round/#{@getCurrentRoundIndex()}/summary")
+            @application.navigate @url.forRoundSummary(@getCurrentRoundIndex())
               
       fetchCurrentDeck : (opts) ->
         @application.getTeam().fetch success : (team) =>
@@ -146,6 +157,22 @@ define(
       getCurrentRoundIndex : -> 
         if @getMatch()? then @getMatch().rounds.indexOf @getRound()
         else -1
+      
+      getNextQuestionIndex:->
+        questionIdx = @getCurrentQuestionIndex()
+        if questionIdx > -1
+          nextIdx = questionIdx + 1
+          if @getRound().framedQuestions.length > nextIdx
+            return nextIdx
+        return null
+            
+      getNextRoundIndex:->
+        roundIdx = @getCurrentRoundIndex()
+        if roundIdx > -1
+          nextIdx = roundIdx + 1
+          if @getMatch().rounds.length > nextIdx
+            return nextIdx
+        return null
       
       
       ## ATTRIBUTES
@@ -277,7 +304,7 @@ define(
         
       onExecuteClicked : =>
         @proposal.setAnswer @inputBar.model.getValue()
-        @application.game.nextQuestion()
+        @application.game.showNextQuestion()
        
     
     exports.RoundConfirmationView = class RoundConfirmationView extends AbstractMatchView
