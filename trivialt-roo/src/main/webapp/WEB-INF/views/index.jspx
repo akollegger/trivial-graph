@@ -1,14 +1,23 @@
-<div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
-  <jsp:directive.page contentType="text/html;charset=UTF-8" />
-  <jsp:output omit-xml-declaration="yes" />
-  <spring:message var="app_name" code="application_name" htmlEscape="false" />
-  <spring:message var="title" code="welcome_titlepane" arguments="${app_name}" htmlEscape="false" />
-  <div id="title" title="${title}">
-    <h3>
-      <spring:message code="welcome_h3" arguments="${app_name}" />
-    </h3>
-    <p>
-      <spring:message code="welcome_text" />
-    </p>
-  </div>
+<div xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:message var="app_name" code="application_name"
+		htmlEscape="false" />
+	<spring:message var="title" code="welcome_titlepane"
+		arguments="${app_name}" htmlEscape="false" />
+
+	<div id="title" title="${title}">
+		<h3>Hello, they call me Trinity.</h3>
+	</div>
+	<div id="introduction">
+		<p>Along with your host, Marko, I'll lead you through the world of
+			Trivialt. We'll be playing through 5 rounds, with 5 questions each.
+			Correct answers earn points, with value increasing each round.
+		</p>
+	</div>
+	<div id="question">
+		<p class="question">What is the name of your team?</p>
+	</div>
 </div>

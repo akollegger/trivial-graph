@@ -8,10 +8,12 @@ import javax.validation.Valid;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.neo4j.app.trivialt.model.Answer;
 import org.neo4j.app.trivialt.model.FramedQuestion;
 import org.neo4j.app.trivialt.model.Match;
 import org.neo4j.app.trivialt.model.Question;
 import org.neo4j.app.trivialt.model.Round;
+import org.neo4j.app.trivialt.service.TrivialtMatchPlay;
 import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.GraphDatabaseContext;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RoundController {
 
 	@Autowired GraphDatabaseContext gdc;
+	@Autowired TrivialtMatchPlay trivialt;
 	
     @RequestMapping(method = RequestMethod.PUT)
     public String update(@Valid Round round, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
@@ -62,6 +65,34 @@ public class RoundController {
         return new ResponseEntity<String>(FramedQuestion.toJsonArray(round.getFramedQuestions()), headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{id}/available", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public ResponseEntity<String> updateAvailability(@PathVariable("id") Long id, @RequestBody String json) {
+        Round round = Round.findRound(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (round == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = null;
+        try {
+        	rootNode = mapper.readTree(json);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
+		JsonNode isAvailableNode = rootNode.path("available");
+		if (isAvailableNode.isMissingNode() || !isAvailableNode.isBoolean())
+		{
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
+		boolean isAvailable = isAvailableNode.getBooleanValue();
+		
+		trivialt.updateRoundAvailability(round, isAvailable);
+
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/{id}/questions", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> createFrameFromJsonQuestion(@PathVariable("id") Long id, @RequestBody String json) {
 

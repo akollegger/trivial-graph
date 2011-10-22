@@ -25,22 +25,26 @@
   		<!-- middle content -->
 		<div class="middle">
 			<div class="container_12">
-				<div class="grid_2 sidebar">
-					<h2>sidebar1</h2>
+				<div class="grid_1 sidebar">
+					<h2><!--  --></h2>
 				</div>
 				<div class="grid_8 content">
-    				<tiles:insertAttribute name="body"/>
+					<div id="trinity" class="row trivia">
+    					<tiles:insertAttribute name="body"/>
+    				</div>
+    				<div class="row">
+    					<tiles:insertAttribute name="talkbar"/>
+    				</div>
     			</div>
-    			<div class="grid_2 sidebar">
-    				<h2>sidebar 2</h2>
+    			<div class="grid_1 sidebar">
+					<h2><!--  --></h2>
     			</div>         
     		</div>
 		</div> 
 		<!--/ middle content -->
 
-  	
-  		<tiles:insertAttribute name="bottom_1"/>
-  		<tiles:insertAttribute name="bottom_2"/>
+        <div class="clear"><!--  jsp sux --></div>    
+        
   		<tiles:insertAttribute name="footer"/>
   		
 	</body>

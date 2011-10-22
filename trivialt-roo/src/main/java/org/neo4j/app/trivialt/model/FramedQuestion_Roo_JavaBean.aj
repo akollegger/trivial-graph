@@ -27,6 +27,14 @@ privileged aspect FramedQuestion_Roo_JavaBean {
         this.phrase = phrase;
     }
     
+    public String FramedQuestion.getIntroduction() {
+        return this.introduction;
+    }
+    
+    public void FramedQuestion.setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+    
     public String FramedQuestion.getHint() {
         return this.hint;
     }

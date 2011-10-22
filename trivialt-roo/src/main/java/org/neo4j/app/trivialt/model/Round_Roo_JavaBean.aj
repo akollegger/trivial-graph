@@ -19,6 +19,14 @@ privileged aspect Round_Roo_JavaBean {
         this.title = title;
     }
     
+    public String Round.getIntroduction() {
+        return this.introduction;
+    }
+    
+    public void Round.setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+    
     public Boolean Round.getAvailable() {
         return this.available;
     }

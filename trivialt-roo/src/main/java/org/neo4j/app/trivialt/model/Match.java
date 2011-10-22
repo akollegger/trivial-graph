@@ -28,6 +28,8 @@ public class Match {
 	
 	@Indexed
     private String title;
+	
+	private String introduction;
 
     private Boolean featured = false;
     

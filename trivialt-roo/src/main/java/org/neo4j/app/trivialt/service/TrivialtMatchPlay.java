@@ -195,5 +195,10 @@ public class TrivialtMatchPlay {
 		
 		return deckScoreMap.values();
 	}
+
+	public void updateRoundAvailability(Round round, boolean isAvailable) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

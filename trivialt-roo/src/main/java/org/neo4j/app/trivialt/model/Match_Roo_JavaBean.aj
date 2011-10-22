@@ -19,6 +19,14 @@ privileged aspect Match_Roo_JavaBean {
         this.title = title;
     }
     
+    public String Match.getIntroduction() {
+        return this.introduction;
+    }
+    
+    public void Match.setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+    
     public Boolean Match.getFeatured() {
         return this.featured;
     }

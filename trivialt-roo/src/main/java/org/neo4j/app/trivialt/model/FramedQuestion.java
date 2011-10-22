@@ -35,6 +35,8 @@ public class FramedQuestion {
     @Indexed
     private String phrase;
     
+    private String introduction;
+    
     private String hint;
     
     private String explanation;

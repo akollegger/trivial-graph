@@ -13,6 +13,7 @@ privileged aspect Match_Roo_ToString {
         sb.append("CurrentRound: ").append(getCurrentRound()).append(", ");
         sb.append("Decks: ").append(getDecks() == null ? "null" : getDecks().size()).append(", ");
         sb.append("Featured: ").append(getFeatured()).append(", ");
+        sb.append("Introduction: ").append(getIntroduction()).append(", ");
         sb.append("Rounds: ").append(getRounds() == null ? "null" : getRounds().size()).append(", ");
         sb.append("Title: ").append(getTitle()).append(", ");
         sb.append("TriviaMaster: ").append(getTriviaMaster());

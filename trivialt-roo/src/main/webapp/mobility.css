@@ -176,7 +176,7 @@ body {
 	color:#63696c;
 	font-size:13px;
 	line-height:1.4em;
-	background: #b6e6f2 none no-repeat;
+	background: #a7d8e6;
 }
 
 /* Floating & Alignment */
@@ -614,6 +614,24 @@ h1 span, h2 span, h3 span ,h4 span, h5 span {
 .title_brown, .box .title_brown {
 	color:#653c17}
 
+.trivia {
+	font-family: 'HeroLight';
+	font-size: 1.6em;
+	line-height: 1.8em;
+	text-align: center;
+}
+
+.trivia .question {
+	font-family: 'HeroRegular';
+}
+#title h3 {
+	font-size: 150%;
+	margin-bottom: 24px;
+}
+div.trivia {
+	margin-bottom: 72px;
+}
+
 /*----------------------------------------------*/
 /* 1.8 Tables */
 /*----------------------------------------------*/
@@ -685,7 +703,48 @@ input[type=text],input[type=password],textarea{
 	border-radius: 4px;
 	resize:none}
 	
-textarea{
+.talkbar_textblock input#answer {
+	
+	color:#666;
+	border:1px solid #dad7d4;
+	background:#fff;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	width: 564px;
+	padding: 24px 12px;
+	font-size: 1.6em;
+}
+
+#talkbar_form .reset-link {
+	display:block;
+	float:right;
+	padding:10px 30px 0 0;
+	font-size:13px;
+	color:#4ad2f2}
+	
+#talkbar_form .reset-link a {
+	color:#4ad2f2;
+	text-decoration:none;}
+
+#talkbar_form .reset-link a:hover {
+	color:#000;}
+	
+	
+
+#talk_buttons input {
+	width: 196px;
+	height: 64px;
+	padding:0;
+	text-align:center;
+	color: #797979;
+	font-family: 'HeroRegular', Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-transform:uppercase;
+	text-shadow:0 0 1px #2f2f2f;
+	background: url(images/btn_talk.png) no-repeat}
+
+textarea {
 	width:90%;
 	font-size:12px;
 	background:#fff;
@@ -838,6 +897,16 @@ button:hover,button:focus{
 	position:absolute;
 	top:36px;
 	right:0}
+	
+.topmenu .dropdown li.button {
+	background-color: #424242;
+	border: 1px solid #000;
+	color: #919191;
+	padding: 4px 12px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
 
 .topmenu .dropdown {
 	float:right;
@@ -856,7 +925,9 @@ button:hover,button:focus{
 	position:relative;
 	list-style:none;
 	padding:0 10px;
-	margin:0 6px;}
+	margin:0 6px;
+	vertical-align: bottom;
+}
 
 .topmenu .dropdown li.last {
 	background:url(images/topmenu_line.gif) 0 2px no-repeat;
@@ -1245,7 +1316,10 @@ button:hover,button:focus{
 .middle {
 	padding:25px 0 70px 0;
 	clear:both;
-	position:relative}
+	position:relative;
+	height: 100%; 
+	background: url(images/header_bg_blue.jpg) no-repeat fixed center;
+	}
 
 .container_12 {
 	line-height:1.4em}
@@ -1400,11 +1474,18 @@ button:hover,button:focus{
 /*----------------------------------------------*/
 .footer {
 	background:#192022;
-	color:#6f6f6f}
+	color:#6f6f6f
+	bottom: 60px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+}
 
 .footer .container_12 {
 	min-height:20px;
-	padding:70px 0 30px 0;}
+	padding-top: 8px;
+}
 
 .footer a {
 	color:#fff;
@@ -1466,7 +1547,7 @@ button:hover,button:focus{
 	float:right;}
 	
 .footer .copyright{
-	text-align:right;
+	text-align:center;
 	font-size:12px;
 	color:#535657}
 
