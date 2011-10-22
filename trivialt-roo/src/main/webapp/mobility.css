@@ -2,6 +2,7 @@
 	http://localhost:4000/style.css
 	http://localhost:8080/trivialt-roo/mobility.css;jsessionid=FC099224B3E4D3D7D821BC5AA4F46CCB
 	http://localhost:8080/trivialt-roo/mobility.css
+	http://play.trivialt.com/mobility.css;jsessionid=A602430887F6F1C6CF83927AD0A5AE7A
 */
 
 /*
@@ -177,6 +178,8 @@ body {
 	font-size:13px;
 	line-height:1.4em;
 	background: #a7d8e6;
+	background: url(images/header_bg_blue.jpg) no-repeat fixed center;
+	background-size: cover;
 }
 
 /* Floating & Alignment */
@@ -1318,7 +1321,6 @@ button:hover,button:focus{
 	clear:both;
 	position:relative;
 	height: 100%; 
-	background: url(images/header_bg_blue.jpg) no-repeat fixed center;
 	}
 
 .container_12 {
