@@ -139,3 +139,11 @@ help web
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-21 10:11:50
 download status
 download accept terms of use
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-21 19:33:52
+help
+help web mvc controller
+hint web mvc controller
+web mvc controller org.neo4j.app.trivialt.service.Trivialt
+web mvc controller org.neo4j.app.trivialt.web.TrivialtController
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-21 23:03:14
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-21 23:03:24

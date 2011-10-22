@@ -31,7 +31,6 @@ import flexjson.JSONSerializer;
  * @see FramedQuestion
  */
 @NodeEntity
-@RooToString
 @RooJavaBean
 @RooJson
 public class Round {
@@ -79,6 +78,15 @@ public class Round {
 	public void add(FramedQuestion frame) {
 		framedQuestions.add(frame);
 	}
-
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Available: ").append(getAvailable()).append(", ");
+        sb.append("CurrentQuestion: ").append(getCurrentQuestion()).append(", ");
+        sb.append("FramedQuestions: ").append(getFramedQuestions() == null ? "null" : getFramedQuestions().size()).append(", ");
+        sb.append("PointsPerQuestion: ").append(getPointsPerQuestion()).append(", ");
+        sb.append("Title: ").append(getTitle());
+        return sb.toString();
+    }
 
 }

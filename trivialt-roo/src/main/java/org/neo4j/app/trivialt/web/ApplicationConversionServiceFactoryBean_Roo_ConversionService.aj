@@ -53,7 +53,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.FramedQuestionConverter implements Converter<FramedQuestion, String> {
         public String convert(FramedQuestion framedQuestion) {
-            return new StringBuilder().append(framedQuestion.getPhrase()).toString();
+            return new StringBuilder().append(framedQuestion.getPhrase()).append(" ").append(framedQuestion.getHint()).append(" ").append(framedQuestion.getExplanation()).toString();
         }
         
     }

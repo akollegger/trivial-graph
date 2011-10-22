@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'json'
+require 'fastercsv'
+
+print "["
+first=true
+FasterCSV.foreach("trivia.csv", :headers => :first_row) do |row|
+  if first then
+    first = false
+  else
+    puts ","
+  end
+  print row.to_hash.to_json
+end
+print "]"
+

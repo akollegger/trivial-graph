@@ -6,4 +6,9 @@ TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
 
-( curl --fail --silent -H Accept:application/json -H Content-Type:application/json ${TRIVIALT_URL}api/cards || echo "{ }" ) | jgrep -s "id deck.team.name round.title"
+STATUS=$(curl --fail -s -o /dev/null -w "%{http_code}" "${TRIVIALT_URL}")
+
+if [ ${STATUS} != "200" ]; then echo ${TRIVIALT_URL} not available; exit 1; fi
+
+exit 0
+

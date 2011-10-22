@@ -37,14 +37,6 @@ privileged aspect FramedQuestionController_Roo_Controller_Json {
         return new ResponseEntity<String>(FramedQuestion.toJsonArray(FramedQuestion.findAll()), headers, HttpStatus.OK);
     }
     
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public ResponseEntity<String> FramedQuestionController.createFromJson(@RequestBody String json) {
-        FramedQuestion.fromJsonToFramedQuestion(json).save();
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
     @RequestMapping(value = "/jsonArray", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> FramedQuestionController.createFromJsonArray(@RequestBody String json) {
         for (FramedQuestion framedQuestion: FramedQuestion.fromJsonArrayToFramedQuestions(json)) {

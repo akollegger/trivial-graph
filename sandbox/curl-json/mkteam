@@ -1,8 +1,17 @@
 #!/bin/sh
 
+if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
+
+TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
+TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
+TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+
+REST_ENDPOINT="${TRIVIALT_URL}api/teams"
+CURL_OPTS="--silent -H Accept:application/json -H Content-Type:application/json"
+
 if [ "$1" == "" ]; then
-echo "Usage: mkteam <teamname>"
-exit
+  echo "Usage: mkteam <teamname>"
+  exit 1
 fi
 
 TEAM=$1
@@ -10,6 +19,6 @@ TEAM=$1
 SCRIPT=`basename $0`
 JSON_RESULT="./${TEAM}.json"
 
-curl -d "{name:\"${TEAM}\"}" --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams > ${JSON_RESULT}
+curl -d "{name:\"${TEAM}\"}" ${CURL_OPTS} ${REST_ENDPOINT} > ${JSON_RESULT}
 
 
