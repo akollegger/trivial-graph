@@ -1,5 +1,6 @@
-%p = proposal.getFramedQuestion().getPhrase()
+%span.question = proposal.getFramedQuestion().getPhrase()
 :if proposal.getAnswer().length > 0
-  %p = proposal.getAnswer()
+  %span.answer = proposal.getAnswer()
 :if proposal.getAnswer().length <= 0
-  %p Not answered!
+  %span.answer.error Not answered!
+.break

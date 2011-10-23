@@ -30,6 +30,9 @@ define(
       getValue : ( ) -> @get 'value',''
       setValue : (v) -> @set 'value',v
       
+      setButtonLabel : (v) -> @set 'buttonLabel',v
+      getButtonLabel : (v) -> @get 'buttonLabel'
+      
       getError : ( ) -> @get 'error',''
       setError : (v) -> @set 'error',v
     
@@ -44,14 +47,20 @@ define(
         @model = new InputBarModel
         @model.bind 'change:error',@onErrorChanged
         @model.bind 'change:value',@onValueChanged
+        @model.bind 'change:buttonLabel',@onButtonLabelChanged
+        
       
-      render : () ->
+      render : ->
         @el.innerHTML = inputBarTpl()
         
         @onErrorChanged()
         @onValueChanged()
+        @onButtonLabelChanged()
         
         this
+        
+      onButtonLabelChanged:=>
+        $('.input-bar-execute',@el).html @model.getButtonLabel()
         
       onExecuteClicked : () =>
         @model.setValue $('.input-bar-input',@el).val()

@@ -299,6 +299,7 @@ define(
         @game.bind "change:proposal", @onQuestionChanged
         
         @inputBar = new inputBar.InputBarView()
+        @inputBar.model.setButtonLabel "Answer"
       
       render : ->
         super()
@@ -349,6 +350,7 @@ define(
         super(@application)
         @application.game.bind "change:card", @onCardChanged
         @inputBar = new inputBar.InputBarView()
+        @inputBar.model.setButtonLabel "Confirm"
       
       render : ->
         super()
@@ -397,6 +399,7 @@ define(
         super(@application)
         @inputBar = new inputBar.InputBarView()
         @application.game.bind "change:card",@onCardChanged
+        @inputBar.model.setButtonLabel "Next round"
       
       render : ->
         super()

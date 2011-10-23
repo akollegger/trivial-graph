@@ -34,6 +34,7 @@ define(
         super()
         @inputBar = new inputBar.InputBarView()
         @inputBar.model.bind 'change:value',@onTeamNameSet
+        @inputBar.model.setButtonLabel "Start playing"
       
       render : () ->
         super()
