@@ -26,8 +26,8 @@
 				<p class="reset-link">
 					<a href="#" onclick="document.talkForm.reset();return false">reset</a>
 				</p>
-				<input value="Let's Play" name="Play" title="play" class="btn-submit"
-					id="send" type="submit" />
+				<input value="Let's Play" name="Play" title="play" class="btn_talk"
+					id="talk" type="submit" />
 
 			</div>
 
