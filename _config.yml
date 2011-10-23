@@ -1,7 +1,7 @@
 auto: true
 permalink: /blog/:year/:month/:day/:title
 
-title: Trivial Insight
+title: Trivialt
 
 images: /images
 js: /js
