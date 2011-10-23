@@ -26,8 +26,9 @@ define(
    './page/signIn'
    './page/game'
    './page/notFound'
-   './widget/header'],
-  (Model,Router,View,domain,signIn,game,notFound,header) ->
+   './widget/header'
+   './widget/footer'],
+  (Model,Router,View,domain,signIn,game,notFound,header,footer) ->
     
     exports = {}
     
@@ -138,11 +139,13 @@ define(
       constructor : (@application) ->
         super()
         @headerView = new header.HeaderView(@application)
+        @footerView = new footer.FooterView(@application)
         @application.bind "change:page", @render
       
       render : () =>
         @el.innerHTML = ""
         $(@el).append(@headerView.render().el)
+        $(@el).append(@footerView.render().el)
         $(@el).append(@application.getPage().render().el)
         this
     
