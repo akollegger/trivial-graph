@@ -11,7 +11,7 @@
         <div class="grid_2"><a href="http://neo4j.org"><img src="${neo4j_logo_png_url}" alt="" border="0" /></a></div> 
         <div class="grid_8"><p class="copyright">&#169; 2011 Neo4j.org</p></div> 
         
-        <div class="grid_2"><a href="http://spring.neo4j.org"><img src="${sdn_logo_png_url}" alt="" border="0" /></a></div>
+        <div class="grid_2"><a style="float:right" href="http://spring.neo4j.org"><img src="${sdn_logo_png_url}" alt="" border="0" /></a></div>
     </div>
 </div>
 <!--/ footer content -->

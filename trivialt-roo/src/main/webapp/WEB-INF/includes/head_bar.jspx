@@ -12,7 +12,7 @@
 		</div>
 		<div class="topmenu">
 			<ul class="dropdown">
-				<li class="button"><a href="/"><span>Leave</span></a></li>
+				<li class="button"><!--  --></li>
 			</ul>
 		</div>
 	</div>

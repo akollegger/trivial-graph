@@ -8,7 +8,7 @@
 
 	<div id="talkbar_form">
 
-		<form action="" method="post" class="ajax_form" name="talkForm">
+		<form action="app/" method="get" name="talkForm">
 
 			<div class="talkbar_textblock">
 				<div class="row field_text">
@@ -26,7 +26,7 @@
 				<p class="reset-link">
 					<a href="#" onclick="document.talkForm.reset();return false">reset</a>
 				</p>
-				<input value="Submit" name="Send" title="send" class="btn-submit"
+				<input value="Let's Play" name="Play" title="play" class="btn-submit"
 					id="send" type="submit" />
 
 			</div>
