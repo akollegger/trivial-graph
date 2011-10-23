@@ -51,5 +51,8 @@
             <menu:item id="i_proposal_new" messageCode="global_menu_new" url="/api/proposals?form" z="user-managed"/>
             <menu:item id="i_proposal_list" messageCode="global_menu_list" url="/api/proposals?page=1&amp;size=${empty param.size ? 10 : param.size}" z="user-managed"/>
         </menu:category>
+        <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
+            <menu:item id="i_controller__trivialtindex_id" messageCode="global_generic" url="/trivialt/index" z="9rIibg4qqxyol0PAgYqFb4SS2Vc="/>
+        </menu:category>
     </menu:menu>
 </div>

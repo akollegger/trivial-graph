@@ -17,7 +17,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 import flexjson.JSONSerializer;
 
 @NodeEntity
-@RooToString
 @RooJavaBean
 @RooJson
 public class FramedQuestion {
@@ -35,6 +34,12 @@ public class FramedQuestion {
 	
     @Indexed
     private String phrase;
+    
+    private String introduction;
+    
+    private String hint;
+    
+    private String explanation;
 
     @RelatedTo(elementClass = Question.class, type=FRAME_TO_QUESTION, direction = OUTGOING)
     private Question originalQuestion;
@@ -56,5 +61,15 @@ public class FramedQuestion {
 		possibleAnswers.add(possibleAnswer);		
 	}
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Available: ").append(getAvailable()).append(", ");
+        sb.append("Explanation: ").append(getExplanation()).append(", ");
+        sb.append("Hint: ").append(getHint()).append(", ");
+        sb.append("OriginalQuestion: ").append(getOriginalQuestion()).append(", ");
+        sb.append("Phrase: ").append(getPhrase()).append(", ");
+        sb.append("PossibleAnswers: ").append(getPossibleAnswers() == null ? "null" : getPossibleAnswers().size());
+        return sb.toString();
+    }
 
 }

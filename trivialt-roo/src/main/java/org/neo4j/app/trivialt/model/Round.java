@@ -7,11 +7,11 @@ import java.util.Set;
 
 import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.graphdb.RelationshipType;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.json.RooJson;
-import org.springframework.roo.addon.tostring.RooToString;
 
 import flexjson.JSONSerializer;
 
@@ -31,7 +31,6 @@ import flexjson.JSONSerializer;
  * @see FramedQuestion
  */
 @NodeEntity
-@RooToString
 @RooJavaBean
 @RooJson
 public class Round {
@@ -42,7 +41,10 @@ public class Round {
     public static final String ROUND_TO_CURRENT_FRAME = "CURRENT_FRAME";
 	public static final RelationshipType ROUND_TO_CURRENT_FRAME_REL = DynamicRelationshipType.withName(ROUND_TO_CURRENT_FRAME);
 	
+	@Indexed
     private String title;
+	
+	private String introduction;
     
     /**
      * Whether a round is available for play during a live match.
@@ -79,6 +81,15 @@ public class Round {
 	public void add(FramedQuestion frame) {
 		framedQuestions.add(frame);
 	}
-
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Available: ").append(getAvailable()).append(", ");
+        sb.append("CurrentQuestion: ").append(getCurrentQuestion()).append(", ");
+        sb.append("FramedQuestions: ").append(getFramedQuestions() == null ? "null" : getFramedQuestions().size()).append(", ");
+        sb.append("PointsPerQuestion: ").append(getPointsPerQuestion()).append(", ");
+        sb.append("Title: ").append(getTitle());
+        return sb.toString();
+    }
 
 }

@@ -6,6 +6,13 @@ public class Score {
 	String name;
 	Integer score;
 	
+  public Score() {;}
+
+	public Score(long id, String name, int score) {
+		this.id = id;
+		this.name = name;
+		this.score = score;
+	}
 	public Long getId() {
 		return id;
 	}

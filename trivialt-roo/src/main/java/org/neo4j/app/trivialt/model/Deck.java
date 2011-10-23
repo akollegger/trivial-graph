@@ -17,7 +17,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 import flexjson.JSONSerializer;
 
 @NodeEntity
-@RooToString
 @RooJavaBean
 @RooJson
 public class Deck {
@@ -48,5 +47,10 @@ public class Deck {
         return new JSONSerializer().exclude("*.class", "*.persistentState", "*.entityState").serialize(collection);
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cards: ").append(getCards() == null ? "null" : getCards().size()).append(", ");
+        return sb.toString();
+    }
 
 }

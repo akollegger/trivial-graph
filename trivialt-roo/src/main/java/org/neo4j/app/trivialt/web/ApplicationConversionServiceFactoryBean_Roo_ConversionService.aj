@@ -53,14 +53,14 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.FramedQuestionConverter implements Converter<FramedQuestion, String> {
         public String convert(FramedQuestion framedQuestion) {
-            return new StringBuilder().append(framedQuestion.getPhrase()).toString();
+            return new StringBuilder().append(framedQuestion.getPhrase()).append(" ").append(framedQuestion.getIntroduction()).append(" ").append(framedQuestion.getHint()).append(" ").append(framedQuestion.getExplanation()).toString();
         }
         
     }
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.MatchConverter implements Converter<Match, String> {
         public String convert(Match match) {
-            return new StringBuilder().append(match.getTitle()).toString();
+            return new StringBuilder().append(match.getTitle()).append(" ").append(match.getIntroduction()).toString();
         }
         
     }
@@ -95,7 +95,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     static class org.neo4j.app.trivialt.web.ApplicationConversionServiceFactoryBean.RoundConverter implements Converter<Round, String> {
         public String convert(Round round) {
-            return new StringBuilder().append(round.getTitle()).append(" ").append(round.getPointsPerQuestion()).toString();
+            return new StringBuilder().append(round.getTitle()).append(" ").append(round.getIntroduction()).append(" ").append(round.getPointsPerQuestion()).toString();
         }
         
     }

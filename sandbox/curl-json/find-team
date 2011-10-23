@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
+
+TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
+TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
+TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+
 if [ "$1" == "" ]; then
 echo "Usage: find-team <teamname>"
 exit
@@ -7,12 +13,10 @@ fi
 
 TEAM=${1}
 
-JSON_RESULT="./${TEAM/ /}.json"
+JSON=$( ( curl --silent --fail -H Accept:application/json -H Content-Type:application/json ${TRIVIALT_URL}api/teams || echo "{}" ) | jgrep "name=${TEAM}")
 
-curl --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams | jgrep "name=${TEAM}" > ${JSON_RESULT}
-
-if [ $? ]; then
-  cat ${JSON_RESULT} | jgrep -s "name id"
+if [ ! -z "${JSON}" ]; then
+  echo ${JSON} | jgrep -s "name id"
 else
   echo "Not found"
   exit 1

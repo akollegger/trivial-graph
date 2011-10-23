@@ -1,5 +1,10 @@
-.header-inner
-  %img.logo(src="../images/logo.png")
-  
-  :if signedIn
-    %button.leave Leave
+.head_bar
+  .container_12
+    .logo
+      %img.logo(src="../images/logo.png")
+    
+    .topmenu
+      %ul.dropdown
+        :if signedIn
+          %li.button
+            %button.leave Leave
