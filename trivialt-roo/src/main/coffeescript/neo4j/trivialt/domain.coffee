@@ -104,20 +104,19 @@ define(
         super(attrs,opts)
         @rounds = new Rounds([],{url:@url() + "/rounds",application:@application})
         
-      getScores:-> @scores ?= new Scores([],{match:this,application:@application})
+      getScores:-> @scores ?= new Scores([],{url:@url() + "/scores",match:this,application:@application})
       
+    
     exports.Score = class Score extends TrivialtModel
     
       getName:-> @get 'name'
       getScore:-> @get 'score'
     
+    
     exports.Scores = class Scores extends TrivialtCollection
       
       model : Score
     
-      fetch : ->
-        @reset()
-        @add([{id:1,name:"Jacob",score:10000},{id:2,name:"Andreas",score:1}])
     
     exports.Round = class Round extends TrivialtModel
     

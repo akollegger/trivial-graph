@@ -620,9 +620,12 @@ h1 span, h2 span, h3 span ,h4 span, h5 span {
 
 .trivia {
 	font-family: 'HeroLight';
+	text-align: center;
+}
+
+.trivia p {
 	font-size: 1.6em;
 	line-height: 1.8em;
-	text-align: center;
 }
 
 .trivia .question {
@@ -920,10 +923,28 @@ button:hover,button:focus{
 	font-family: 'HeroRegular';
 }
 
+.score-list {
+  margin:10px;
+}
+
 .score-list li {
 	list-style-type: none;
 	width: 100%;
-	
+  border-bottom: 1px solid #9ED5E1;
+  clear:both;
+}
+
+.score-team {
+  display: block;
+  float: left;
+  width: 120px;
+}
+
+.score-score {
+  display: block;
+  float: left;
+  width: 60px;
+  text-align:right;
 }
 
 .topmenu .dropdown {

@@ -174,7 +174,6 @@ define(
         questionIdx = @getCurrentQuestionIndex()
         if questionIdx > -1
           nextIdx = questionIdx + 1
-          console.log @getRound().framedQuestions, @getCurrentRoundIndex()
           if @getRound().framedQuestions.length > nextIdx
             return nextIdx
         return -1
@@ -464,7 +463,7 @@ define(
           $(@el).html scoresTpl()
           scoreList = $(".score-list",@el)
           for score in @scores.models
-            scoreList.append "<li>#{score.getName()}: #{score.getScore()}</li>"
+            scoreList.append "<li><span class='score-team'>#{score.getName()}</span><span class='score-score'>#{score.getScore()}</span><div class='break'></div></li>"
         this
       
       setScores:(scores)->

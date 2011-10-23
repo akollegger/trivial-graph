@@ -145,8 +145,8 @@ define(
       render : () =>
         @el.innerHTML = ""
         $(@el).append(@headerView.render().el)
-        $(@el).append(@footerView.render().el)
         $(@el).append(@application.getPage().render().el)
+        $(@el).append(@footerView.render().el)
         this
     
     return exports
