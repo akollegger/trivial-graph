@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +63,46 @@ public class MatchController {
         }
         return new ResponseEntity<String>(Round.toJsonArray(match.getRounds()), headers, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/{id}/rounds", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> createRoundInMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        Match match = Match.findMatch(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        Round round = Round.fromJsonToRound(json).save();
+        match.add(round);
+        if (match.getCurrentRound() == null) {
+        	match.setCurrentRound(round);
+        }
+        match.save();
+        return new ResponseEntity<String>(Round.toJsonArray(match.getRounds()), headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}/rounds/{round}", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> addRoundToMatch(@PathVariable("id") Long matchId, @PathVariable("round") Long roundId, @RequestBody String json) {
+        Match match = Match.findMatch(matchId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        Round round = Round.findRound(roundId);
+        if (round == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        match.add(round);
+        if (match.getCurrentRound() == null) {
+        	match.setCurrentRound(round);
+        }
+        match.save();
+        round.save();
+        return new ResponseEntity<String>(round.toJson(), headers, HttpStatus.CREATED);
+    }
 
     @RequestMapping(value = "/{id}/scores", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
@@ -79,5 +120,17 @@ public class MatchController {
         
 
         return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").serialize(scores), headers, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/featured", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> getFeaturedMatch() {
+        Match match = trivialt.getFeaturedMatch();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<String>(match.toJson(), headers, HttpStatus.OK);
     }
 }

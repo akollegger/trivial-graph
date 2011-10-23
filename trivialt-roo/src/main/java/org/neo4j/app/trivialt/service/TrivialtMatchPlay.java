@@ -75,6 +75,16 @@ public class TrivialtMatchPlay {
 		}
 	}
 
+	public void setFeaturedMatch(Match featuredMatch) {
+		for(Match m : matches.findAllByPropertyValue("featured", true))
+		{
+			m.setFeatured(false);
+			m.save();
+		}
+		featuredMatch.setFeatured(true);
+		featuredMatch.save();
+	}
+	
 	private Match getApologeticEmptyMatch() {
 		Match apologetic = matches.findByPropertyValue("title", EMPTY_MATCH_TITLE);
 		if (apologetic == null) {

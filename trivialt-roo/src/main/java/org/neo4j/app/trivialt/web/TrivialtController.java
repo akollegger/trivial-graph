@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.neo4j.app.trivialt.model.Answer;
 import org.neo4j.app.trivialt.model.Category;
+import org.neo4j.app.trivialt.model.Match;
 import org.neo4j.app.trivialt.model.Question;
+import org.neo4j.app.trivialt.service.Indicator;
 import org.neo4j.app.trivialt.service.Trivia;
 import org.neo4j.app.trivialt.service.TrivialtMatchPlay;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,22 @@ public class TrivialtController {
         HttpHeaders headers= new HttpHeaders();
         headers.add("Content-Type", "application/text");
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
+    
+    @RequestMapping(value = "/feature", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String> featureMatch(@RequestBody String json) {
+    	Indicator indi = Indicator.fromJsonToIndicator(json);
+    	Match featuredMatch = Match.findMatch(indi.getId());
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        if (featuredMatch == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        trivialt.setFeaturedMatch(featuredMatch);
+        
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "{id}")

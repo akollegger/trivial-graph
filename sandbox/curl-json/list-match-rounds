@@ -1,8 +1,7 @@
 #!/bin/sh
 
-
 if [ "$1" == "" ]; then
-echo "Usage: list-match-scores <match-id>"
+echo "Usage: get-match-rounds <match-id>"
 exit
 fi
 
@@ -15,6 +14,7 @@ TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
 CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
 
-REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/scores"
+REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/rounds"
 
 ( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep
+

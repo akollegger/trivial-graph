@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ "$1" == "" || "$2" == "" ]; then
+  echo "Usage: add-round-to-match <round-id> <match-id>"
+  exit 1
+fi
+
+ROUND_ID=${1}
+MATCH_ID=${2}
+
+if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
+
+TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
+TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
+TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/rounds/${ROUND_ID}"
+CURL_OPTS="--verbose --fail -H Accept:application/json -H Content-Type:application/json"
+
+curl -d "{ }" ${CURL_OPTS} ${REST_ENDPOINT}
+
+if [ $? ]; then echo "Failed"; exit 1; fi
+

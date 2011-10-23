@@ -1,20 +1,13 @@
 #!/bin/sh
 
-
-if [ "$1" == "" ]; then
-echo "Usage: list-match-scores <match-id>"
-exit
-fi
-
-MATCH_ID=$1
-
 if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
 
 TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
-CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
 
-REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/scores"
+REST_ENDPOINT="${TRIVIALT_URL}api/matches/featured"
+CURL_OPTS="--fail --silent -H Accept:application/json -H Content-Type:application/json"
 
 ( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep
+

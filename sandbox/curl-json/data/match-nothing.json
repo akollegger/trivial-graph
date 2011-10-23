@@ -1,0 +1,18 @@
+  {
+    "title": "Nothing To See Here",
+    "available": false,
+    "featured": true,
+    "triviaMaster": null,
+    "id": 2,
+    "currentRound": {
+      "pointsPerQuestion": 0,
+      "title": "Round 1: Nothing to see here",
+      "currentQuestion": null,
+      "available": true,
+      "id": 3,
+      "introduction": null,
+      "nodeId": 3
+    },
+    "introduction": null,
+    "nodeId": 2
+  }
