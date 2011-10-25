@@ -935,18 +935,27 @@ button:hover,button:focus{
   clear:both;
 }
 
+.score-list .headline {
+  font-size:9px;
+}
+
 .score-team {
   display: block;
   float: left;
-  width: 120px;
+  width: 110px;
 }
 
-.score-score {
+.score-roundscore,.score-matchscore {
   display: block;
   float: left;
-  width: 60px;
+  width: 35px;
   text-align:right;
 }
+
+.score-matchscore {
+  font-weight:bold;
+}
+
 
 .topmenu .dropdown {
 	float:right;

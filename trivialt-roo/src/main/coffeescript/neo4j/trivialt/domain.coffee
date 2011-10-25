@@ -110,12 +110,16 @@ define(
     exports.Score = class Score extends TrivialtModel
     
       getName:-> @get 'name', 'Anonymous'
-      getScore:-> @get 'score', 0
+      getMatchScore:-> @get 'matchScore', 0
+      getRoundScore:-> @get 'roundScore', 0
     
     
     exports.Scores = class Scores extends TrivialtCollection
       
       model : Score
+      
+      comparator : (score) ->
+        score.getMatchScore()
     
     
     exports.Round = class Round extends TrivialtModel

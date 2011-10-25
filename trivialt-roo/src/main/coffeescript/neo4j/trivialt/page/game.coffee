@@ -466,14 +466,14 @@ define(
           $(@el).html scoresTpl()
           scoreList = $(".score-list",@el)
           for score in @scores.models
-            scoreList.append "<li><span class='score-team'>#{score.getName()}</span><span class='score-score'>#{score.getScore()}</span><div class='break'></div></li>"
+            scoreList.append "<li><span class='score-team'>#{score.getName()}</span><span class='score-roundscore'>#{score.getRoundScore()}</span><span class='score-matchscore'>#{score.getMatchScore()}</span><div class='break'></div></li>"
         this
       
       setScores:(scores)->
         if @scores?
-          @scores.unbind "change", @onScoresChanged
+          @scores.unbind "add", @onScoresChanged
         @scores = scores
-        @scores.bind "change", @onScoresChanged
+        @scores.bind "add", @onScoresChanged
         
       onScoresChanged:=>
         @render()
