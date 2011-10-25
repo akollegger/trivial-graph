@@ -109,7 +109,7 @@ define(
           if card.round.isAvailable()
             # Round is not over yet
             card.round.bind "change:available", =>  
-              if card.round.isAvailable()
+              if not card.round.isAvailable()
                 @showNextRound()
             card.round.fetchUntil('available',false)
           else 
