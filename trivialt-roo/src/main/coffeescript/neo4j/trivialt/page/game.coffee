@@ -388,7 +388,7 @@ define(
       
       render : ->
         super()
-        @content.append "Waiting for round to finish.."
+        @content.append "<h1>Waiting for round to finish..</h1>"
         this
         
     

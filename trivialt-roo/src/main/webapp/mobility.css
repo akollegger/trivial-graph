@@ -1511,13 +1511,14 @@ button:hover,button:focus{
 /* 2.7 Footer */
 /*----------------------------------------------*/
 .footer {
-	background:#192022;
-	color:#6f6f6f
-	bottom: 60px;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
+	background: none repeat scroll 0 0 #111111;
+  border-bottom: 1px solid #AAAAAA;
+  border-top: 1px solid #AAAAAA;
+  bottom: 0;
+  box-shadow: 1px 0 3px #000000;
+  height: 60px;
+  padding: 30px 0;
+  width: 100%;
 }
 
 .footer .container_12 {

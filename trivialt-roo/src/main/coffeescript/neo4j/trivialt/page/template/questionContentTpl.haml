@@ -1,7 +1,11 @@
-:if prev != false
-  %a(href="#{prev}") Prev
-%h1= title
-:if next != false
-  %a(href="#{next}") Next
+.question-headline-bar
+  :if prev != false
+    %a.previous(href="#{prev}") &nbsp;
+  :if prev == false
+    %a.previous.disabled() &nbsp;
+  %h1= title
+  :if next != false
+    %a.next(href="#{next}") &nbsp;
+  .break
 %p.question= question
 %ul.answer-alternatives

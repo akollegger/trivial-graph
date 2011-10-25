@@ -1,7 +1,9 @@
-:if prev != false
-  %a(href="#{prev}") Prev
+.question-headline-bar
+  :if prev != false
+    %a.previous(href="#{prev}") &nbsp;
 
-%h1 Your answers
+  %h1 Your answers
+  .break
 
 %ul.question-summary-list
 

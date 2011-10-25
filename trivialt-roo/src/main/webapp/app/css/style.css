@@ -33,7 +33,7 @@ h1 {
   }
 
 .page {
-  height:592px;
+  min-height:400px;
   width:960px;
   margin: 0 auto;
 }
@@ -98,4 +98,26 @@ h1 {
   float: left;
   text-align: right;
   width: 40%;
+}
+
+.question-headline-bar .next, .question-headline-bar .previous {
+  background: url("../img/next-button.png") no-repeat scroll 0 0 transparent;
+  display: block;
+  float: left;
+  height: 30px;
+  margin: 5px;
+  width: 21px;
+}
+
+.question-headline-bar .previous {
+  background: url("../img/prev-button.png") no-repeat scroll 0 0 transparent;
+}
+
+.question-headline-bar .next.disabled, .question-headline-bar .previous.disabled {
+  background:none;
+}
+
+.question-headline-bar h1 {
+  width:485px;
+  float:left;
 }
