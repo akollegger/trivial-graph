@@ -12,7 +12,7 @@
 		</div>
 		<div class="topmenu">
 			<ul class="dropdown">
-				<li class="button"><!--  --></li>
+				<li class="button"><a href="http://trivialt.com">About</a></li>
 			</ul>
 		</div>
 	</div>

@@ -3,27 +3,19 @@
 if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
 
 if [ "$1" == "" ]; then
-  echo "Usage: mkframe4question <question-id> [<round-id>]"
+  echo "Usage: set-featured-match <match-id>"
   exit 1
 fi
 
-QUESTION=$1
+MATCH_ID=$1
 
 TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/featured"
 
 CURL_OPTS="--verbose --fail -H Accept:application/json -H Content-Type:application/json"
-PAYLOAD="{}"
-
-if [ "$2" == "" ]; then
-  # make a frame not in around
-  echo "TBD"
-else
-  # make a frame attached to a round
-  REST_ENDPOINT="${TRIVIALT_URL}api/rounds/${2}/questions"
-  PAYLOAD="{ \"questionId\":${QUESTION} }"
-fi
+PAYLOAD="{ \"state\" : true }"
 
 curl -d "${PAYLOAD}" ${CURL_OPTS} ${REST_ENDPOINT}
 

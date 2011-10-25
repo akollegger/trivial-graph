@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$1" == "" ]; then
-echo "Usage: get-match-rounds <match-id>"
+echo "Usage: list-match-rounds <match-id>"
 exit
 fi
 
@@ -16,5 +16,5 @@ CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:applicatio
 
 REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/rounds"
 
-( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep
+( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep -s "title id available"
 

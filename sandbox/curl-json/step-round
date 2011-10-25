@@ -2,13 +2,20 @@
 
 if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
 
+if [ "$1" == "" ]; then
+  echo "Usage: step-round <round-id>"
+  exit 1
+fi
+
+ROUND_ID=$1
+
 TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+REST_ENDPOINT="${TRIVIALT_URL}api/rounds/${ROUND_ID}/step"
 
 CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
-REST_ENDPOINT="${TRIVIALT_URL}api/matches"
+PAYLOAD="{ \"state\" : true }"
 
-JSON=$( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" )
+curl -d "${PAYLOAD}" ${CURL_OPTS} ${REST_ENDPOINT}
 
-echo $JSON | jgrep -s "id title featured available"
