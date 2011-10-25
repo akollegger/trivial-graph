@@ -32,6 +32,7 @@ public class ProposalController {
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> createFromJson(@RequestBody String json) {
         Proposal p = Proposal.fromJsonToProposal(json).save();
+        
         trivialt.grade(p);
         HttpHeaders headers= new HttpHeaders();
         headers.add("Content-Type", "application/text");

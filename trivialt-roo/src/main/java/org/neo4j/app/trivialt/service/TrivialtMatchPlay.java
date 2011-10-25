@@ -213,7 +213,8 @@ public class TrivialtMatchPlay {
 			String teamName = deck.getTeam().getName();
 			if (teamName==null) teamName="anonymous";
 			newScore.setName(teamName);
-			newScore.setScore(0);
+			newScore.setRoundScore(0);
+			newScore.setMatchScore(0);
 			deckScoreMap.put(deck, newScore);
 
 			TraversalDescription traverseToAllMatchProposals = Traversal
@@ -230,7 +231,10 @@ public class TrivialtMatchPlay {
 			for (EntityPath<Deck, Proposal> proposalPath : proposalPaths) {
 				Proposal proposal = proposalPath.endEntity(Proposal.class);
 				Score deckScore = deckScoreMap.get(deck);
-				deckScore.accumulate(proposal.getScore());
+				deckScore.accumulateMatch(proposal.getScore());
+				if (proposal.getCard().getRound().getAvailable()) {
+					deckScore.accumulateRound(proposal.getScore());
+				}
 			}
 
 		}

@@ -14,7 +14,7 @@ TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
 REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/step"
 
-CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
+CURL_OPTS="--verbose --fail -H Accept:application/json -H Content-Type:application/json"
 PAYLOAD="{ \"state\" : true }"
 
 curl -d "${PAYLOAD}" ${CURL_OPTS} ${REST_ENDPOINT}

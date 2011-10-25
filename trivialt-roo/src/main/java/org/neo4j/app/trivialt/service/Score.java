@@ -4,15 +4,18 @@ public class Score {
 	
 	Long id;
 	String name;
-	Integer score=0;
+	Integer matchScore=0;
+	Integer roundScore=0;
 	
   public Score() {;}
 
-	public Score(long id, String name, int score) {
+	public Score(long id, String name, int roundScore, int matchScore) {
 		this.id = id;
 		this.name = name;
-		this.score = score;
+		this.roundScore = roundScore;
+		this.matchScore = matchScore;
 	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -25,14 +28,27 @@ public class Score {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getScore() {
-		return score;
+	public void accumulateMatch(Integer score) {
+		this.matchScore += matchScore;
 	}
-	public void setScore(Integer score) {
-		this.score = score;
+	public void accumulateRound(Integer score) {
+		this.roundScore += score;
 	}
-	public void accumulate(Integer score) {
-		this.score += score;
+
+	public Integer getMatchScore() {
+		return matchScore;
+	}
+
+	public void setMatchScore(Integer matchScore) {
+		this.matchScore = matchScore;
+	}
+
+	public Integer getRoundScore() {
+		return roundScore;
+	}
+
+	public void setRoundScore(Integer roundScore) {
+		this.roundScore = roundScore;
 	}
 	
 	

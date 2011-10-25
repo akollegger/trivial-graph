@@ -134,5 +134,65 @@
   {
     "text": "AC Delco",
     "id": 71
+  },
+  {
+    "text": "New York City",
+    "id": 152
+  },
+  {
+    "text": "Boston",
+    "id": 153
+  },
+  {
+    "text": "Los Angeles",
+    "id": 154
+  },
+  {
+    "text": "Great Pyramid of Giza",
+    "id": 155
+  },
+  {
+    "text": "Hanging Gardens of Babylon",
+    "id": 156
+  },
+  {
+    "text": "Statue of Zeus at Olympia",
+    "id": 157
+  },
+  {
+    "text": "Temple of Artemis at Ephesus",
+    "id": 158
+  },
+  {
+    "text": "Mausoleum of Maussollos at Halicarnassus",
+    "id": 159
+  },
+  {
+    "text": "Colossus of Rhodes",
+    "id": 160
+  },
+  {
+    "text": "Lighthouse of Alexandria",
+    "id": 161
+  },
+  {
+    "text": "Bruce Willis",
+    "id": 162
+  },
+  {
+    "text": "Val Kilmer",
+    "id": 163
+  },
+  {
+    "text": "Kevin Bacon",
+    "id": 164
+  },
+  {
+    "text": "Energizer",
+    "id": 165
+  },
+  {
+    "text": "AC Delco",
+    "id": 166
   }
 ]
