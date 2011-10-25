@@ -241,7 +241,7 @@ define(
           if  qid == framedQuestion.id
             return proposal
         prop = new Proposal {
-          posedQuestion : framedQuestion
+          framedQuestion : framedQuestion
           card : @card
           },{ application:@application }
         @add prop
