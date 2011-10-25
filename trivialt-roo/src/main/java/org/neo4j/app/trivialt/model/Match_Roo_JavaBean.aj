@@ -6,6 +6,7 @@ package org.neo4j.app.trivialt.model;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Set;
+import org.neo4j.app.trivialt.model.Deck;
 import org.neo4j.app.trivialt.model.Player;
 import org.neo4j.app.trivialt.model.Round;
 
@@ -51,11 +52,11 @@ privileged aspect Match_Roo_JavaBean {
         this.rounds = rounds;
     }
     
-    public Set<Round> Match.getDecks() {
+    public Set<Deck> Match.getDecks() {
         return this.decks;
     }
     
-    public void Match.setDecks(Set<Round> decks) {
+    public void Match.setDecks(Set<Deck> decks) {
         this.decks = decks;
     }
     

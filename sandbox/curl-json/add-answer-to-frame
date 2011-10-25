@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" == "" || "$2" == "" ]; then
+if [ "$2" == "" ]; then
   echo "Usage: add-answer-to-frame <answer-id> <frame-id>"
   exit 1
 fi

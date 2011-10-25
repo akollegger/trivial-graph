@@ -7,7 +7,7 @@ if [ "$1" == "" ]; then
   exit 1
 fi
 
-QUESTON=$1
+QUESTION=$1
 
 TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}

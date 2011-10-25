@@ -6,7 +6,7 @@ require 'fastercsv'
 
 print "["
 first=true
-FasterCSV.foreach("trivia.csv", :headers => :first_row) do |row|
+FasterCSV.foreach(ARGV[0], :headers => :first_row) do |row|
   if first then
     first = false
   else

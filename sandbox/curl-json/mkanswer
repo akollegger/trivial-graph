@@ -6,19 +6,19 @@ TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
 
-REST_ENDPOINT="${TRIVIALT_URL}api/teams"
+REST_ENDPOINT="${TRIVIALT_URL}api/answers"
 CURL_OPTS="--silent -H Accept:application/json -H Content-Type:application/json"
 
 if [ "$1" == "" ]; then
-  echo "Usage: mkteam <teamname>"
+  echo "Usage: mkanswer <answer-text>"
   exit 1
 fi
 
-TEAM=$1
+ANSWER=$1
 
 SCRIPT=`basename $0`
-JSON_RESULT="./${TEAM}.json"
+JSON_RESULT="./${ANSWER}.json"
 
-curl -d "{ \"name\" :\"${TEAM}\"}" ${CURL_OPTS} ${REST_ENDPOINT} > ${JSON_RESULT}
+curl -d "{ \"text\" : \"${ANSWER}\"}" ${CURL_OPTS} ${REST_ENDPOINT} > ${JSON_RESULT}
 
 

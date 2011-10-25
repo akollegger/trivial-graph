@@ -1,6 +1,7 @@
 package org.neo4j.app.trivialt.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -114,10 +115,10 @@ public class MatchController {
         if (match == null) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
-//        Collection<Score> scores = trivialt.getScores(match);
-        List<Score> scores = new ArrayList<Score>();
-        scores.add(new Score(1, "me", 10));
-        scores.add(new Score(2, "you", 500));
+        Collection<Score> scores = trivialt.getScores(match);
+//        List<Score> scores = new ArrayList<Score>();
+//        scores.add(new Score(1, "me", 10));
+//        scores.add(new Score(2, "you", 500));
         
 
         return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").serialize(scores), headers, HttpStatus.OK);

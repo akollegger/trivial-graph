@@ -49,6 +49,10 @@ public class TrivialtController {
     @RequestMapping(value = "/import", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> createFromJson(@RequestBody String json) {
         for (Trivia trivia: Trivia.fromJsonArrayToTrivias(json)) {
+        	String categoryText = trivia.getCategory();
+        	String questionText = trivia.getQuestion();
+        	String answerText = trivia.getAnswer();
+        	if ((categoryText == null) || (questionText == null) || (answerText == null)) continue;
         	Category category = trivialt.uniqueCategory(trivia.getCategory());
         	Question question = trivialt.uniqueQuestion(trivia.getQuestion());
         	Answer answer = trivialt.uniqueAnswer(trivia.getAnswer());

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ "$1" == "" ]; then
+echo "Usage: show-card <card-id>"
+exit
+fi
+
+CARD_ID=$1
+
+if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
+
+TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
+TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
+TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
+
+REST_ENDPOINT="${TRIVIALT_URL}api/cards/${CARD_ID}"
+CURL_OPTS="--fail --silent -H Accept:application/json -H Content-Type:application/json"
+
+JSON=$( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "" )
+if [ ! -z "${JSON}" ]; then
+  echo ${JSON} | jgrep
+else
+  echo "{ }"
+  exit 1
+fi

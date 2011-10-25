@@ -1,8 +1,10 @@
 package org.neo4j.app.trivialt.service;
 
+import static org.neo4j.graphdb.Direction.INCOMING;
+import static org.neo4j.graphdb.Direction.OUTGOING;
+
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.neo4j.app.trivialt.model.Answer;
@@ -21,6 +23,10 @@ import org.neo4j.app.trivialt.repository.MatchRepository;
 import org.neo4j.app.trivialt.repository.PlayerRepository;
 import org.neo4j.app.trivialt.repository.QuestionRepository;
 import org.neo4j.app.trivialt.repository.TeamRepository;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Path;
+import org.neo4j.graphdb.PropertyContainer;
+import org.neo4j.graphdb.traversal.Evaluators;
 import org.neo4j.graphdb.traversal.TraversalDescription;
 import org.neo4j.helpers.collection.ClosableIterable;
 import org.neo4j.kernel.Traversal;
@@ -33,18 +39,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TrivialtMatchPlay {
 
-    public static final String EMPTY_MATCH_TITLE = "Nothing To See Here";
-    public static final String EMPTY_ROUND_TITLE = "Any Answer Will Do";
-    
-	@Autowired private CategoryRepository categories;
-    @Autowired private QuestionRepository questions;
-    @Autowired private AnswerRepository answers;
-    @Autowired private PlayerRepository players;
-    @Autowired private TeamRepository teams;
-    @Autowired private MatchRepository matches;
-    
+	public static final String EMPTY_MATCH_TITLE = "Nothing To See Here";
+	public static final String EMPTY_ROUND_TITLE = "Any Answer Will Do";
+
+	@Autowired
+	private CategoryRepository categories;
+	@Autowired
+	private QuestionRepository questions;
+	@Autowired
+	private AnswerRepository answers;
+	@Autowired
+	private PlayerRepository players;
+	@Autowired
+	private TeamRepository teams;
+	@Autowired
+	private MatchRepository matches;
+
 	public boolean teamNameExists(String name) {
-    	ClosableIterable<Team> findAllByPropertyValue = teams.findAllByPropertyValue("name", name);
+		ClosableIterable<Team> findAllByPropertyValue = teams
+				.findAllByPropertyValue("name", name);
 		return (findAllByPropertyValue.iterator().hasNext());
 	}
 
@@ -53,8 +66,7 @@ public class TrivialtMatchPlay {
 		Match featuredMatch = getFeaturedMatch();
 		Deck deckForMatch = new Deck();
 		deckForMatch.setMatch(featuredMatch);
-		for (Round r : featuredMatch.getRounds())
-		{
+		for (Round r : featuredMatch.getRounds()) {
 			Card c = new Card();
 			c.setRound(r);
 			c.setDeck(deckForMatch);
@@ -63,15 +75,14 @@ public class TrivialtMatchPlay {
 		deckForMatch.save();
 		newTeam.add(deckForMatch);
 		newTeam.setCurrentDeck(deckForMatch);
-        newTeam.save();
+		newTeam.save();
 	}
 
 	public Match getFeaturedMatch() {
 		Match featuredMatch = null;
 		// ABK: matches.findAllByProperty("featured", true) never works. why?
 		for (Match possibleMatch : matches.findAll()) {
-			if (possibleMatch.getFeatured())
-			{
+			if (possibleMatch.getFeatured()) {
 				featuredMatch = possibleMatch;
 				break;
 			}
@@ -84,26 +95,27 @@ public class TrivialtMatchPlay {
 	}
 
 	public void setFeaturedMatch(Match featuredMatch) {
-		for(Match m : matches.findAll())
-		{
+		for (Match m : matches.findAll()) {
 			m.setFeatured(false);
 			m.save();
 		}
 		featuredMatch.setFeatured(true);
 		featuredMatch.save();
 	}
-	
+
 	private Match getApologeticEmptyMatch() {
-		Match apologetic = matches.findByPropertyValue("title", EMPTY_MATCH_TITLE);
+		Match apologetic = matches.findByPropertyValue("title",
+				EMPTY_MATCH_TITLE);
 		if (apologetic == null) {
 			apologetic = new Match(EMPTY_MATCH_TITLE);
 			apologetic.setFeatured(true);
 			apologetic.save();
-			
+
 			// Sad round 1
-			
-			Round oneSadRound = new Round("Round 1: Nothing to see here").save();
-			
+
+			Round oneSadRound = new Round("Round 1: Nothing to see here")
+					.save();
+
 			Question apology = uniqueQuestion("Sorry, were you hoping to play Trivialt?");
 			Answer yes = uniqueAnswer("yes").save();
 			Answer no = uniqueAnswer("no").save();
@@ -113,54 +125,52 @@ public class TrivialtMatchPlay {
 			apology.save();
 			yes.save();
 			general.save();
-			
+
 			FramedQuestion frame = new FramedQuestion().save();
 			frame.setOriginalQuestion(apology);
 			frame.setPhrase("Sorry, were you hoping to play Trivialt?");
 			frame.add(yes);
 			frame.add(no);
 			frame.save();
-			
+
 			oneSadRound.add(frame);
 			oneSadRound.save();
-			
+
 			// Sad round 2
-			
+
 			Round anotherSadRound = new Round("Round 2: Please go home").save();
-			
+
 			Question stillHere = uniqueQuestion("Sorry, are you still here?");
 			stillHere.setAnswer(yes);
 			stillHere.setCategory(general);
 			stillHere.save();
-            
-            frame = new FramedQuestion().save();
-            frame.setOriginalQuestion(stillHere);
-            frame.setPhrase("Sorry, are you still here?");
-            frame.add(yes);
-            frame.add(no);
-            frame.save();
 
-            anotherSadRound.add(frame);
+			frame = new FramedQuestion().save();
+			frame.setOriginalQuestion(stillHere);
+			frame.setPhrase("Sorry, are you still here?");
+			frame.add(yes);
+			frame.add(no);
+			frame.save();
 
-            
-            Question openEnded = uniqueQuestion("What is the answer to this open ended question?");
-            openEnded.setAnswer(yes);
-            openEnded.setCategory(general);
-            openEnded.save();
-            
-            frame = new FramedQuestion().save();
-            frame.setOriginalQuestion(openEnded);
-            frame.setPhrase("What is the answer to this open ended question?");
-            frame.save();
-            
-            anotherSadRound.add(frame);
-            anotherSadRound.save();
-			
+			anotherSadRound.add(frame);
+
+			Question openEnded = uniqueQuestion("What is the answer to this open ended question?");
+			openEnded.setAnswer(yes);
+			openEnded.setCategory(general);
+			openEnded.save();
+
+			frame = new FramedQuestion().save();
+			frame.setOriginalQuestion(openEnded);
+			frame.setPhrase("What is the answer to this open ended question?");
+			frame.save();
+
+			anotherSadRound.add(frame);
+			anotherSadRound.save();
+
 			apologetic.add(oneSadRound);
 			apologetic.add(anotherSadRound);
 			apologetic.setCurrentRound(oneSadRound);
-			
-			
+
 		}
 		return apologetic;
 	}
@@ -193,37 +203,52 @@ public class TrivialtMatchPlay {
 	}
 
 	public Collection<Score> getScores(Match match) {
-		TraversalDescription traverseToAllMatchProposals = Traversal.description().depthFirst()
-				.relationships(Deck.DECK_TO_MATCH_REL).relationships(Deck.DECK_TO_CARDS_REL).relationships(Card.CARD_TO_PROPOSAL_REL);
-		Iterable result = match.findAllPathsByTraversal(traverseToAllMatchProposals);
-		Iterable<EntityPath<Deck, Proposal>> proposalPaths = (Iterable<EntityPath<Deck, Proposal>>)result;
-		
 		Map<Deck, Score> deckScoreMap = new HashMap<Deck, Score>();
-		for (EntityPath<Deck, Proposal> proposalPath : proposalPaths) {
-			Deck deck = proposalPath.startEntity(Deck.class);
-			Proposal proposal = proposalPath.endEntity(Proposal.class);
-			Score deckScore = deckScoreMap.get(deck);
-			if (deckScore == null) {
-				deckScore = new Score();
-				deckScore.setId(deck.getTeam().getId());
-				deckScore.setName(deck.getTeam().getName());
+
+		for (Deck deck : match.getDecks()) {
+
+			TraversalDescription traverseToAllMatchProposals = Traversal
+					.description().depthFirst()
+					.evaluator(Evaluators.excludeStartPosition())
+					.relationships(Deck.DECK_TO_CARDS_REL, OUTGOING)
+					.relationships(Card.CARD_TO_PROPOSAL_REL, OUTGOING);
+
+			Iterable result = deck
+					.findAllPathsByTraversal(traverseToAllMatchProposals);
+
+			Iterable<EntityPath<Deck, Proposal>> proposalPaths = (Iterable<EntityPath<Deck, Proposal>>) result;
+
+			for (EntityPath<Deck, Proposal> proposalPath : proposalPaths) {
+				Proposal proposal = proposalPath.endEntity(Proposal.class);
+				Score deckScore = deckScoreMap.get(deck);
+				if (deckScore == null) {
+					deckScore = new Score();
+					deckScore.setId(deck.getTeam().getId());
+					deckScore.setName(deck.getTeam().getName());
+				}
+				deckScore.accumulate(proposal.getScore());
 			}
-			deckScore.accumulate(proposal.getScore());
+
 		}
-		
 		return deckScoreMap.values();
+	}
+
+	private void dumpNode(Node start) {
+		System.out.println(start);
+		for (String k : start.getPropertyKeys()) {
+			System.out.println("\t" + k + " : " + start.getProperty(k));
+		}
 	}
 
 	public void updateRoundAvailability(Round round, boolean isAvailable) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void resetMatch(Match match) {
 		match.setAvailable(false);
 		match.setCurrentRound(null);
-		for (Round r : match.getRounds())
-		{
+		for (Round r : match.getRounds()) {
 			r.setAvailable(false);
 			r.save();
 		}
@@ -233,8 +258,7 @@ public class TrivialtMatchPlay {
 	public void startMatch(Match match) {
 		match.setAvailable(true);
 		Round currentRound = null;
-		for (Round r : match.getRounds())
-		{
+		for (Round r : match.getRounds()) {
 			if (currentRound == null) {
 				currentRound = r;
 				currentRound.setAvailable(true);
@@ -263,13 +287,11 @@ public class TrivialtMatchPlay {
 		}
 		return false;
 	}
-	
-	
+
 	private void startRound(Round round) {
 		round.setAvailable(true);
 		FramedQuestion currentQ = null;
-		for (FramedQuestion q : round.getFramedQuestions())
-		{
+		for (FramedQuestion q : round.getFramedQuestions()) {
 			if (currentQ == null) {
 				currentQ = q;
 				currentQ.setAvailable(true);
@@ -279,7 +301,7 @@ public class TrivialtMatchPlay {
 			}
 			q.save();
 		}
-		
+
 	}
 
 	private Round findNext(Match match, Round currentRound) {
@@ -296,7 +318,6 @@ public class TrivialtMatchPlay {
 		}
 		return nextRound;
 	}
-
 
 	public boolean stepRound(Round round) {
 		if (round.getAvailable()) {
@@ -315,7 +336,6 @@ public class TrivialtMatchPlay {
 		}
 		return false;
 	}
-	
 
 	private FramedQuestion findNext(Round round, FramedQuestion currentQuestion) {
 		FramedQuestion nextQ = null;
@@ -335,11 +355,10 @@ public class TrivialtMatchPlay {
 	public void close(Round round) {
 		round.setAvailable(false);
 		round.save();
-		for (FramedQuestion fq : round.getFramedQuestions())
-		{
+		for (FramedQuestion fq : round.getFramedQuestions()) {
 			fq.setAvailable(false);
 			fq.save();
 		}
-		
+
 	}
 }

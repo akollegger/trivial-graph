@@ -39,7 +39,7 @@ public class Match {
     private Set<Round> rounds;
     
     @RelatedTo(elementClass = Deck.class, type = Deck.DECK_TO_MATCH, direction = INCOMING)
-    private Set<Round> decks;
+    private Set<Deck> decks;
 
     @RelatedTo(elementClass = Player.class)
     private Player triviaMaster;

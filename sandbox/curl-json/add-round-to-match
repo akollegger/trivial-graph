@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" == "" || "$2" == "" ]; then
+if [ "$2" == "" ]; then
   echo "Usage: add-round-to-match <round-id> <match-id>"
   exit 1
 fi

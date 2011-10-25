@@ -13,9 +13,6 @@ CARD_ID=$1
 QUESTION_ID=$2
 ANSWER=$3
 
-SCRIPT=`basename $0`
-JSON_RESULT="./${TEAM}.json"
-
-curl -d "{name:\"${TEAM}\"}" --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/teams > ${JSON_RESULT}
+curl -d "{ \"proposedAnswer\" : \"${ANSWER}\", \"card\": ${CARD_ID}, \"framedQuestion\" : ${QUESTION_ID} }" --silent -H Accept:application/json -H Content-Type:application/json http://localhost:8080/trivialt-roo/api/proposals
 
 
