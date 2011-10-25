@@ -40,6 +40,12 @@ public class TrivialtController {
         return new ResponseEntity<String>("{ \"trivialt\": true }", headers, HttpStatus.OK);
     }
     
+    /**
+     * Bulk import of Questions, Answers and Categories, in the form of plain text Trivia.
+     * 
+     * @param json
+     * @return
+     */
     @RequestMapping(value = "/import", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> createFromJson(@RequestBody String json) {
         for (Trivia trivia: Trivia.fromJsonArrayToTrivias(json)) {
@@ -61,22 +67,6 @@ public class TrivialtController {
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
     
-    @RequestMapping(value = "/feature", method = RequestMethod.POST, headers = "Accept=application/json")
-    public ResponseEntity<String> featureMatch(@RequestBody String json) {
-    	Indicator indi = Indicator.fromJsonToIndicator(json);
-    	Match featuredMatch = Match.findMatch(indi.getId());
-
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        
-        if (featuredMatch == null) {
-            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
-        }
-        trivialt.setFeaturedMatch(featuredMatch);
-        
-        return new ResponseEntity<String>(headers, HttpStatus.OK);
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = "{id}")
     public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
     }

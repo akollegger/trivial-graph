@@ -137,4 +137,29 @@ public class RoundController {
         return new ResponseEntity<String>(frame.toJson(), headers, HttpStatus.CREATED);
     }
 
+    /**
+     * Steps a round, closing the current question, then advancing to make the next
+     * question available.
+     * 
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/{id}/step", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String>stepMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        Round round = Round.findRound(id);
+        if (round == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+    	if (trivialt.stepRound(round)) {
+            return new ResponseEntity<String>(headers, HttpStatus.OK);
+    	} else
+    	{
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+    	}
+    }
+
 }

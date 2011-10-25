@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.neo4j.app.trivialt.model.Match;
 import org.neo4j.app.trivialt.model.Round;
+import org.neo4j.app.trivialt.service.Indicator;
 import org.neo4j.app.trivialt.service.Score;
 import org.neo4j.app.trivialt.service.TrivialtMatchPlay;
 import org.neo4j.graphdb.Node;
@@ -122,6 +123,10 @@ public class MatchController {
         return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").serialize(scores), headers, HttpStatus.OK);
     }
     
+    /**
+     * Gets the featured match.
+     * @return
+     */
     @RequestMapping(value = "/featured", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String> getFeaturedMatch() {
@@ -133,4 +138,94 @@ public class MatchController {
         }
         return new ResponseEntity<String>(match.toJson(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * Sets the match to be the featured match.
+     * 
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/{id}/featured", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String> setFeatureMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        Match match = Match.findMatch(id);
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+    	trivialt.setFeaturedMatch(match);
+        
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
+    }
+    
+    /**
+     * Resets the match, all rounds and the match itself are set to available=false.
+     * 
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/{id}/reset", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String> resetMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        Match match = Match.findMatch(id);
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+    	trivialt.resetMatch(match);
+        
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
+    }
+    
+    /**
+     * Starts a match, using TrivialtMatchPlay
+     * 
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/{id}/start", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String>startMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        Match match = Match.findMatch(id);
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+    	trivialt.startMatch(match);
+        
+        return new ResponseEntity<String>(headers, HttpStatus.OK);
+    }
+
+    
+    /**
+     * Steps a match, closing the current round, then advancing to make the next
+     * round available.
+     * 
+     * @param json
+     * @return
+     */
+    @RequestMapping(value = "/{id}/step", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<String>stepMatch(@PathVariable("id") Long id, @RequestBody String json) {
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        
+        Match match = Match.findMatch(id);
+        if (match == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        
+    	if (trivialt.stepMatch(match)) {
+            return new ResponseEntity<String>(headers, HttpStatus.OK);
+    	} else
+    	{
+            return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+    	}
+    }
+
 }

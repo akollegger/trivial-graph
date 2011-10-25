@@ -1,14 +1,22 @@
 #!/bin/sh
 
+if [ "$1" == "" || "$2" == "" ]; then
+  echo "Usage: add-answer-to-frame <answer-id> <frame-id>"
+  exit 1
+fi
+
+ANSWER_ID=${1}
+FRAME_ID=${2}
+
 if [ -e "./trivialt.conf" ]; then source "./trivialt.conf"; fi
 
 TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
-
+REST_ENDPOINT="${TRIVIALT_URL}api/framedquestions/${FRAME_ID}/answers/${ANSWER_ID}"
 CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
-REST_ENDPOINT="${TRIVIALT_URL}api/matches"
 
-JSON=$( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" )
+curl -d "{ }" ${CURL_OPTS} ${REST_ENDPOINT}
 
-echo $JSON | jgrep -s "id title featured available"
+if [ ! $? ]; then echo "Failed"; exit 1; fi
+

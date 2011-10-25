@@ -14,9 +14,9 @@ TRIVIALT_HOST=${TRIVIALT_HOST:="localhost:8080"}
 TRIVIALT_BASE=${TRIVIALT_BASE:="/trivialt-roo/"}
 TRIVIALT_URL="http://${TRIVIALT_HOST}${TRIVIALT_BASE}"
 REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/rounds/${ROUND_ID}"
-CURL_OPTS="--verbose --fail -H Accept:application/json -H Content-Type:application/json"
+CURL_OPTS="--silent --fail -H Accept:application/json -H Content-Type:application/json"
 
 curl -d "{ }" ${CURL_OPTS} ${REST_ENDPOINT}
 
-if [ $? ]; then echo "Failed"; exit 1; fi
+if [ ! $? ]; then echo "Failed"; exit 1; fi
 

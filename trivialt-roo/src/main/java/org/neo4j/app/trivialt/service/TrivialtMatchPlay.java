@@ -67,16 +67,24 @@ public class TrivialtMatchPlay {
 	}
 
 	public Match getFeaturedMatch() {
-		Iterator<Match> featuredMatches = matches.findAllByPropertyValue("featured", true).iterator();
-		if (featuredMatches.hasNext()) {
-			return featuredMatches.next();
+		Match featuredMatch = null;
+		// ABK: matches.findAllByProperty("featured", true) never works. why?
+		for (Match possibleMatch : matches.findAll()) {
+			if (possibleMatch.getFeatured())
+			{
+				featuredMatch = possibleMatch;
+				break;
+			}
+		}
+		if (featuredMatch != null) {
+			return featuredMatch;
 		} else {
 			return getApologeticEmptyMatch();
 		}
 	}
 
 	public void setFeaturedMatch(Match featuredMatch) {
-		for(Match m : matches.findAllByPropertyValue("featured", true))
+		for(Match m : matches.findAll())
 		{
 			m.setFeatured(false);
 			m.save();
@@ -210,5 +218,128 @@ public class TrivialtMatchPlay {
 		// TODO Auto-generated method stub
 		
 	}
-    
+
+	public void resetMatch(Match match) {
+		match.setAvailable(false);
+		match.setCurrentRound(null);
+		for (Round r : match.getRounds())
+		{
+			r.setAvailable(false);
+			r.save();
+		}
+		match.save();
+	}
+
+	public void startMatch(Match match) {
+		match.setAvailable(true);
+		Round currentRound = null;
+		for (Round r : match.getRounds())
+		{
+			if (currentRound == null) {
+				currentRound = r;
+				currentRound.setAvailable(true);
+				match.setCurrentRound(currentRound);
+			} else {
+				r.setAvailable(false);
+			}
+			r.save();
+		}
+		match.save();
+	}
+
+	public boolean stepMatch(Match match) {
+		if (match.getAvailable()) {
+			Round currentRound = match.getCurrentRound();
+			if (currentRound != null) {
+				close(currentRound);
+				Round nextRound = findNext(match, currentRound);
+				if (nextRound != null) {
+					match.setCurrentRound(nextRound);
+					startRound(nextRound);
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	
+	private void startRound(Round round) {
+		round.setAvailable(true);
+		FramedQuestion currentQ = null;
+		for (FramedQuestion q : round.getFramedQuestions())
+		{
+			if (currentQ == null) {
+				currentQ = q;
+				currentQ.setAvailable(true);
+				round.setCurrentQuestion(currentQ);
+			} else {
+				q.setAvailable(false);
+			}
+			q.save();
+		}
+		
+	}
+
+	private Round findNext(Match match, Round currentRound) {
+		Round nextRound = null;
+		boolean foundCurrent = false;
+		for (Round r : match.getRounds()) {
+			if (r.equals(currentRound)) {
+				foundCurrent = true;
+				continue;
+			} else if (foundCurrent) {
+				nextRound = r;
+				break;
+			}
+		}
+		return nextRound;
+	}
+
+
+	public boolean stepRound(Round round) {
+		if (round.getAvailable()) {
+			FramedQuestion currentQ = round.getCurrentQuestion();
+			if (currentQ != null) {
+				FramedQuestion nextQ = findNext(round, currentQ);
+				if (nextQ != null) {
+					nextQ.setAvailable(true);
+					nextQ.save();
+					round.setCurrentQuestion(nextQ);
+					round.save();
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+	
+
+	private FramedQuestion findNext(Round round, FramedQuestion currentQuestion) {
+		FramedQuestion nextQ = null;
+		boolean foundCurrent = false;
+		for (FramedQuestion fq : round.getFramedQuestions()) {
+			if (fq.equals(currentQuestion)) {
+				foundCurrent = true;
+				continue;
+			} else if (foundCurrent) {
+				nextQ = fq;
+				break;
+			}
+		}
+		return nextQ;
+	}
+
+	public void close(Round round) {
+		round.setAvailable(false);
+		round.save();
+		for (FramedQuestion fq : round.getFramedQuestions())
+		{
+			fq.setAvailable(false);
+			fq.save();
+		}
+		
+	}
 }
