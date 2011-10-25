@@ -33,11 +33,24 @@ define(
       url : () ->
         @baseUrl + @urlPath
         
+      fetch : () =>
+        super
+        
       _add: (model,opts)->
         if model.id? and @get(model.id)?
           return model
         else
           return super(model,opts)
+          
+      setFetchInterval : (interval = 5000)->
+        if @_fetchInterval?
+          clearInterval @_fechInterval
+        @_fechInterval = setInterval @fetch, interval
+        @fetch()
+        
+      clearFetchInterval : () ->
+        if @_fetchInterval?
+          clearInterval @_fechInterval
         
       addOrUpdate : (model) ->
         savedModel = @get model.id

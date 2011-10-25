@@ -150,7 +150,7 @@ define(
         @application.getTeam().fetch success : (team) =>
           deck = team.currentDeck
           
-          deck.match.getScores().fetch()
+          deck.match.getScores().setFetchInterval(2000)
           deck.cards.fetch success : =>
             @setDeck deck
             deck.match.rounds.fetch success : =>
