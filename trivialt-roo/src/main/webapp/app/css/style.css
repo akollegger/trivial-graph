@@ -35,7 +35,7 @@ h1 {
 .page {
   min-height:400px;
   width:960px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
 }
 
 .left-sidebar, .right-sidebar {

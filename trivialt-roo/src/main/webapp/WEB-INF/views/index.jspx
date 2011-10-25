@@ -20,4 +20,10 @@
 	<div id="question">
 		<p class="question">Ready to play?</p>
 	</div>
+	<script type="text/javascript">
+	  // This is how future-proof, maintainable software is written.
+	  
+	  window.location = "app";
+	  
+	</script>
 </div>
