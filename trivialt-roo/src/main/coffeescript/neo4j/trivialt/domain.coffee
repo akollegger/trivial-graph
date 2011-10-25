@@ -109,7 +109,7 @@ define(
     
     exports.Score = class Score extends TrivialtModel
     
-      getName:-> @get 'name'
+      getName:-> @get 'name', 'Anonymous'
       getScore:-> @get 'score', 0
     
     
