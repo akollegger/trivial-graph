@@ -110,7 +110,7 @@ define(
     exports.Score = class Score extends TrivialtModel
     
       getName:-> @get 'name'
-      getScore:-> @get 'score'
+      getScore:-> @get 'score', 0
     
     
     exports.Scores = class Scores extends TrivialtCollection
