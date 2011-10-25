@@ -43,14 +43,12 @@ define(
           return super(model,opts)
           
       setFetchInterval : (interval = 5000)->
-        if @_fetchInterval?
-          clearInterval @_fechInterval
+        clearInterval @_fechInterval
         @_fechInterval = setInterval @fetch, interval
         @fetch()
         
       clearFetchInterval : () ->
-        if @_fetchInterval?
-          clearInterval @_fechInterval
+        clearInterval @_fechInterval
         
       addOrUpdate : (model) ->
         savedModel = @get model.id

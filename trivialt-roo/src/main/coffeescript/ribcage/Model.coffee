@@ -43,14 +43,12 @@ define(
         super
         
       setFetchInterval : (interval = 5000)->
-        if @_fetchInterval?
-          clearInterval @_fechInterval
+        clearInterval @_fechInterval
         @_fechInterval = setInterval @fetch, interval
         @fetch()
         
       clearFetchInterval : () ->
-        if @_fetchInterval?
-          clearInterval @_fechInterval
+        clearInterval @_fechInterval
       
       fetchUntil: (key, targetValue)->
         if @get(key) isnt targetValue
@@ -58,8 +56,8 @@ define(
           @_continuousFetchTargets[key] ?= {}
           @_continuousFetchTargets[key][targetValue] = 1
           
-          if not @_targetedFetchInterval?
-            @_targetedFetchInterval = setInterval @_targetedContiniousFetch, 2000
+          clearInterval @_targetedFetchInterval
+          @_targetedFetchInterval = setInterval @_targetedContiniousFetch, 2000
             
       _continousFetchTargetsAchieved:->
         for key, targets of @_continuousFetchTargets
@@ -68,7 +66,7 @@ define(
             delete @_continuousFetchTargets[key]
         return _(@_continuousFetchTargets).keys().length == 0
           
-      _targetedContiniousFetch : (attrs,opts)=>      
+      _targetedContiniousFetch : (attrs,opts)=>  
         if @_continousFetchTargetsAchieved()
           clearInterval @_targetedFetchInterval
         else

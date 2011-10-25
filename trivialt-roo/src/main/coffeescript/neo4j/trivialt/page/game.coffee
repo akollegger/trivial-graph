@@ -112,6 +112,7 @@ define(
               if not card.round.isAvailable()
                 @showNextRound()
             card.round.fetchUntil('available',false)
+            
           else 
             #@set 
             #  "state"    : GameState.ROUND_SUMMARY
