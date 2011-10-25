@@ -4,7 +4,7 @@ public class Score {
 	
 	Long id;
 	String name;
-	Integer score;
+	Integer score=0;
 	
   public Score() {;}
 

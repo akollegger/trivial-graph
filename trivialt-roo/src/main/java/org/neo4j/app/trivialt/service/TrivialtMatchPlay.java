@@ -26,6 +26,8 @@ import org.neo4j.app.trivialt.repository.TeamRepository;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.PropertyContainer;
+import org.neo4j.graphdb.traversal.Evaluation;
+import org.neo4j.graphdb.traversal.Evaluator;
 import org.neo4j.graphdb.traversal.Evaluators;
 import org.neo4j.graphdb.traversal.TraversalDescription;
 import org.neo4j.helpers.collection.ClosableIterable;
@@ -206,12 +208,19 @@ public class TrivialtMatchPlay {
 		Map<Deck, Score> deckScoreMap = new HashMap<Deck, Score>();
 
 		for (Deck deck : match.getDecks()) {
+			Score newScore = new Score();
+			newScore.setId(deck.getTeam().getId());
+			String teamName = deck.getTeam().getName();
+			if (teamName==null) teamName="anonymous";
+			newScore.setName(teamName);
+			newScore.setScore(0);
+			deckScoreMap.put(deck, newScore);
 
 			TraversalDescription traverseToAllMatchProposals = Traversal
 					.description().depthFirst()
 					.evaluator(Evaluators.excludeStartPosition())
 					.relationships(Deck.DECK_TO_CARDS_REL, OUTGOING)
-					.relationships(Card.CARD_TO_PROPOSAL_REL, OUTGOING);
+					.relationships(Card.CARD_TO_PROPOSAL_REL, OUTGOING).evaluator(Evaluators.atDepth(2));
 
 			Iterable result = deck
 					.findAllPathsByTraversal(traverseToAllMatchProposals);
@@ -221,11 +230,6 @@ public class TrivialtMatchPlay {
 			for (EntityPath<Deck, Proposal> proposalPath : proposalPaths) {
 				Proposal proposal = proposalPath.endEntity(Proposal.class);
 				Score deckScore = deckScoreMap.get(deck);
-				if (deckScore == null) {
-					deckScore = new Score();
-					deckScore.setId(deck.getTeam().getId());
-					deckScore.setName(deck.getTeam().getName());
-				}
 				deckScore.accumulate(proposal.getScore());
 			}
 
