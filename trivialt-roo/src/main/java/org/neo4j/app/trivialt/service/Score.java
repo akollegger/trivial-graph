@@ -29,7 +29,7 @@ public class Score {
 		this.name = name;
 	}
 	public void accumulateMatch(Integer score) {
-		this.matchScore += matchScore;
+		this.matchScore += score;
 	}
 	public void accumulateRound(Integer score) {
 		this.roundScore += score;

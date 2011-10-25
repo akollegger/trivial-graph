@@ -18,5 +18,4 @@ CURL_OPTS="--verbose --fail -H Accept:application/json -H Content-Type:applicati
 REST_ENDPOINT="${TRIVIALT_URL}api/matches/${MATCH_ID}/scores"
 
 
-#( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep
-curl ${CURL_OPTS} ${REST_ENDPOINT} 
+( curl ${CURL_OPTS} ${REST_ENDPOINT} || echo "{ }" ) | jgrep
