@@ -28,13 +28,13 @@ define(
     exports.InputBarModel = class InputBarModel extends Model
       
       getValue : ( ) -> @get 'value',''
-      setValue : (v) -> @set 'value',v
+      setValue : (v,o) -> @set 'value',v,o
       
-      setButtonLabel : (v) -> @set 'buttonLabel',v
-      getButtonLabel : (v) -> @get 'buttonLabel'
+      setButtonLabel : (v,o) -> @set 'buttonLabel',v,o
+      getButtonLabel : ( ) -> @get 'buttonLabel'
       
       getError : ( ) -> @get 'error',''
-      setError : (v) -> @set 'error',v
+      setError : (v,o) -> @set 'error',v,o
     
     
     exports.InputBarView = class InputBarView extends View

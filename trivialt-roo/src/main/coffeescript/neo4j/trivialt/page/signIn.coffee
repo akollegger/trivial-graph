@@ -50,7 +50,9 @@ define(
           error   : @onTeamCreationFailed
       
       onTeamCreated : (team) =>
-        @inputBar.model.setError ""
+        @inputBar.model.setError "", {silent:true}
+        @inputBar.model.setValue "", {silent:true}
+        
         @application.setTeam team
         
         @application.game.joinCurrentMatch()

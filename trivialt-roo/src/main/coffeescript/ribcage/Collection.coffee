@@ -38,6 +38,7 @@ define(
         
       _add: (model,opts)->
         if model.id? and @get(model.id)?
+          @get(model.id).set if model.toJSON? then model.toJSON() else model
           return model
         else
           return super(model,opts)

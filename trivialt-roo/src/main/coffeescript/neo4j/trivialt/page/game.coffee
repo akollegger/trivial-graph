@@ -471,8 +471,10 @@ define(
       
       setScores:(scores)->
         if @scores?
+          @scores.unbind "change", @onScoresChanged
           @scores.unbind "add", @onScoresChanged
         @scores = scores
+        @scores.bind "change", @onScoresChanged
         @scores.bind "add", @onScoresChanged
         
       onScoresChanged:=>

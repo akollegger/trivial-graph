@@ -120,6 +120,11 @@ define(
       
       comparator : (score) ->
         score.getMatchScore() * -1
+        
+      add : ->
+        r = super
+        @trigger "add"
+        r
     
     
     exports.Round = class Round extends TrivialtModel
