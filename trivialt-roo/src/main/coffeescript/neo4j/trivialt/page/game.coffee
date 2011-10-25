@@ -108,6 +108,9 @@ define(
           
           if card.round.isAvailable()
             # Round is not over yet
+            card.round.bind "change:available", () =>
+              if card.round.isAvailable()
+                @showNextRound()
             card.round.fetchUntil('available',false)
           else 
             #@set 
@@ -150,7 +153,6 @@ define(
             deck.match.rounds.fetch success : =>
               if opts.success?
                 opts.success deck
-          
       
       ## UTILS
       

@@ -35,18 +35,17 @@ define(
           updateMap[update] = val
           update = updateMap
         else
-          opts = val
+          opts = val 
+         
+        super update, opts
           
-        res = super update, opts
-          
-        if @_continuousFetchInterval? and @_continousFetchTargetsAchieved()
+      continiousFetch : (attrs,opts)=>
+      
+        if @_continousFetchTargetsAchieved()
           clearInterval @_continuousFetchInterval
-          
-        res
-          
-      fetch:(attrs,opts)=>
-        super(attrs,opts)
-        
+        else
+          @fetch()
+      
       fetchUntil: (key, targetValue)->
         if @get(key) isnt targetValue
           @_continuousFetchTargets      ?= {}
@@ -54,7 +53,7 @@ define(
           @_continuousFetchTargets[key][targetValue] = 1
           
           if not @_continuousFetchInterval?
-            setInterval @fetch, 500
+            setInterval @continiousFetch, 2000
             
       _continousFetchTargetsAchieved:->
         for key, targets of @_continuousFetchTargets
