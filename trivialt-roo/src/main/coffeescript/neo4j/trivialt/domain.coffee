@@ -204,8 +204,8 @@ define(
       url : -> API_URL + "/proposals" + (if @id? then "/#{@id}" else "")
       
       set : (update, opts) ->
-        if update.posedQuestion?
-          update.posedQuestion = @application.framedQuestions.addOrUpdate update.posedQuestion
+        if update.framedQuestion?
+          update.framedQuestion = @application.framedQuestions.addOrUpdate update.framedQuestion
           
         if update.card?
           update.card = @application.cards.addOrUpdate update.card
@@ -213,7 +213,7 @@ define(
         super update, opts
       
       getCard: -> @get 'card'
-      getFramedQuestion: -> @get 'posedQuestion'
+      getFramedQuestion: -> @get 'framedQuestion'
       getAnswer: -> @get 'proposedAnswer',''
       
       setCard: (card) -> @set 'card' : card
@@ -222,7 +222,7 @@ define(
       toJSON:->
         attrs = @attributes
         if @getCard()? then attrs.card = id:@getCard().id
-        if @getFramedQuestion()? then attrs.posedQuestion = id:@getFramedQuestion().id
+        if @getFramedQuestion()? then attrs.framedQuestion = id:@getFramedQuestion().id
         return attrs
     
     
