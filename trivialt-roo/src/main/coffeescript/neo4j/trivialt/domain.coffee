@@ -119,7 +119,7 @@ define(
       model : Score
       
       comparator : (score) ->
-        score.getMatchScore()
+        score.getMatchScore() * -1
     
     
     exports.Round = class Round extends TrivialtModel
