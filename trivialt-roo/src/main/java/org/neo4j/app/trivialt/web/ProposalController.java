@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.neo4j.app.trivialt.model.Proposal;
+import org.neo4j.app.trivialt.service.TrivialtMatchPlay;
 import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.GraphDatabaseContext;
@@ -24,12 +25,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ProposalController { 
 
-
+	@Autowired private TrivialtMatchPlay trivialt;
+	
     @Autowired GraphDatabaseContext gdc;
     
     @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> createFromJson(@RequestBody String json) {
         Proposal p = Proposal.fromJsonToProposal(json).save();
+        trivialt.grade(p);
         HttpHeaders headers= new HttpHeaders();
         headers.add("Content-Type", "application/text");
         return new ResponseEntity<String>(p.toJson(),headers, HttpStatus.CREATED);

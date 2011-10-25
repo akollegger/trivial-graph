@@ -365,4 +365,17 @@ public class TrivialtMatchPlay {
 		}
 
 	}
+
+	public void grade(Proposal p) {
+		Answer a = p.getFramedQuestion().getOriginalQuestion().getAnswer();
+		String proposedAnswer = p.getProposedAnswer();
+		if (proposedAnswer == null) proposedAnswer = "";
+		if (proposedAnswer.equals(a.getText())) {
+			p.setScore(p.getCard().getRound().getPointsPerQuestion());
+		}
+		 else {
+			 p.setScore(0);
+		 }
+		p.save();
+	}
 }
